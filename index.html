@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DroneSudXpert — Nettoyage par Drone | PACA & Sud de la France</title>
+<meta name="description" content="Nettoyage panneaux solaires, démoussage toiture et façade par drone. Certifiés A1/A2/A3 CATS STS-01 STS-02. Devis gratuit 48h. Marseille et région Sud.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFFFFF;
+    --text:#0D0D0D;
+    --accent:#4BB8E8;
+    --navy:#1A3A5C;
+    --highlight:#EBF7FD;
+    --border:#E0E0E0;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Barlow',sans-serif;
+    color:var(--text);
+    background:var(--bg);
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,h4{
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:800;
+    letter-spacing:0.5px;
+    line-height:1.1;
+  }
+  a{text-decoration:none;color:inherit;}
+  ul{list-style:none;}
+  img{max-width:100%;display:block;}
+  .container{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 24px;
+  }
+  .section{padding:100px 0;}
+  .section-title{
+    font-size:clamp(2rem,4vw,3rem);
+    margin-bottom:16px;
+  }
+  .section-subtitle{
+    font-size:1.1rem;
+    color:#4a4a4a;
+    max-width:640px;
+    margin-bottom:56px;
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    padding:14px 30px;
+    border-radius:6px;
+    font-family:'Barlow',sans-serif;
+    font-weight:600;
+    font-size:1rem;
+    cursor:pointer;
+    border:2px solid transparent;
+    transition:transform .2s ease, box-shadow .2s ease, background .2s ease, color .2s ease;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{
+    background:#fff;
+    color:var(--navy);
+  }
+  .btn-primary:hover{box-shadow:0 8px 20px rgba(0,0,0,0.2);}
+  .btn-outline{
+    background:transparent;
+    color:#fff;
+    border:2px solid rgba(255,255,255,0.8);
+  }
+  .btn-outline:hover{background:rgba(255,255,255,0.12);}
+  .btn-navy{
+    background:var(--navy);
+    color:#fff;
+  }
+  .btn-navy:hover{box-shadow:0 8px 20px rgba(26,58,92,0.35);}
+
+  /* NAVBAR */
+  header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    background:#fff;
+    border-bottom:1px solid var(--border);
+    transition:box-shadow .3s ease;
+  }
+  header.scrolled{box-shadow:0 4px 20px rgba(0,0,0,0.08);}
+  .navbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:14px 24px;
+    max-width:1180px;
+    margin:0 auto;
+  }
+  .logo-img{
+    height:48px;
+    width:auto;
+    mix-blend-mode:multiply;
+    background:transparent;
+  }
+  .nav-links{
+    display:flex;
+    gap:32px;
+  }
+  .nav-links a{
+    font-weight:600;
+    font-size:0.98rem;
+    position:relative;
+    padding:4px 0;
+    transition:color .2s ease;
+  }
+  .nav-links a:hover{color:var(--accent);}
+  .nav-cta{
+    display:flex;
+    align-items:center;
+  }
+  .nav-cta .btn{padding:10px 22px;font-size:0.95rem;border-radius:30px;}
+  .hamburger{
+    display:none;
+    flex-direction:column;
+    gap:5px;
+    cursor:pointer;
+    background:none;
+    border:none;
+    padding:6px;
+  }
+  .hamburger span{
+    width:26px;
+    height:3px;
+    background:var(--text);
+    border-radius:2px;
+    transition:.3s;
+  }
+  .mobile-nav{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:#fff;
+    z-index:2000;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:28px;
+  }
+  .mobile-nav.open{display:flex;}
+  .mobile-nav a{
+    font-family:'Barlow Condensed',sans-serif;
+    font-size:2rem;
+    font-weight:700;
+  }
+  .mobile-close{
+    position:absolute;
+    top:24px;
+    right:24px;
+    font-size:2rem;
+    background:none;
+    border:none;
+    cursor:pointer;
+  }
+
+  /* HERO */
+  .hero{
+    position:relative;
+    height:100vh;
+    min-height:640px;
+    display:flex;
+    align-items:center;
+    color:#fff;
+    overflow:hidden;
+  }
+  .hero-bg{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    z-index:0;
+  }
+  .hero-overlay{
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,0.35);
+    z-index:1;
+  }
+  .hero-content{
+    position:relative;
+    z-index:2;
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 24px;
+    width:100%;
+  }
+  .hero h1{
+    font-size:clamp(2.6rem,6.5vw,5rem);
+    color:#fff;
+    margin-bottom:24px;
+  }
+  .hero h1 .blue{color:var(--accent);}
+  .hero-sub{
+    font-size:clamp(1rem,2vw,1.3rem);
+    max-width:600px;
+    margin-bottom:40px;
+    font-weight:500;
+  }
+  .hero-buttons{
+    display:flex;
+    gap:18px;
+    flex-wrap:wrap;
+    margin-bottom:64px;
+  }
+  .hero-stats{
+    position:absolute;
+    bottom:36px;
+    left:0;
+    right:0;
+    z-index:2;
+  }
+  .stats-bar{
+    display:flex;
+    justify-content:center;
+    gap:0;
+    max-width:900px;
+    margin:0 auto;
+    background:rgba(255,255,255,0.14);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border:1px solid rgba(255,255,255,0.25);
+    border-radius:14px;
+    padding:20px 10px;
+    flex-wrap:wrap;
+  }
+  .stat-chip{
+    flex:1;
+    min-width:150px;
+    text-align:center;
+    padding:8px 16px;
+    border-right:1px solid rgba(255,255,255,0.25);
+  }
+  .stat-chip:last-child{border-right:none;}
+  .stat-chip .num{
+    font-family:'Barlow Condensed',sans-serif;
+    font-size:1.8rem;
+    font-weight:800;
+    color:var(--accent);
+  }
+  .stat-chip .label{font-size:0.85rem;color:#f0f0f0;}
+
+  /* INTRO STRIP */
+  .intro-strip{
+    background:var(--highlight);
+    padding:44px 0;
+    text-align:center;
+  }
+  .intro-strip p{
+    font-size:1.15rem;
+    font-weight:600;
+    margin-bottom:20px;
+  }
+  .badges{
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+  .badge{
+    background:#fff;
+    border:1px solid var(--border);
+    padding:8px 18px;
+    border-radius:30px;
+    font-size:0.9rem;
+    font-weight:600;
+    color:var(--navy);
+  }
+
+  /* SERVICES */
+  .services-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:28px;
+  }
+  .service-card{
+    border:1px solid var(--border);
+    border-radius:12px;
+    overflow:hidden;
+    background:#fff;
+    display:flex;
+    flex-direction:column;
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .service-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 16px 40px rgba(0,0,0,0.1);
+  }
+  .service-top{
+    height:6px;
+    background:linear-gradient(90deg,var(--accent),var(--navy));
+  }
+  .service-body{
+    padding:32px 28px;
+    display:flex;
+    flex-direction:column;
+    flex:1;
+  }
+  .service-icon{font-size:2.4rem;margin-bottom:14px;}
+  .service-body h3{font-size:1.6rem;margin-bottom:4px;}
+  .service-subtitle{
+    color:var(--accent);
+    font-weight:700;
+    font-size:0.92rem;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    margin-bottom:14px;
+  }
+  .service-body p{
+    color:#444;
+    font-size:0.98rem;
+    margin-bottom:20px;
+    flex:1;
+  }
+  .price-tag{
+    display:inline-block;
+    background:var(--highlight);
+    color:var(--navy);
+    font-weight:700;
+    padding:8px 16px;
+    border-radius:6px;
+    margin-bottom:16px;
+    font-size:0.95rem;
+  }
+  .service-link{
+    font-weight:700;
+    color:var(--navy);
+    transition:color .2s ease;
+  }
+  .service-link:hover{color:var(--accent);}
+
+  /* METHODE */
+  .methode-section{
+    background:var(--navy);
+    color:#fff;
+  }
+  .methode-section .section-title{color:#fff;}
+  .methode-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:48px;
+    margin-bottom:48px;
+  }
+  .methode-col h3{
+    font-size:1.9rem;
+    margin-bottom:22px;
+  }
+  .methode-col ul li{
+    padding:10px 0;
+    border-bottom:1px solid rgba(255,255,255,0.15);
+    font-size:1rem;
+  }
+  .methode-col ul li span{
+    color:var(--accent);
+    font-weight:800;
+    margin-right:10px;
+  }
+  .highlight-box{
+    background:#fff;
+    color:var(--navy);
+    border:2px solid var(--accent);
+    border-radius:12px;
+    padding:32px;
+    text-align:center;
+    font-size:1.2rem;
+    font-weight:600;
+    max-width:800px;
+    margin:0 auto;
+  }
+
+  /* TARIFS */
+  .pricing-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:28px;
+  }
+  .price-card{
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:36px 28px;
+    background:#fff;
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .price-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 16px 40px rgba(0,0,0,0.1);
+  }
+  .price-card.highlighted{
+    border:2px solid var(--navy);
+    box-shadow:0 12px 34px rgba(26,58,92,0.15);
+  }
+  .badge-popular{
+    position:absolute;
+    top:-14px;
+    left:50%;
+    transform:translateX(-50%);
+    background:var(--navy);
+    color:#fff;
+    font-size:0.78rem;
+    font-weight:700;
+    padding:6px 16px;
+    border-radius:20px;
+    white-space:nowrap;
+  }
+  .price-card h3{font-size:1.5rem;margin-bottom:6px;}
+  .price-value{
+    font-family:'Barlow Condensed',sans-serif;
+    font-size:2.6rem;
+    font-weight:900;
+    color:var(--navy);
+    margin-bottom:18px;
+  }
+  .price-card ul{margin-bottom:16px;flex:1;}
+  .price-card ul li{
+    padding:6px 0;
+    font-size:0.95rem;
+    color:#444;
+  }
+  .price-card ul li::before{
+    content:"✓ ";
+    color:var(--accent);
+    font-weight:700;
+  }
+  .price-option{
+    font-size:0.9rem;
+    font-weight:700;
+    color:var(--navy);
+    background:var(--highlight);
+    padding:8px 12px;
+    border-radius:6px;
+    margin-bottom:20px;
+    text-align:center;
+  }
+  .pricing-note{
+    text-align:center;
+    color:#666;
+    margin-top:36px;
+    font-size:0.95rem;
+  }
+
+  /* ZONES */
+  .zones-section{background:var(--highlight);}
+  .zone-row{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+    margin-bottom:16px;
+  }
+  .zone-badge{
+    padding:12px 24px;
+    border-radius:30px;
+    font-weight:700;
+    font-size:0.95rem;
+    color:#fff;
+  }
+  .zone-row.primary .zone-badge{background:var(--navy);}
+  .zone-row.secondary .zone-badge{background:var(--accent);}
+  .city-list{
+    margin-top:32px;
+    color:#444;
+    font-size:1rem;
+    line-height:1.9;
+  }
+  .city-list strong{color:var(--navy);}
+
+  /* DEVIS */
+  .devis-section{
+    border-top:6px solid var(--accent);
+  }
+  .devis-grid{
+    display:grid;
+    grid-template-columns:1.6fr 1fr;
+    gap:48px;
+    align-items:start;
+  }
+  .devis-form{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+  }
+  .form-group{display:flex;flex-direction:column;gap:8px;}
+  .form-group.full{grid-column:1/-1;}
+  .form-group label{
+    font-weight:600;
+    font-size:0.92rem;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea{
+    padding:13px 14px;
+    border:1px solid var(--border);
+    border-radius:8px;
+    font-family:'Barlow',sans-serif;
+    font-size:1rem;
+    color:var(--text);
+    background:#fff;
+    transition:border-color .2s ease;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus{
+    outline:none;
+    border-color:var(--accent);
+  }
+  .form-group textarea{resize:vertical;min-height:110px;}
+  .submit-btn{
+    width:100%;
+    padding:16px;
+    font-size:1.05rem;
+    border-radius:8px;
+  }
+  .form-note{
+    text-align:center;
+    font-size:0.88rem;
+    color:#666;
+    margin-top:14px;
+  }
+  .success-message{
+    display:none;
+    text-align:center;
+    padding:60px 20px;
+    background:var(--highlight);
+    border-radius:12px;
+    font-size:1.3rem;
+    font-weight:700;
+    color:var(--navy);
+  }
+  .info-box{
+    background:var(--highlight);
+    border-radius:12px;
+    padding:32px;
+  }
+  .info-box h4{font-size:1.3rem;margin-bottom:20px;}
+  .info-line{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:14px;
+    font-weight:600;
+    font-size:1rem;
+  }
+  .cert-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:24px;
+  }
+  .cert-badge{
+    background:#fff;
+    border:1px solid var(--border);
+    padding:6px 14px;
+    border-radius:20px;
+    font-size:0.85rem;
+    font-weight:700;
+    color:var(--navy);
+  }
+
+  /* TEAM */
+  .team-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:28px;
+  }
+  .team-card{
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:36px;
+    text-align:center;
+    background:#fff;
+    box-shadow:0 4px 16px rgba(0,0,0,0.04);
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .team-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 16px 40px rgba(0,0,0,0.1);
+  }
+  .avatar{
+    width:96px;
+    height:96px;
+    border-radius:50%;
+    background:var(--navy);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Barlow Condensed',sans-serif;
+    font-size:2.2rem;
+    font-weight:800;
+    margin:0 auto 18px;
+  }
+  .team-card h3{font-size:1.5rem;margin-bottom:4px;}
+  .team-role{color:#666;margin-bottom:18px;font-size:0.95rem;}
+  .team-certs{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .team-certs span{
+    background:var(--highlight);
+    color:var(--navy);
+    padding:5px 12px;
+    border-radius:16px;
+    font-size:0.8rem;
+    font-weight:700;
+  }
+
+  /* FAQ */
+  .faq-item{
+    border-bottom:1px solid var(--border);
+  }
+  .faq-question{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:22px 4px;
+    cursor:pointer;
+    font-weight:700;
+    font-size:1.1rem;
+  }
+  .faq-arrow{
+    color:var(--accent);
+    font-size:1.4rem;
+    transition:transform .3s ease;
+    flex-shrink:0;
+    margin-left:16px;
+  }
+  .faq-item.open .faq-arrow{transform:rotate(45deg);}
+  .faq-answer{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .35s ease;
+  }
+  .faq-answer p{
+    padding:0 4px 22px;
+    color:#444;
+    font-size:0.98rem;
+  }
+
+  /* FOOTER */
+  footer{
+    background:var(--navy);
+    color:#fff;
+  }
+  .footer-top{
+    padding:64px 0 40px;
+    display:grid;
+    grid-template-columns:1.3fr 1fr 1fr;
+    gap:40px;
+  }
+  .footer-logo-wrap{
+    background:#fff;
+    border-radius:10px;
+    padding:10px 16px;
+    display:inline-block;
+    margin-bottom:16px;
+  }
+  .footer-logo-wrap img{
+    height:44px;
+  }
+  .footer-col h4{
+    font-family:'Barlow Condensed',sans-serif;
+    font-size:1.1rem;
+    margin-bottom:18px;
+    color:var(--accent);
+  }
+  .footer-col p, .footer-col a{
+    color:#d8e3ee;
+    font-size:0.95rem;
+    margin-bottom:10px;
+    display:block;
+  }
+  .footer-col a:hover{color:var(--accent);}
+  .footer-tagline{color:#d8e3ee;margin-bottom:6px;}
+  .social-placeholder{
+    display:flex;
+    gap:12px;
+    margin-top:18px;
+  }
+  .social-placeholder span{
+    width:36px;
+    height:36px;
+    border-radius:50%;
+    background:rgba(255,255,255,0.12);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:0.9rem;
+  }
+  .footer-bottom{
+    border-top:1px solid rgba(255,255,255,0.15);
+    background:#142f4a;
+    text-align:center;
+    padding:20px;
+    font-size:0.85rem;
+    color:#b8c9db;
+  }
+
+  @media (max-width: 900px){
+    .nav-links, .nav-cta{display:none;}
+    .hamburger{display:flex;}
+    .services-grid, .pricing-grid, .team-grid{grid-template-columns:1fr;}
+    .methode-grid{grid-template-columns:1fr;gap:36px;}
+    .devis-grid{grid-template-columns:1fr;}
+    .devis-form{grid-template-columns:1fr;}
+    .footer-top{grid-template-columns:1fr;}
+    .section{padding:64px 0;}
+    .stats-bar{flex-direction:column;}
+    .stat-chip{border-right:none;border-bottom:1px solid rgba(255,255,255,0.25);}
+    .stat-chip:last-child{border-bottom:none;}
+  }
+</style>
+</head>
+<body>
+
+<header id="site-header">
+  <div class="navbar">
+    <a href="#accueil"><img class="logo-img" src="assets/Black_White_Modern_Drone_Pilot_Logo.png" alt="DroneSudXpert"></a>
+    <nav class="nav-links">
+      <a href="#accueil">Accueil</a>
+      <a href="#services">Services</a>
+      <a href="#methode">Méthode</a>
+      <a href="#tarifs">Tarifs</a>
+      <a href="#zones">Zones</a>
+      <a href="#devis">Devis</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="#devis" class="btn btn-navy">Devis 48h →</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="mobile-nav" id="mobile-nav">
+  <button class="mobile-close" id="mobile-close" aria-label="Fermer">✕</button>
+  <a href="#accueil">Accueil</a>
+  <a href="#services">Services</a>
+  <a href="#methode">Méthode</a>
+  <a href="#tarifs">Tarifs</a>
+  <a href="#zones">Zones</a>
+  <a href="#devis">Devis</a>
+  <a href="#contact">Contact</a>
+</div>
+
+<section class="hero" id="accueil">
+  <img class="hero-bg" src="assets/FullSizeRender.jpeg" alt="Drone nettoyant une toiture">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1>Le nettoyage aérien<br><span class="blue">par drone.</span></h1>
+    <p class="hero-sub">Toitures · Façades · Panneaux Solaires — Sans échafaudage, sans risque.</p>
+    <div class="hero-buttons">
+      <a href="#devis" class="btn btn-primary">Demander un devis</a>
+      <a href="#services" class="btn btn-outline">Nos services</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stats-bar">
+      <div class="stat-chip"><div class="num">50m</div><div class="label">Hauteur max</div></div>
+      <div class="stat-chip"><div class="num">A2</div><div class="label">Certifié DGAC</div></div>
+      <div class="stat-chip"><div class="num">48h</div><div class="label">Réponse devis</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="intro-strip">
+  <div class="container">
+    <p>Basés à Marseille, nous intervenons dans 8 départements du Sud de la France.</p>
+    <div class="badges">
+      <span class="badge">Certifiés DGAC</span>
+      <span class="badge">STS-01 & STS-02</span>
+      <span class="badge">CATS</span>
+      <span class="badge">RC Pro</span>
+    </div>
+  </div>
+</div>
+
+<section class="section" id="services">
+  <div class="container">
+    <h2 class="section-title">Nos prestations</h2>
+    <p class="section-subtitle">Des interventions rapides, précises et sans risque, adaptées à chaque type de bâtiment.</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-top"></div>
+        <div class="service-body">
+          <div class="service-icon">☀️</div>
+          <h3>Panneaux Solaires</h3>
+          <div class="service-subtitle">Drone & Perche Télescopique</div>
+          <p>Un panneau encrassé perd jusqu'à 20% de rendement. Nous intervenons à l'eau osmosée basse pression — sans trace, sans rayure, sans produit chimique. Contrats annuels disponibles.</p>
+          <span class="price-tag">À partir de 6 €/m²</span>
+          <a href="#devis" class="service-link">Demander un devis →</a>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-top"></div>
+        <div class="service-body">
+          <div class="service-icon">🏠</div>
+          <h3>Démoussage</h3>
+          <div class="service-subtitle">Traitement Biocide Écologique</div>
+          <p>Mousse, lichens et algues dégradent vos toitures et façades. Nos drones appliquent un traitement biocide biodégradable à action lente, sans haute pression ni échafaudage.</p>
+          <span class="price-tag">À partir de 8 €/m²</span>
+          <a href="#devis" class="service-link">Demander un devis →</a>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-top"></div>
+        <div class="service-body">
+          <div class="service-icon">🏢</div>
+          <h3>Nettoyage Façade & Toiture</h3>
+          <div class="service-subtitle">Drone Professionnel Certifié</div>
+          <p>Crépi, bardage, béton, pierre — intervention jusqu'à 50m de hauteur sans nacelle ni fermeture de voirie. Résultat impeccable en une demi-journée.</p>
+          <span class="price-tag">À partir de 8 €/m²</span>
+          <a href="#devis" class="service-link">Demander un devis →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section methode-section" id="methode">
+  <div class="container">
+    <h2 class="section-title">Deux outils, une expertise</h2>
+    <div class="methode-grid">
+      <div class="methode-col">
+        <h3>🚁 Le Drone</h3>
+        <ul>
+          <li><span>→</span>Intervention jusqu'à 50 mètres de hauteur</li>
+          <li><span>→</span>Télépilote au sol — zéro risque d'accident</li>
+          <li><span>→</span>Traitement homogène par pulvérisation</li>
+          <li><span>→</span>Idéal grandes surfaces & bâtiments inaccessibles</li>
+          <li><span>→</span>Certifié A1/A2/A3 · CATS · STS-01 · STS-02</li>
+        </ul>
+      </div>
+      <div class="methode-col">
+        <h3>🔧 La Perche Télescopique</h3>
+        <ul>
+          <li><span>→</span>Eau osmosée pure — zéro trace de calcaire</li>
+          <li><span>→</span>Basse pression — préserve cellules photovoltaïques</li>
+          <li><span>→</span>Idéal panneaux solaires faible hauteur</li>
+          <li><span>→</span>Précision jusqu'à 12 mètres</li>
+          <li><span>→</span>Combinable avec le drone sur le même chantier</li>
+        </ul>
+      </div>
+    </div>
+    <div class="highlight-box">
+      Un panneau encrassé perd jusqu'à 20% de rendement. Un nettoyage annuel suffit à récupérer cette perte.
+    </div>
+  </div>
+</section>
+
+<section class="section" id="tarifs">
+  <div class="container">
+    <h2 class="section-title">Tarifs clairs, sans surprise</h2>
+    <p class="section-subtitle">Devis personnalisé gratuit sous 48h — tarifs de départ selon surface et accessibilité.</p>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <h3>Panneaux Solaires</h3>
+        <div class="price-value">6 €/m²</div>
+        <ul>
+          <li>Eau osmosée</li>
+          <li>Basse pression</li>
+          <li>Drone ou perche</li>
+          <li>Sans produit chimique</li>
+          <li>Sans trace</li>
+        </ul>
+        <div class="price-option">Contrat annuel −15%</div>
+        <a href="#devis" class="btn btn-navy">Devis gratuit</a>
+      </div>
+      <div class="price-card highlighted">
+        <span class="badge-popular">Le plus demandé</span>
+        <h3>Démoussage</h3>
+        <div class="price-value">8 €/m²</div>
+        <ul>
+          <li>Biocide biodégradable</li>
+          <li>Sans haute pression</li>
+          <li>Action lente</li>
+          <li>Protection durable</li>
+        </ul>
+        <div class="price-option">+ Hydrofuge +3€/m²</div>
+        <a href="#devis" class="btn btn-navy">Devis gratuit</a>
+      </div>
+      <div class="price-card">
+        <h3>Façade & Toiture</h3>
+        <div class="price-value">8 €/m²</div>
+        <ul>
+          <li>Tous supports</li>
+          <li>Sans nacelle</li>
+          <li>Sans échafaudage</li>
+          <li>Compte-rendu inclus</li>
+        </ul>
+        <div class="price-option">Multi-prestation −10%</div>
+        <a href="#devis" class="btn btn-navy">Devis gratuit</a>
+      </div>
+    </div>
+    <p class="pricing-note">Déplacement inclus dans nos zones. Supplément kilométrique hors zone sur devis.</p>
+  </div>
+</section>
+
+<section class="section zones-section" id="zones">
+  <div class="container">
+    <h2 class="section-title">Nos zones d'intervention</h2>
+    <p class="section-subtitle">Basés à Marseille — 8 départements couverts dans le Sud de la France.</p>
+    <div class="zone-row primary">
+      <span class="zone-badge">Bouches-du-Rhône (13)</span>
+      <span class="zone-badge">Var (83)</span>
+      <span class="zone-badge">Vaucluse (84)</span>
+      <span class="zone-badge">Alpes-Maritimes (06)</span>
+    </div>
+    <div class="zone-row secondary">
+      <span class="zone-badge">Gard (30)</span>
+      <span class="zone-badge">Hérault (34)</span>
+      <span class="zone-badge">Aude (11)</span>
+      <span class="zone-badge">Alpes-de-Haute-Provence (04)</span>
+    </div>
+    <p class="city-list"><strong>Villes desservies :</strong> Marseille · Toulon · Aix-en-Provence · Nice · Avignon · Montpellier · Nîmes · Cannes · Arles · Draguignan · Fréjus · Manosque · Digne-les-Bains · Béziers · Narbonne · et toute la région Sud</p>
+  </div>
+</section>
+
+<section class="section devis-section" id="devis">
+  <div class="container">
+    <h2 class="section-title">Demandez votre devis gratuit</h2>
+    <p class="section-subtitle">Réponse garantie sous 48h · Aucun déplacement facturé pour l'estimation</p>
+    <div class="devis-grid">
+      <div>
+        <form id="devis-form" class="devis-form" novalidate>
+          <div class="form-group">
+            <label for="nom">Prénom & Nom *</label>
+            <input type="text" id="nom" name="nom" required>
+          </div>
+          <div class="form-group">
+            <label for="telephone">Téléphone *</label>
+            <input type="tel" id="telephone" name="telephone" required>
+          </div>
+          <div class="form-group full">
+            <label for="email">Email *</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="prestation">Type de prestation *</label>
+            <select id="prestation" name="prestation" required>
+              <option value="">Sélectionnez...</option>
+              <option>Nettoyage panneaux solaires</option>
+              <option>Démoussage toiture</option>
+              <option>Démoussage façade</option>
+              <option>Nettoyage façade</option>
+              <option>Nettoyage toiture</option>
+              <option>Plusieurs prestations</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="surface">Surface estimée</label>
+            <select id="surface" name="surface">
+              <option value="">Sélectionnez...</option>
+              <option>Moins de 50m²</option>
+              <option>50–150m²</option>
+              <option>150–300m²</option>
+              <option>300–1000m²</option>
+              <option>Plus de 1000m²</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="departement">Département</label>
+            <select id="departement" name="departement">
+              <option value="">Sélectionnez...</option>
+              <option>Bouches-du-Rhône (13)</option>
+              <option>Var (83)</option>
+              <option>Vaucluse (84)</option>
+              <option>Alpes-Maritimes (06)</option>
+              <option>Gard (30)</option>
+              <option>Hérault (34)</option>
+              <option>Aude (11)</option>
+              <option>Alpes-de-Haute-Provence (04)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="ville">Ville</label>
+            <input type="text" id="ville" name="ville">
+          </div>
+          <div class="form-group full">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Type de surface, accessibilité, état actuel..."></textarea>
+          </div>
+          <div class="form-group full">
+            <button type="submit" class="btn btn-navy submit-btn">Envoyer ma demande de devis →</button>
+            <p class="form-note">🔒 Données confidentielles — jamais partagées.</p>
+          </div>
+        </form>
+        <div class="success-message" id="success-message">✓ Demande envoyée — Nous vous recontactons sous 48h.</div>
+      </div>
+      <div class="info-box" id="contact">
+        <h4>Contactez-nous directement</h4>
+        <div class="info-line">📞 06.58.22.25.41</div>
+        <div class="info-line">📞 07.71.24.49.51</div>
+        <div class="info-line">✉ contact@dronesudxpert.fr</div>
+        <div class="info-line">🌐 www.dronesudxpert.fr</div>
+        <div class="info-line">📍 Marseille, région Sud</div>
+        <div class="cert-row">
+          <span class="cert-badge">A1/A2/A3</span>
+          <span class="cert-badge">CATS</span>
+          <span class="cert-badge">STS-01</span>
+          <span class="cert-badge">STS-02</span>
+          <span class="cert-badge">DGAC</span>
+          <span class="cert-badge">RC Pro</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">Votre équipe certifiée</h2>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="avatar">BT</div>
+        <h3>Brice Taillefer</h3>
+        <p class="team-role">Co-fondateur & Télépilote</p>
+        <div class="team-certs">
+          <span>A1</span><span>A2</span><span>A3</span><span>CATS</span><span>STS-01</span><span>STS-02</span>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="avatar">RR</div>
+        <h3>Rémy Rolland</h3>
+        <p class="team-role">Co-fondateur & Télépilote</p>
+        <div class="team-certs">
+          <span>A1</span><span>A2</span><span>A3</span><span>CATS</span><span>STS-01</span><span>STS-02</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="faq">
+  <div class="container">
+    <h2 class="section-title">Questions fréquentes</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-question"><span>Intervenez-vous sans échafaudage ?</span><span class="faq-arrow">+</span></div>
+        <div class="faq-answer"><p>Oui. Nos télépilotes restent au sol et pilotent l'intervention à distance. Aucune nacelle, aucun échafaudage, aucune fermeture de voirie — quelle que soit la hauteur du bâtiment.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question"><span>Quelle différence entre le drone et la perche pour les panneaux solaires ?</span><span class="faq-arrow">+</span></div>
+        <div class="faq-answer"><p>Le drone convient aux toitures en hauteur ou inaccessibles. La perche water-fed à eau osmosée est idéale pour les panneaux en faible hauteur — nettoyage encore plus doux et précis. Nous choisissons la méthode la plus adaptée, ou combinons les deux.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question"><span>Le nettoyage endommage-t-il les tuiles ou les panneaux ?</span><span class="faq-arrow">+</span></div>
+        <div class="faq-answer"><p>Non. Nous utilisons la basse pression pour les panneaux et un traitement à action lente pour les toitures. Aucun contact mécanique, aucune haute pression — les matériaux sont parfaitement préservés.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question"><span>Quel est le délai pour obtenir un devis ?</span><span class="faq-arrow">+</span></div>
+        <div class="faq-answer"><p>Nous répondons sous 48h après réception de votre demande. Pour les chantiers urgents, appelez-nous directement.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question"><span>Proposez-vous des contrats d'entretien panneaux solaires ?</span><span class="faq-arrow">+</span></div>
+        <div class="faq-answer"><p>Oui. Nos contrats annuels incluent une remise de 15% sur le tarif unitaire. Un passage planifié chaque année maintient vos panneaux à leur plein rendement.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question"><span>Intervenez-vous pour les professionnels et copropriétés ?</span><span class="faq-arrow">+</span></div>
+        <div class="faq-answer"><p>Absolument. Nous travaillons avec des particuliers, des syndics, des gestionnaires de bâtiments industriels, des exploitants agricoles et des gestionnaires de parcs photovoltaïques.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container footer-top">
+    <div class="footer-col">
+      <div class="footer-logo-wrap">
+        <img src="assets/Black_White_Modern_Drone_Pilot_Logo.png" alt="DroneSudXpert">
+      </div>
+      <p class="footer-tagline"><strong>DroneSudXpert</strong></p>
+      <p class="footer-tagline">L'expertise aérienne au service de vos bâtiments</p>
+      <p class="footer-tagline">SAS — Marseille</p>
+      <div class="social-placeholder">
+        <span>in</span><span>f</span><span>ig</span>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <p>📞 06.58.22.25.41 · 07.71.24.49.51</p>
+      <p>✉ contact@dronesudxpert.fr</p>
+      <p>🌐 www.dronesudxpert.fr</p>
+      <p>📍 Marseille — PACA & Occitanie</p>
+    </div>
+    <div class="footer-col">
+      <h4>Liens rapides</h4>
+      <a href="#accueil">Accueil</a>
+      <a href="#services">Services</a>
+      <a href="#methode">Méthode</a>
+      <a href="#tarifs">Tarifs</a>
+      <a href="#zones">Zones</a>
+      <a href="#devis">Devis</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2026 DroneSudXpert SAS — Tous droits réservés — Télépilotes certifiés DGAC/EASA
+  </div>
+</footer>
+
+<script>
+  // Sticky navbar shadow
+  const header = document.getElementById('site-header');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 10);
+  });
+
+  // Mobile nav
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobile-nav');
+  const mobileClose = document.getElementById('mobile-close');
+  hamburger.addEventListener('click', () => mobileNav.classList.add('open'));
+  mobileClose.addEventListener('click', () => mobileNav.classList.remove('open'));
+  mobileNav.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => mobileNav.classList.remove('open'));
+  });
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const question = item.querySelector('.faq-question');
+    const answer = item.querySelector('.faq-answer');
+    question.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.faq-answer').style.maxHeight = null;
+      });
+      if (!isOpen) {
+        item.classList.add('open');
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+      }
+    });
+  });
+
+  // Form validation & submit
+  const form = document.getElementById('devis-form');
+  const successMessage = document.getElementById('success-message');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const requiredFields = form.querySelectorAll('[required]');
+    let valid = true;
+    requiredFields.forEach(field => {
+      if (!field.value.trim()) {
+        valid = false;
+        field.style.borderColor = '#e05555';
+      } else {
+        field.style.borderColor = '';
+      }
+    });
+    if (!valid) return;
+    form.style.display = 'none';
+    successMessage.style.display = 'block';
+  });
+</script>
+
+</body>
+</html>
