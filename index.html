@@ -353,6 +353,149 @@
     transition:color .2s ease;
   }
   .service-link:hover{color:var(--accent);}
+  .service-more{
+    font-weight:600;
+    color:#666;
+    font-size:0.92rem;
+    margin-top:8px;
+    transition:color .2s ease;
+  }
+  .service-more:hover{color:var(--navy);}
+
+  /* MODAL */
+  .modal-overlay{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(13,13,13,0.6);
+    z-index:3000;
+    padding:24px;
+    align-items:flex-start;
+    justify-content:center;
+    overflow-y:auto;
+  }
+  .modal-overlay.open{display:flex;}
+  .modal-panel{
+    background:#fff;
+    border-radius:16px;
+    max-width:760px;
+    width:100%;
+    margin:40px auto;
+    padding:44px;
+    position:relative;
+    box-shadow:0 30px 80px rgba(0,0,0,0.3);
+  }
+  .modal-close{
+    position:absolute;
+    top:20px;
+    right:20px;
+    width:36px;
+    height:36px;
+    border-radius:50%;
+    border:1px solid var(--border);
+    background:#fff;
+    color:var(--navy);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    transition:background .2s ease;
+  }
+  .modal-close:hover{background:var(--highlight);}
+  .modal-header{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    margin-bottom:8px;
+    padding-right:40px;
+  }
+  .modal-icon-badge{
+    width:56px;
+    height:56px;
+    border-radius:50%;
+    background:var(--highlight);
+    color:var(--navy);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+  }
+  .modal-header h3{font-size:1.9rem;}
+  .modal-subtitle{
+    color:var(--accent);
+    font-weight:700;
+    font-size:0.9rem;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    margin-bottom:28px;
+  }
+  .modal-panel h4{
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:800;
+    font-size:1.25rem;
+    color:var(--navy);
+    margin:28px 0 10px;
+  }
+  .modal-panel p{
+    color:#333;
+    font-size:0.98rem;
+    line-height:1.7;
+  }
+  .modal-tools{
+    margin-top:14px;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+  .modal-tools li{
+    background:var(--highlight);
+    border-radius:10px;
+    padding:14px 16px;
+    font-size:0.95rem;
+    color:#333;
+    line-height:1.6;
+  }
+  .modal-tools li strong{color:var(--navy);}
+  .modal-steps{
+    margin-top:14px;
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+  }
+  .modal-steps li{
+    display:flex;
+    gap:16px;
+  }
+  .modal-step-num{
+    flex-shrink:0;
+    width:32px;
+    height:32px;
+    border-radius:50%;
+    background:var(--navy);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:800;
+    font-size:1rem;
+  }
+  .modal-step-body strong{
+    display:block;
+    color:var(--navy);
+    font-weight:700;
+    margin-bottom:2px;
+  }
+  .modal-step-body p{margin:0;}
+  .modal-cta{
+    display:inline-flex;
+    margin-top:32px;
+    width:100%;
+    justify-content:center;
+  }
+  @media (max-width: 600px){
+    .modal-panel{padding:28px 22px;margin:16px auto;}
+  }
 
   /* METHODE */
   .methode-section{
@@ -910,6 +1053,7 @@
           <p>Un panneau encrassé perd jusqu'à 20% de rendement. Nous intervenons à l'eau osmosée basse pression — sans trace, sans rayure, sans produit chimique. Contrats annuels disponibles.</p>
           <span class="price-tag">À partir de 6 €/m²</span>
           <a href="#devis" class="service-link">Demander un devis →</a>
+          <a href="#" class="service-more" data-service="solar" onclick="openServiceModal(event,this)">En savoir plus →</a>
         </div>
       </div>
       <div class="service-card">
@@ -1184,6 +1328,15 @@
   </div>
 </section>
 
+<div class="modal-overlay" id="service-modal">
+  <div class="modal-panel" role="dialog" aria-modal="true">
+    <button class="modal-close" id="modal-close" aria-label="Fermer">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="4" x2="20" y2="20"></line><line x1="20" y1="4" x2="4" y2="20"></line></svg>
+    </button>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
 <footer>
   <div class="container footer-top">
     <div class="footer-col">
@@ -1272,6 +1425,79 @@
     if (!valid) return;
     form.style.display = 'none';
     successMessage.style.display = 'block';
+  });
+
+  // Service detail modals
+  const serviceDetails = {
+    solar: {
+      icon: 'icon-solar',
+      title: 'Panneaux Solaires',
+      subtitle: 'Drone & Perche Télescopique',
+      body: `
+        <h4>Pourquoi faire appel à un professionnel ?</h4>
+        <p>Intervenir soi-même sur des panneaux en toiture est risqué — chute, glissade, endommagement des modules par une pression ou un produit inadapté. Nos équipes certifiées DGAC utilisent les techniques et les produits appropriés pour un résultat parfait en toute sécurité, sans risque pour votre installation ni pour vous.</p>
+
+        <h4>Le problème : un panneau sale, c'est de l'argent perdu</h4>
+        <p>Poussières, pollens, sable, fientes d'oiseaux et dépôts calcaires s'accumulent progressivement sur vos modules. Cette salissure, souvent invisible à l'œil nu, peut faire chuter le rendement énergétique de votre installation de 20 à 30 %. Sans entretien régulier, vous perdez de l'énergie chaque jour sans le savoir.</p>
+
+        <h4>Notre méthode : eau osmosée, basse pression, zéro risque</h4>
+        <p>Nous utilisons exclusivement de l'eau purifiée par osmose inverse — sans minéraux, sans produit chimique. Résultat garanti : aucune trace de calcaire au séchage, aucun risque pour les cellules photovoltaïques, les joints ou les revêtements anti-reflets de vos modules.</p>
+        <p>Selon la configuration de votre installation, nous intervenons avec deux outils complémentaires :</p>
+        <ul class="modal-tools">
+          <li><strong>Le drone</strong> — pour les toitures en hauteur, les surfaces inaccessibles ou les grandes installations. Le télépilote reste au sol, aucune pression mécanique sur vos panneaux, intervention rapide même sur les toits les plus difficiles d'accès.</li>
+          <li><strong>La perche télescopique water-fed</strong> — pour les installations en faible hauteur ou nécessitant plus de précision. La brosse douce combinée à l'eau osmosée assure un nettoyage en profondeur sans endommager la surface des modules.</li>
+        </ul>
+
+        <h4>Pour les particuliers</h4>
+        <p>Vous avez des panneaux solaires sur votre maison individuelle ? Nous intervenons rapidement, sans perturber votre quotidien, avec un matériel adapté à toutes les configurations de toitures résidentielles. Devis gratuit sous 48h.</p>
+
+        <h4>Pour les professionnels</h4>
+        <p>Gestionnaires de parcs photovoltaïques, propriétaires d'ombrières, exploitants agricoles, gestionnaires de bâtiments commerciaux — un entretien régulier est indispensable pour protéger votre investissement et maximiser votre production d'énergie. Nous proposons des contrats d'entretien annuels avec intervention planifiée et compte-rendu à chaque passage.</p>
+
+        <h4>Notre intervention en 4 étapes</h4>
+        <ol class="modal-steps">
+          <li><span class="modal-step-num">1</span><span class="modal-step-body"><strong>Analyse &amp; devis gratuit</strong><p>Évaluation de votre installation, de son accessibilité et de son état. Devis personnalisé sous 48h, sans engagement.</p></span></li>
+          <li><span class="modal-step-num">2</span><span class="modal-step-body"><strong>Planification</strong><p>Organisation de l'intervention selon les conditions météorologiques et votre disponibilité. Toutes nos déclarations de vol sont conformes aux exigences DGAC/EASA.</p></span></li>
+          <li><span class="modal-step-num">3</span><span class="modal-step-body"><strong>Nettoyage</strong><p>Intervention par drone ou perche selon la configuration. Eau osmosée, basse pression, contrôle en temps réel de chaque zone traitée.</p></span></li>
+          <li><span class="modal-step-num">4</span><span class="modal-step-body"><strong>Contrôle &amp; compte-rendu</strong><p>Inspection finale pour valider le résultat. Conseils d'entretien pour prolonger l'efficacité du traitement entre deux interventions.</p></span></li>
+        </ol>
+      `
+    }
+  };
+
+  const serviceModal = document.getElementById('service-modal');
+  const modalBody = document.getElementById('modal-body');
+  const modalClose = document.getElementById('modal-close');
+
+  function openServiceModal(event, el) {
+    event.preventDefault();
+    const key = el.getAttribute('data-service');
+    const data = serviceDetails[key];
+    if (!data) return;
+    modalBody.innerHTML = `
+      <div class="modal-header">
+        <span class="modal-icon-badge"><svg class="icon" width="26" height="26"><use href="#${data.icon}"></use></svg></span>
+        <h3>${data.title}</h3>
+      </div>
+      <div class="modal-subtitle">${data.subtitle}</div>
+      ${data.body}
+      <a href="#devis" class="btn btn-navy modal-cta" onclick="closeServiceModal()">Demander un devis →</a>
+    `;
+    serviceModal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeServiceModal() {
+    serviceModal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  modalClose.addEventListener('click', closeServiceModal);
+  serviceModal.addEventListener('click', (e) => {
+    if (e.target === serviceModal) closeServiceModal();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && serviceModal.classList.contains('open')) closeServiceModal();
   });
 </script>
 
