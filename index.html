@@ -441,6 +441,27 @@
     font-size:0.98rem;
     line-height:1.7;
   }
+  .modal-list{
+    margin-top:12px;
+    padding:0;
+    list-style:none;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  .modal-list li{
+    display:flex;
+    gap:10px;
+    font-size:0.95rem;
+    color:#333;
+    line-height:1.6;
+  }
+  .modal-list li::before{
+    content:"–";
+    color:var(--accent);
+    font-weight:700;
+    flex-shrink:0;
+  }
   .modal-tools{
     margin-top:14px;
     display:flex;
@@ -1065,6 +1086,7 @@
           <p>Mousse, lichens et algues dégradent vos toitures et façades. Nos drones appliquent un traitement biocide biodégradable à action lente, sans haute pression ni échafaudage.</p>
           <span class="price-tag">À partir de 8 €/m²</span>
           <a href="#devis" class="service-link">Demander un devis →</a>
+          <a href="#" class="service-more" data-service="moss" onclick="openServiceModal(event,this)">En savoir plus →</a>
         </div>
       </div>
       <div class="service-card">
@@ -1461,6 +1483,35 @@
           <li><span class="modal-step-num">3</span><span class="modal-step-body"><strong>Nettoyage</strong><p>Intervention par drone ou perche selon la configuration. Eau osmosée, basse pression, contrôle en temps réel de chaque zone traitée.</p></span></li>
           <li><span class="modal-step-num">4</span><span class="modal-step-body"><strong>Contrôle &amp; compte-rendu</strong><p>Inspection finale pour valider le résultat. Conseils d'entretien pour prolonger l'efficacité du traitement entre deux interventions.</p></span></li>
         </ol>
+      `
+    },
+    moss: {
+      icon: 'icon-roof',
+      title: 'Démoussage',
+      subtitle: 'Traitement Biocide Écologique',
+      body: `
+        <h4>Le démoussage, une nécessité avant tout</h4>
+        <p>La mousse, les lichens et les algues ne sont pas qu'une question d'esthétique. Ces micro-organismes s'incrustent dans les matériaux, retiennent l'humidité et dégradent progressivement l'étanchéité de votre toiture ou de votre façade. À terme, ils favorisent les infiltrations d'eau et accélèrent la détérioration des enduits et des tuiles. En région Sud, les alternances de chaleur et d'humidité créent des conditions idéales pour leur développement rapide.</p>
+
+        <h4>Notre méthode : traitement à action lente</h4>
+        <p>Contrairement à la haute pression qui arrache la mousse sans traiter le problème en profondeur, nous appliquons par drone un traitement biocide biodégradable à action lente. Le produit pénètre en profondeur dans les matériaux, élimine les organismes à la racine, et continue d'agir plusieurs semaines après l'intervention. La mousse disparaît progressivement avec les pluies — sans agression mécanique sur vos tuiles ou votre enduit.</p>
+
+        <h4>Pourquoi pas la haute pression ?</h4>
+        <ul class="modal-list">
+          <li>Elle fragilise les tuiles et les crépis</li>
+          <li>Elle arrache sans traiter — la mousse revient plus vite</li>
+          <li>Elle peut provoquer des infiltrations sur les toitures fragilisées</li>
+          <li>Elle endommage les joints et les revêtements</li>
+        </ul>
+
+        <h4>Nos produits</h4>
+        <p>Biocides certifiés AMM, sans javel, sans chlore. Biodégradables et respectueux de l'environnement. Homologués pour un usage professionnel sur toitures et façades.</p>
+
+        <h4>Option traitement hydrofuge</h4>
+        <p>Après le démoussage, nous pouvons appliquer un traitement hydrofuge qui imperméabilise les matériaux poreux tout en les laissant respirer. Résultat : la mousse revient beaucoup plus lentement, et votre toiture est protégée durablement contre l'humidité.</p>
+
+        <h4>Pour qui ?</h4>
+        <p>Particuliers, copropriétés, bâtiments industriels, bâtiments agricoles, toute surface exposée à la mousse et aux organismes biologiques.</p>
       `
     }
   };
