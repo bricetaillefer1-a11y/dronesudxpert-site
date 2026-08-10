@@ -544,6 +544,49 @@
     margin:0 auto;
   }
 
+  /* POURQUOI LE DRONE */
+  .why-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:36px 28px;
+    margin-bottom:44px;
+  }
+  .why-card{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+  .why-icon{
+    width:52px;
+    height:52px;
+    border-radius:50%;
+    background:var(--highlight);
+    color:var(--navy);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+  }
+  .why-card h3{font-size:1.3rem;}
+  .why-card p{
+    color:#444;
+    font-size:0.95rem;
+    line-height:1.65;
+  }
+  .why-summary{
+    background:var(--highlight);
+    border-radius:14px;
+    padding:40px;
+    text-align:center;
+  }
+  .why-summary p{
+    font-size:1.08rem;
+    color:var(--navy);
+    max-width:760px;
+    margin:0 auto 24px;
+    line-height:1.7;
+  }
+
   /* TARIFS */
   .pricing-grid{
     display:grid;
@@ -894,7 +937,7 @@
   @media (max-width: 900px){
     .nav-links, .nav-cta{display:none;}
     .hamburger{display:flex;}
-    .services-grid, .pricing-grid, .team-grid{grid-template-columns:1fr;}
+    .services-grid, .pricing-grid, .team-grid, .why-grid{grid-template-columns:1fr;}
     .methode-grid{grid-template-columns:1fr;gap:36px;}
     .devis-grid{grid-template-columns:1fr;}
     .devis-form{grid-template-columns:1fr;}
@@ -966,6 +1009,35 @@
       <path d="M12 21.5S5 14.8 5 9.8a7 7 0 0114 0c0 5-7 11.7-7 11.7z"></path>
       <circle cx="12" cy="9.7" r="2.4"></circle>
     </symbol>
+    <symbol id="icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="9"></circle>
+      <path d="M12 7v5l3.5 2"></path>
+    </symbol>
+    <symbol id="icon-euro" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="9"></circle>
+      <path d="M14.5 8.5a4 4 0 100 7" stroke-linecap="round"></path>
+      <line x1="8" y1="10.3" x2="13.5" y2="10.3"></line>
+      <line x1="8" y1="13" x2="13.5" y2="13"></line>
+    </symbol>
+    <symbol id="icon-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 3l7 3v6c0 5-3.5 8-7 9-3.5-1-7-4-7-9V6l7-3z"></path>
+      <path d="M9 12l2 2 4-4"></path>
+    </symbol>
+    <symbol id="icon-material" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="4" width="8" height="5" rx="0.5"></rect>
+      <rect x="13" y="4" width="8" height="5" rx="0.5"></rect>
+      <rect x="7" y="10.5" width="8" height="5" rx="0.5"></rect>
+      <rect x="3" y="17" width="8" height="5" rx="0.5"></rect>
+      <rect x="13" y="17" width="8" height="5" rx="0.5"></rect>
+    </symbol>
+    <symbol id="icon-door" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="5" y="3" width="14" height="18" rx="1"></rect>
+      <line x1="14.3" y1="12" x2="14.3" y2="12.2"></line>
+    </symbol>
+    <symbol id="icon-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M5 19c0-8 4-14 14-14 0 10-6 14-14 14z"></path>
+      <path d="M5 19c3-3 6-6 9-11"></path>
+    </symbol>
   </defs>
 </svg>
 
@@ -976,6 +1048,7 @@
       <a href="#accueil">Accueil</a>
       <a href="#services">Services</a>
       <a href="#methode">Méthode</a>
+      <a href="#pourquoi-drone">Drone vs Échafaudage</a>
       <a href="#tarifs">Tarifs</a>
       <a href="#zones">Zones</a>
       <a href="#devis">Devis</a>
@@ -995,6 +1068,7 @@
   <a href="#accueil">Accueil</a>
   <a href="#services">Services</a>
   <a href="#methode">Méthode</a>
+  <a href="#pourquoi-drone">Drone vs Échafaudage</a>
   <a href="#tarifs">Tarifs</a>
   <a href="#zones">Zones</a>
   <a href="#devis">Devis</a>
@@ -1093,6 +1167,51 @@
     </div>
     <div class="highlight-box">
       Un panneau encrassé perd jusqu'à 20% de rendement. Un nettoyage annuel suffit à récupérer cette perte.
+    </div>
+  </div>
+</section>
+
+<section class="section" id="pourquoi-drone">
+  <div class="container">
+    <h2 class="section-title">Pourquoi choisir le drone plutôt qu'un échafaudage ?</h2>
+    <p class="section-subtitle">Le nettoyage par drone représente une rupture totale avec les méthodes traditionnelles. Plus rapide, plus sûr, moins coûteux et moins contraignant. Voici pourquoi nos clients font le choix du drone.</p>
+
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon"><svg class="icon" width="24" height="24"><use href="#icon-clock"></use></svg></div>
+        <h3>Un chantier en quelques heures, pas en plusieurs jours</h3>
+        <p>Monter un échafaudage prend en moyenne une à trois journées, avant même que le moindre travail de nettoyage ne commence. Il faut ensuite le démonter. Avec notre drone, la mise en place prend trente minutes. Le chantier est terminé dans la journée, sans mobiliser votre propriété pendant une semaine.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon"><svg class="icon" width="24" height="24"><use href="#icon-euro"></use></svg></div>
+        <h3>Un coût réellement inférieur</h3>
+        <p>L'échafaudage représente à lui seul entre 2 000 et 10 000 euros selon la hauteur et la surface du bâtiment, sans compter la main d'œuvre, les autorisations de voirie et les assurances spécifiques aux travaux en hauteur. Le drone supprime toutes ces lignes de coût. À surface égale, une intervention par drone revient en moyenne 30 à 50 % moins cher qu'une méthode traditionnelle.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon"><svg class="icon" width="24" height="24"><use href="#icon-shield"></use></svg></div>
+        <h3>Zéro risque pour les personnes</h3>
+        <p>Avec le drone, personne ne monte en hauteur. Le télépilote reste au sol à tout moment et pilote l'intervention à distance. Les risques de chute, de glissade et d'accident liés au travail en hauteur sont totalement supprimés pour nos équipes comme pour votre responsabilité.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon"><svg class="icon" width="24" height="24"><use href="#icon-material"></use></svg></div>
+        <h3>Vos matériaux préservés</h3>
+        <p>La haute pression mal dosée fragilise les crépis, décolle les enduits et peut provoquer des infiltrations sur les toitures et façades déjà fragilisées. Notre méthode par drone utilise uniquement la basse pression, avec un produit adapté à chaque type de support. Tuiles, ardoises, pierre, bardage, béton, chaque matériau reçoit le traitement qu'il mérite, sans agression mécanique.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon"><svg class="icon" width="24" height="24"><use href="#icon-door"></use></svg></div>
+        <h3>Une gêne réduite au strict minimum</h3>
+        <p>Pas de bâches sur la façade, pas de fermeture de voirie, pas d'échafaudage qui bloque l'accès pendant des semaines. Nos interventions durent quelques heures et se déroulent sans perturber les occupants ni le voisinage. Pour les hôtels, les copropriétés et les commerces, nous pouvons même intervenir en horaires décalés afin de garantir une continuité totale d'activité.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon"><svg class="icon" width="24" height="24"><use href="#icon-leaf"></use></svg></div>
+        <h3>Un impact environnemental maîtrisé</h3>
+        <p>Nos drones pulvérisent des produits biocides biodégradables, sans javel ni chlore, avec une précision qui limite les quantités utilisées. La consommation d'eau est réduite par rapport à un nettoyage haute pression classique. Aucun déchet de chantier, aucune nuisance sonore excessive. Une intervention propre, du début à la fin.</p>
+      </div>
+    </div>
+
+    <div class="why-summary">
+      <p><strong>En résumé :</strong> le drone c'est moins cher, plus rapide, plus sûr pour les personnes, plus doux pour vos matériaux et moins contraignant pour votre quotidien. C'est pour toutes ces raisons que nous avons fait ce choix et que nos clients ne reviennent jamais à l'échafaudage.</p>
+      <a href="#devis" class="btn btn-navy">Demander un devis →</a>
     </div>
   </div>
 </section>
@@ -1346,6 +1465,7 @@
       <a href="#accueil">Accueil</a>
       <a href="#services">Services</a>
       <a href="#methode">Méthode</a>
+      <a href="#pourquoi-drone">Drone vs Échafaudage</a>
       <a href="#tarifs">Tarifs</a>
       <a href="#zones">Zones</a>
       <a href="#devis">Devis</a>
