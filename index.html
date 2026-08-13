@@ -733,15 +733,15 @@
     border-radius:8px;
   }
   .form-note{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:6px;
     text-align:center;
     font-size:0.88rem;
     color:#666;
     margin-top:14px;
+    line-height:1.6;
   }
+  .form-note .icon-inline{vertical-align:-2px;margin-right:4px;}
+  .form-note a{color:#666;text-decoration:underline;}
+  .form-note a:hover{color:var(--navy);}
   .form-error{
     display:none;
     text-align:center;
@@ -952,6 +952,9 @@
     font-size:0.85rem;
     color:#b8c9db;
   }
+  .footer-legal-links{display:block;margin-top:8px;}
+  .footer-legal-links a{color:#b8c9db;text-decoration:underline;}
+  .footer-legal-links a:hover{color:var(--accent);}
 
   @media (max-width: 900px){
     .nav-links, .nav-cta{display:none;}
@@ -1377,7 +1380,7 @@
           </div>
           <div class="form-group full">
             <button type="submit" class="btn btn-navy submit-btn" id="submit-btn">Envoyer ma demande de devis →</button>
-            <p class="form-note"><svg class="icon-inline" width="14" height="14"><use href="#icon-lock"></use></svg>Données confidentielles — jamais partagées.</p>
+            <p class="form-note"><svg class="icon-inline" width="14" height="14"><use href="#icon-lock"></use></svg>Données confidentielles — jamais partagées. En envoyant ce formulaire, vous acceptez notre <a href="politique-confidentialite.html">politique de confidentialité</a>.</p>
             <p class="form-error" id="form-error">Une erreur est survenue lors de l'envoi. Merci de réessayer, ou de nous appeler directement.</p>
           </div>
         </form>
@@ -1503,6 +1506,9 @@
   </div>
   <div class="footer-bottom">
     © 2026 DroneSudXpert SAS — Tous droits réservés — Télépilotes certifiés DGAC/EASA
+    <span class="footer-legal-links">
+      <a href="mentions-legales.html">Mentions légales</a> · <a href="politique-confidentialite.html">Politique de confidentialité</a>
+    </span>
   </div>
 </footer>
 
