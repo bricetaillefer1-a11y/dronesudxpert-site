@@ -710,6 +710,133 @@
     font-size:0.95rem;
   }
 
+  /* CALCULATEUR */
+  .calculator{
+    margin-top:56px;
+    background:var(--highlight);
+    border-radius:16px;
+    padding:44px;
+  }
+  .calculator-header{
+    text-align:center;
+    margin-bottom:36px;
+  }
+  .calculator-header h3{
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:800;
+    font-size:1.8rem;
+    color:var(--navy);
+    margin-bottom:8px;
+  }
+  .calculator-header p{
+    color:#555;
+    font-size:0.98rem;
+  }
+  .calculator-slider-row{
+    max-width:640px;
+    margin:0 auto 40px;
+  }
+  .calculator-slider-label{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    margin-bottom:14px;
+    font-weight:600;
+  }
+  .calculator-slider-label span:first-child{color:var(--text);}
+  #surface-value{
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:800;
+    font-size:1.6rem;
+    color:var(--navy);
+  }
+  .calculator-slider{
+    -webkit-appearance:none;
+    appearance:none;
+    width:100%;
+    height:8px;
+    border-radius:4px;
+    background:linear-gradient(90deg, var(--accent) 0%, var(--accent) 50%, #d8e6ee 50%, #d8e6ee 100%);
+    outline:none;
+    cursor:pointer;
+  }
+  .calculator-slider::-webkit-slider-thumb{
+    -webkit-appearance:none;
+    appearance:none;
+    width:26px;
+    height:26px;
+    border-radius:50%;
+    background:var(--navy);
+    border:4px solid #fff;
+    box-shadow:0 2px 8px rgba(0,0,0,0.25);
+    cursor:pointer;
+  }
+  .calculator-slider::-moz-range-thumb{
+    width:26px;
+    height:26px;
+    border-radius:50%;
+    background:var(--navy);
+    border:4px solid #fff;
+    box-shadow:0 2px 8px rgba(0,0,0,0.25);
+    cursor:pointer;
+    border:4px solid #fff;
+  }
+  .calculator-slider::-moz-range-track{
+    height:8px;
+    border-radius:4px;
+    background:transparent;
+  }
+  .calculator-scale{
+    display:flex;
+    justify-content:space-between;
+    font-size:0.8rem;
+    color:#888;
+    margin-top:8px;
+  }
+  .calculator-results{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+    margin-bottom:28px;
+  }
+  .calculator-result{
+    background:#fff;
+    border-radius:12px;
+    padding:22px;
+    text-align:center;
+  }
+  .calculator-result .label{
+    font-size:0.85rem;
+    font-weight:600;
+    color:#666;
+    text-transform:uppercase;
+    letter-spacing:0.4px;
+    margin-bottom:10px;
+  }
+  .calculator-result .amount{
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:900;
+    font-size:2rem;
+    color:var(--navy);
+  }
+  .calculator-result .amount .approx{
+    font-size:1rem;
+    font-weight:600;
+    color:#888;
+  }
+  .calculator-footer{
+    text-align:center;
+  }
+  .calculator-footer p{
+    color:#666;
+    font-size:0.88rem;
+    margin-bottom:18px;
+  }
+  @media (max-width: 700px){
+    .calculator{padding:28px 20px;}
+    .calculator-results{grid-template-columns:1fr;}
+  }
+
   /* ZONES */
   .zones-section{background:var(--highlight);}
   .zone-row{
@@ -1347,6 +1474,42 @@
       </div>
     </div>
     <p class="pricing-note">Déplacement inclus dans nos zones. Supplément kilométrique hors zone sur devis.</p>
+
+    <div class="calculator">
+      <div class="calculator-header">
+        <h3>Estimez votre prix en un instant</h3>
+        <p>Déplacez le curseur selon la surface à traiter pour voir une estimation immédiate.</p>
+      </div>
+      <div class="calculator-slider-row">
+        <div class="calculator-slider-label">
+          <span>Surface à traiter</span>
+          <span id="surface-value">100 m²</span>
+        </div>
+        <input type="range" min="20" max="1000" step="10" value="100" class="calculator-slider" id="surface-slider" aria-label="Surface à traiter en m²">
+        <div class="calculator-scale">
+          <span>20 m²</span>
+          <span>1000 m²</span>
+        </div>
+      </div>
+      <div class="calculator-results">
+        <div class="calculator-result">
+          <div class="label">Panneaux Solaires</div>
+          <div class="amount"><span class="approx">≈ </span><span id="result-solar">590 €</span></div>
+        </div>
+        <div class="calculator-result">
+          <div class="label">Démoussage</div>
+          <div class="amount"><span class="approx">≈ </span><span id="result-moss">790 €</span></div>
+        </div>
+        <div class="calculator-result">
+          <div class="label">Façade &amp; Toiture</div>
+          <div class="amount"><span class="approx">≈ </span><span id="result-facade">790 €</span></div>
+        </div>
+      </div>
+      <div class="calculator-footer">
+        <p>Estimation indicative basée sur nos tarifs de départ — le prix final dépend de l'accessibilité et de l'état du support.</p>
+        <a href="#devis" class="btn btn-navy">Obtenir mon devis précis →</a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1606,6 +1769,33 @@
       }
     });
   });
+
+  // Calculateur de prix
+  const surfaceSlider = document.getElementById('surface-slider');
+  const surfaceValue = document.getElementById('surface-value');
+  const resultSolar = document.getElementById('result-solar');
+  const resultMoss = document.getElementById('result-moss');
+  const resultFacade = document.getElementById('result-facade');
+  const RATES = { solar: 5.9, moss: 7.9, facade: 7.9 };
+
+  function formatEuro(n) {
+    return Math.round(n).toLocaleString('fr-FR') + ' €';
+  }
+
+  function updateCalculator() {
+    const surface = parseInt(surfaceSlider.value, 10);
+    surfaceValue.textContent = surface + ' m²';
+    resultSolar.textContent = formatEuro(surface * RATES.solar);
+    resultMoss.textContent = formatEuro(surface * RATES.moss);
+    resultFacade.textContent = formatEuro(surface * RATES.facade);
+    const min = parseInt(surfaceSlider.min, 10);
+    const max = parseInt(surfaceSlider.max, 10);
+    const pct = ((surface - min) / (max - min)) * 100;
+    surfaceSlider.style.background = `linear-gradient(90deg, var(--accent) 0%, var(--accent) ${pct}%, #d8e6ee ${pct}%, #d8e6ee 100%)`;
+  }
+
+  surfaceSlider.addEventListener('input', updateCalculator);
+  updateCalculator();
 
   // Form validation & submit
   const form = document.getElementById('devis-form');
