@@ -744,6 +744,13 @@
     font-weight:600;
   }
   .calculator-slider-label span:first-child{color:var(--text);}
+  .calculator-discount{
+    font-size:0.85rem;
+    font-weight:600;
+    color:#1a8a4a;
+    margin-bottom:10px;
+    visibility:hidden;
+  }
   #surface-value{
     font-family:'Barlow Condensed',sans-serif;
     font-weight:800;
@@ -1478,13 +1485,14 @@
     <div class="calculator">
       <div class="calculator-header">
         <h3>Estimez votre prix en un instant</h3>
-        <p>Déplacez le curseur selon la surface à traiter pour voir une estimation immédiate.</p>
+        <p>Déplacez le curseur selon la surface à traiter pour voir une estimation immédiate. Plus la surface est grande, plus une réduction s'applique automatiquement sur le tarif au m².</p>
       </div>
       <div class="calculator-slider-row">
         <div class="calculator-slider-label">
           <span>Surface à traiter</span>
           <span id="surface-value">100 m²</span>
         </div>
+        <div class="calculator-discount" id="discount-badge">✓ Réduction surface appliquée à ce tarif</div>
         <input type="range" min="20" max="1000" step="10" value="100" class="calculator-slider" id="surface-slider" aria-label="Surface à traiter en m²">
         <div class="calculator-scale">
           <span>20 m²</span>
@@ -1777,17 +1785,27 @@
   const resultMoss = document.getElementById('result-moss');
   const resultFacade = document.getElementById('result-facade');
   const RATES = { solar: 5.9, moss: 7.9, facade: 7.9 };
+  const discountBadge = document.getElementById('discount-badge');
 
   function formatEuro(n) {
     return Math.round(n).toLocaleString('fr-FR') + ' €';
   }
 
+  function getDiscount(surface) {
+    if (surface >= 600) return 0.15;
+    if (surface >= 300) return 0.10;
+    if (surface >= 150) return 0.05;
+    return 0;
+  }
+
   function updateCalculator() {
     const surface = parseInt(surfaceSlider.value, 10);
+    const discount = getDiscount(surface);
     surfaceValue.textContent = surface + ' m²';
-    resultSolar.textContent = formatEuro(surface * RATES.solar);
-    resultMoss.textContent = formatEuro(surface * RATES.moss);
-    resultFacade.textContent = formatEuro(surface * RATES.facade);
+    resultSolar.textContent = formatEuro(surface * RATES.solar * (1 - discount));
+    resultMoss.textContent = formatEuro(surface * RATES.moss * (1 - discount));
+    resultFacade.textContent = formatEuro(surface * RATES.facade * (1 - discount));
+    discountBadge.style.visibility = discount > 0 ? 'visible' : 'hidden';
     const min = parseInt(surfaceSlider.min, 10);
     const max = parseInt(surfaceSlider.max, 10);
     const pct = ((surface - min) / (max - min)) * 100;
