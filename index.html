@@ -232,11 +232,73 @@
     object-fit:cover;
     z-index:0;
   }
+  .hero-compare{
+    position:absolute;
+    inset:0;
+    z-index:0;
+    overflow:hidden;
+  }
+  .hero-before-img{
+    clip-path:inset(0 50% 0 0);
+    will-change:clip-path;
+  }
+  .hero-slider-handle{
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:50%;
+    width:3px;
+    background:rgba(255,255,255,0.85);
+    z-index:3;
+    transform:translateX(-50%);
+    cursor:ew-resize;
+    touch-action:none;
+  }
+  .hero-slider-handle::after{
+    content:'';
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:52px;
+    height:52px;
+    border-radius:50%;
+    background:#fff;
+    box-shadow:0 4px 16px rgba(0,0,0,0.35);
+  }
+  .hero-slider-arrows{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    z-index:1;
+    font-size:1.1rem;
+    font-weight:700;
+    color:var(--navy);
+    pointer-events:none;
+  }
+  .hero-compare-label{
+    position:absolute;
+    top:96px;
+    z-index:2;
+    background:rgba(13,13,13,0.55);
+    color:#fff;
+    font-size:0.78rem;
+    font-weight:700;
+    letter-spacing:0.6px;
+    text-transform:uppercase;
+    padding:6px 14px;
+    border-radius:20px;
+    pointer-events:none;
+  }
+  .label-before{left:20px;}
+  .label-after{right:20px;}
   .hero-overlay{
     position:absolute;
     inset:0;
     background:rgba(0,0,0,0.35);
     z-index:1;
+    pointer-events:none;
   }
   .hero-content{
     position:relative;
@@ -1162,6 +1224,7 @@
     .footer-top{grid-template-columns:1fr;}
     .section{padding:64px 0;}
     .hero{height:auto;min-height:0;padding:56px 0 40px;flex-direction:column;align-items:stretch;}
+    .hero-compare-label{display:none;}
     .hero-buttons{margin-bottom:40px;}
     .hero-stats{position:static;margin-top:40px;}
     .stats-bar{flex-direction:column;}
@@ -1306,8 +1369,16 @@
 </div>
 
 <section class="hero" id="accueil">
-  <img class="hero-bg" src="assets/FullSizeRender.jpeg" alt="Drone professionnel nettoyant une façade à Marseille - DroneSudXpert">
+  <div class="hero-compare" id="hero-compare">
+    <img class="hero-bg" src="assets/hero-after.jpg" alt="Façade propre après nettoyage par drone - DroneSudXpert">
+    <img class="hero-bg hero-before-img" id="hero-before-img" src="assets/hero-before.jpg" alt="Façade sale avant nettoyage par drone - DroneSudXpert">
+  </div>
   <div class="hero-overlay"></div>
+  <div class="hero-compare-label label-before">Avant</div>
+  <div class="hero-compare-label label-after">Après</div>
+  <div class="hero-slider-handle" id="hero-slider-handle">
+    <span class="hero-slider-arrows">↔</span>
+  </div>
   <div class="hero-content">
     <h1>Le nettoyage aérien<br><span class="blue">par drone.</span></h1>
     <p class="hero-sub">Toitures · Façades · Panneaux Solaires — Sans échafaudage, sans risque.</p>
@@ -1774,6 +1845,35 @@
   mobileNav.querySelectorAll('a').forEach(a => {
     a.addEventListener('click', () => mobileNav.classList.remove('open'));
   });
+
+  // Slider avant/après du hero
+  const heroCompare = document.getElementById('hero-compare');
+  const heroBeforeImg = document.getElementById('hero-before-img');
+  const heroHandle = document.getElementById('hero-slider-handle');
+  let heroDragging = false;
+
+  function setHeroSliderPosition(pct) {
+    const clamped = Math.min(100, Math.max(0, pct));
+    heroBeforeImg.style.clipPath = `inset(0 ${100 - clamped}% 0 0)`;
+    heroHandle.style.left = clamped + '%';
+  }
+
+  function heroSliderFromClientX(clientX) {
+    const rect = heroCompare.getBoundingClientRect();
+    const pct = ((clientX - rect.left) / rect.width) * 100;
+    setHeroSliderPosition(pct);
+  }
+
+  heroHandle.addEventListener('pointerdown', (e) => {
+    heroDragging = true;
+    heroHandle.setPointerCapture(e.pointerId);
+  });
+  heroHandle.addEventListener('pointermove', (e) => {
+    if (!heroDragging) return;
+    heroSliderFromClientX(e.clientX);
+  });
+  heroHandle.addEventListener('pointerup', () => { heroDragging = false; });
+  heroHandle.addEventListener('pointercancel', () => { heroDragging = false; });
 
   // FAQ accordion
   document.querySelectorAll('.faq-item').forEach(item => {
