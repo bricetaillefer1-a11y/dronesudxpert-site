@@ -316,6 +316,7 @@
     display:flex;
     flex-direction:column;
     transition:transform .25s ease, box-shadow .25s ease;
+    cursor:pointer;
   }
   .service-card:hover{
     transform:translateY(-4px);
@@ -1664,6 +1665,16 @@
   mobileClose.addEventListener('click', () => mobileNav.classList.remove('open'));
   mobileNav.querySelectorAll('a').forEach(a => {
     a.addEventListener('click', () => mobileNav.classList.remove('open'));
+  });
+
+  // Cartes de services entièrement cliquables vers la page dédiée
+  document.querySelectorAll('.service-card').forEach(card => {
+    const moreLink = card.querySelector('.service-more');
+    if (!moreLink) return;
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('a')) return;
+      window.location.href = moreLink.getAttribute('href');
+    });
   });
 
   // FAQ accordion
