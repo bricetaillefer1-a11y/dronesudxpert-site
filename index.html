@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DroneSudXpert — Nettoyage par Drone | PACA & Sud de la France</title>
-<meta name="description" content="Nettoyage par drone à Marseille et dans le Sud de la France : panneaux solaires, démoussage toiture, façade. Sans échafaudage, télépilotes certifiés. Devis gratuit sous 48h.">
+<meta name="description" content="Nettoyage par drone à Marseille et dans le Sud : façade, toiture, panneaux solaires, vitres. Sans échafaudage, télépilotes certifiés. Devis gratuit sous 48h.">
 <meta name="google-site-verification" content="vsksDgbh6jSJ7m-Ej75nmnscyD2FfDzxTZLw3UV_51M" />
 <link rel="canonical" href="https://dronesudxpert.com/">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -21,7 +21,7 @@
   "url": "https://dronesudxpert.com/",
   "telephone": "+33658222541",
   "priceRange": "€€",
-  "description": "Nettoyage de toitures, façades et panneaux solaires par drone. Démoussage écologique, sans échafaudage. Télépilotes professionnels certifiés DGAC.",
+  "description": "Nettoyage et traitement de façades, toitures, panneaux solaires et vitres par drone. Sans échafaudage. Télépilotes professionnels certifiés DGAC.",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "272 Boulevard Perier",
@@ -46,9 +46,10 @@
     "https://www.linkedin.com/in/remy-rolland-169bb4420"
   ],
   "makesOffer": [
-    {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Nettoyage de panneaux solaires par drone"}},
-    {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Démoussage de toiture et façade par drone"}},
-    {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Nettoyage de façade et toiture par drone"}}
+    {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Nettoyage et traitement de façade par drone", "url": "https://dronesudxpert.com/nettoyage-facade-drone.html"}},
+    {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Nettoyage et traitement de toiture par drone", "url": "https://dronesudxpert.com/nettoyage-toiture-drone.html"}},
+    {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Nettoyage de panneaux solaires par drone", "url": "https://dronesudxpert.com/nettoyage-panneaux-solaires-drone.html"}},
+    {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Nettoyage de vitres", "url": "https://dronesudxpert.com/nettoyage-vitres-drone.html"}}
   ]
 }
 </script>
@@ -304,7 +305,7 @@
   /* SERVICES */
   .services-grid{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
     gap:28px;
   }
   .service-card{
@@ -382,162 +383,6 @@
   }
   .service-more:hover{color:var(--navy);}
 
-  /* MODAL */
-  .modal-overlay{
-    display:none;
-    position:fixed;
-    inset:0;
-    background:rgba(13,13,13,0.6);
-    z-index:3000;
-    padding:24px;
-    align-items:flex-start;
-    justify-content:center;
-    overflow-y:auto;
-  }
-  .modal-overlay.open{display:flex;}
-  .modal-panel{
-    background:#fff;
-    border-radius:16px;
-    max-width:760px;
-    width:100%;
-    margin:40px auto;
-    padding:44px;
-    position:relative;
-    box-shadow:0 30px 80px rgba(0,0,0,0.3);
-  }
-  .modal-close{
-    position:absolute;
-    top:20px;
-    right:20px;
-    width:36px;
-    height:36px;
-    border-radius:50%;
-    border:1px solid var(--border);
-    background:#fff;
-    color:var(--navy);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    cursor:pointer;
-    transition:background .2s ease;
-  }
-  .modal-close:hover{background:var(--highlight);}
-  .modal-header{
-    display:flex;
-    align-items:center;
-    gap:16px;
-    margin-bottom:8px;
-    padding-right:40px;
-  }
-  .modal-icon-badge{
-    width:56px;
-    height:56px;
-    border-radius:50%;
-    background:var(--highlight);
-    color:var(--navy);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    flex-shrink:0;
-  }
-  .modal-header h3{font-size:1.9rem;}
-  .modal-subtitle{
-    color:var(--accent);
-    font-weight:700;
-    font-size:0.9rem;
-    text-transform:uppercase;
-    letter-spacing:0.5px;
-    margin-bottom:28px;
-  }
-  .modal-panel h4{
-    font-family:'Barlow Condensed',sans-serif;
-    font-weight:800;
-    font-size:1.25rem;
-    color:var(--navy);
-    margin:28px 0 10px;
-  }
-  .modal-panel p{
-    color:#333;
-    font-size:0.98rem;
-    line-height:1.7;
-  }
-  .modal-list{
-    margin-top:12px;
-    padding:0;
-    list-style:none;
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-  }
-  .modal-list li{
-    display:flex;
-    gap:10px;
-    font-size:0.95rem;
-    color:#333;
-    line-height:1.6;
-  }
-  .modal-list li::before{
-    content:"–";
-    color:var(--accent);
-    font-weight:700;
-    flex-shrink:0;
-  }
-  .modal-tools{
-    margin-top:14px;
-    display:flex;
-    flex-direction:column;
-    gap:14px;
-  }
-  .modal-tools li{
-    background:var(--highlight);
-    border-radius:10px;
-    padding:14px 16px;
-    font-size:0.95rem;
-    color:#333;
-    line-height:1.6;
-  }
-  .modal-tools li strong{color:var(--navy);}
-  .modal-steps{
-    margin-top:14px;
-    display:flex;
-    flex-direction:column;
-    gap:16px;
-  }
-  .modal-steps li{
-    display:flex;
-    gap:16px;
-  }
-  .modal-step-num{
-    flex-shrink:0;
-    width:32px;
-    height:32px;
-    border-radius:50%;
-    background:var(--navy);
-    color:#fff;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-family:'Barlow Condensed',sans-serif;
-    font-weight:800;
-    font-size:1rem;
-  }
-  .modal-step-body strong{
-    display:block;
-    color:var(--navy);
-    font-weight:700;
-    margin-bottom:2px;
-  }
-  .modal-step-body p{margin:0;}
-  .modal-cta{
-    display:inline-flex;
-    margin-top:32px;
-    width:100%;
-    justify-content:center;
-  }
-  @media (max-width: 600px){
-    .modal-panel{padding:28px 22px;margin:16px auto;}
-  }
-
   /* METHODE */
   .methode-section{
     background:var(--navy);
@@ -578,6 +423,31 @@
     font-weight:800;
     margin-right:10px;
   }
+  .method-domains{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:10px;
+    margin-top:22px;
+    padding-top:20px;
+    border-top:1px solid rgba(255,255,255,0.15);
+  }
+  .method-domains-label{
+    font-size:0.85rem;
+    color:#b8c9db;
+    font-weight:600;
+  }
+  .method-domain-tag{
+    background:rgba(255,255,255,0.1);
+    border:1px solid rgba(255,255,255,0.25);
+    color:#fff;
+    padding:6px 14px;
+    border-radius:20px;
+    font-size:0.85rem;
+    font-weight:600;
+    transition:background .2s ease, border-color .2s ease;
+  }
+  .method-domain-tag:hover{background:var(--accent);border-color:var(--accent);}
   .highlight-box{
     background:#fff;
     color:var(--navy);
@@ -637,7 +507,7 @@
   /* TARIFS */
   .pricing-grid{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
     gap:28px;
   }
   .price-card{
@@ -797,7 +667,7 @@
   }
   .calculator-results{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+    grid-template-columns:repeat(4,1fr);
     gap:20px;
     margin-bottom:28px;
   }
@@ -836,6 +706,9 @@
   }
   @media (max-width: 700px){
     .calculator{padding:28px 20px;}
+    .calculator-results{grid-template-columns:repeat(2,1fr);}
+  }
+  @media (max-width: 420px){
     .calculator-results{grid-template-columns:1fr;}
   }
 
@@ -1186,6 +1059,11 @@
       <line x1="10" y1="21" x2="10" y2="16.5"></line>
       <line x1="14" y1="21" x2="14" y2="16.5"></line>
     </symbol>
+    <symbol id="icon-window" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="4" y="3.5" width="16" height="17" rx="1"></rect>
+      <line x1="12" y1="3.5" x2="12" y2="20.5"></line>
+      <line x1="4" y1="12" x2="20" y2="12"></line>
+    </symbol>
     <symbol id="icon-drone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
       <rect x="10" y="10" width="4" height="4" rx="1"></rect>
       <line x1="10" y1="10" x2="5.5" y2="5.5"></line>
@@ -1300,7 +1178,7 @@
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <h1>Le nettoyage aérien<br><span class="blue">par drone.</span></h1>
-    <p class="hero-sub">Toitures · Façades · Panneaux Solaires — Sans échafaudage, sans risque.</p>
+    <p class="hero-sub">Toitures · Façades · Panneaux Solaires · Vitres — Sans échafaudage, sans risque.</p>
     <div class="hero-buttons">
       <a href="#devis" class="btn btn-primary">Demander un devis</a>
       <a href="#services" class="btn btn-outline">Nos services</a>
@@ -1319,41 +1197,55 @@
   <div class="container">
     <h2 class="section-title">Nos prestations</h2>
     <p class="section-subtitle">Des interventions rapides, précises et sans risque, adaptées à chaque type de bâtiment.</p>
+    <!-- Grille en auto-fit : prête à accueillir de futurs domaines (orthophoto, photogrammétrie, inspection)
+         sans modification de mise en page. Suivre le même gabarit que les pages nettoyage-*-drone.html. -->
     <div class="services-grid">
       <div class="service-card">
         <div class="service-top"></div>
         <div class="service-body">
-          <div class="service-icon-badge"><svg class="icon" width="26" height="26"><use href="#icon-solar"></use></svg></div>
-          <h3>Panneaux Solaires</h3>
-          <div class="service-subtitle">Drone & Perche Télescopique</div>
-          <p>Un panneau encrassé perd jusqu'à 20% de rendement. Nous intervenons à l'eau osmosée basse pression — sans trace, sans rayure, sans produit chimique. Contrats annuels disponibles.</p>
-          <span class="price-tag">À partir de 5,90 €/m²</span>
+          <div class="service-icon-badge"><svg class="icon" width="26" height="26"><use href="#icon-building"></use></svg></div>
+          <h3>Nettoyage de Façade</h3>
+          <div class="service-subtitle">Nettoyage & Traitement</div>
+          <p>Crépi, bardage, béton, pierre — nettoyage et traitement anti-mousse par drone, jusqu'à 50m de hauteur, sans nacelle ni échafaudage.</p>
+          <span class="price-tag">À partir de 7,90 €/m²</span>
           <a href="#devis" class="service-link">Demander un devis →</a>
-          <a href="#" class="service-more" data-service="solar" onclick="openServiceModal(event,this)">En savoir plus →</a>
+          <a href="nettoyage-facade-drone.html" class="service-more">En savoir plus →</a>
         </div>
       </div>
       <div class="service-card">
         <div class="service-top"></div>
         <div class="service-body">
           <div class="service-icon-badge"><svg class="icon" width="26" height="26"><use href="#icon-roof"></use></svg></div>
-          <h3>Démoussage</h3>
-          <div class="service-subtitle">Traitement Biocide Écologique</div>
-          <p>Mousse, lichens et algues dégradent vos toitures et façades. Nos drones appliquent un traitement biocide biodégradable à action lente, sans haute pression ni échafaudage.</p>
+          <h3>Nettoyage de Toiture</h3>
+          <div class="service-subtitle">Nettoyage & Traitement</div>
+          <p>Tuiles, ardoises, bac acier — traitement biocide biodégradable à action lente par drone, sans haute pression ni échafaudage.</p>
           <span class="price-tag">À partir de 7,90 €/m²</span>
           <a href="#devis" class="service-link">Demander un devis →</a>
-          <a href="#" class="service-more" data-service="moss" onclick="openServiceModal(event,this)">En savoir plus →</a>
+          <a href="nettoyage-toiture-drone.html" class="service-more">En savoir plus →</a>
         </div>
       </div>
       <div class="service-card">
         <div class="service-top"></div>
         <div class="service-body">
-          <div class="service-icon-badge"><svg class="icon" width="26" height="26"><use href="#icon-building"></use></svg></div>
-          <h3>Nettoyage Façade & Toiture</h3>
-          <div class="service-subtitle">Drone Professionnel Certifié</div>
-          <p>Crépi, bardage, béton, pierre — intervention jusqu'à 50m de hauteur sans nacelle ni fermeture de voirie. Résultat impeccable en une demi-journée.</p>
-          <span class="price-tag">À partir de 7,90 €/m²</span>
+          <div class="service-icon-badge"><svg class="icon" width="26" height="26"><use href="#icon-solar"></use></svg></div>
+          <h3>Panneaux Solaires</h3>
+          <div class="service-subtitle">Drone & Perche Télescopique</div>
+          <p>Un panneau encrassé perd jusqu'à 20% de rendement. Nous intervenons à l'eau osmosée basse pression — sans trace, sans rayure, sans produit chimique.</p>
+          <span class="price-tag">À partir de 5,90 €/m²</span>
           <a href="#devis" class="service-link">Demander un devis →</a>
-          <a href="#" class="service-more" data-service="facade" onclick="openServiceModal(event,this)">En savoir plus →</a>
+          <a href="nettoyage-panneaux-solaires-drone.html" class="service-more">En savoir plus →</a>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-top"></div>
+        <div class="service-body">
+          <div class="service-icon-badge"><svg class="icon" width="26" height="26"><use href="#icon-window"></use></svg></div>
+          <h3>Nettoyage de Vitres</h3>
+          <div class="service-subtitle">Perche Télescopique & Eau Osmosée</div>
+          <p>Baies vitrées, vérandas, vitrines et façades vitrées — nettoyage sans trace à l'eau osmosée, drone en renfort pour les hauteurs inaccessibles.</p>
+          <span class="price-tag">À partir de 6,90 €/m²</span>
+          <a href="#devis" class="service-link">Demander un devis →</a>
+          <a href="nettoyage-vitres-drone.html" class="service-more">En savoir plus →</a>
         </div>
       </div>
     </div>
@@ -1373,16 +1265,26 @@
           <li><span>→</span>Idéal grandes surfaces & bâtiments inaccessibles</li>
           <li><span>→</span>Télépilote professionnel certifié</li>
         </ul>
+        <div class="method-domains">
+          <span class="method-domains-label">Utilisé pour :</span>
+          <a href="nettoyage-facade-drone.html" class="method-domain-tag">Façade</a>
+          <a href="nettoyage-toiture-drone.html" class="method-domain-tag">Toiture</a>
+        </div>
       </div>
       <div class="methode-col">
         <h3><span class="method-icon"><svg class="icon" width="20" height="20"><use href="#icon-droplet"></use></svg></span>La Perche Télescopique</h3>
         <ul>
           <li><span>→</span>Eau osmosée pure — zéro trace de calcaire</li>
-          <li><span>→</span>Basse pression — préserve cellules photovoltaïques</li>
-          <li><span>→</span>Idéal panneaux solaires faible hauteur</li>
+          <li><span>→</span>Basse pression — préserve cellules photovoltaïques et vitrages</li>
+          <li><span>→</span>Idéal panneaux solaires & vitres en faible hauteur</li>
           <li><span>→</span>Précision jusqu'à 12 mètres</li>
           <li><span>→</span>Combinable avec le drone sur le même chantier</li>
         </ul>
+        <div class="method-domains">
+          <span class="method-domains-label">Utilisé pour :</span>
+          <a href="nettoyage-panneaux-solaires-drone.html" class="method-domain-tag">Panneaux Solaires</a>
+          <a href="nettoyage-vitres-drone.html" class="method-domain-tag">Vitres</a>
+        </div>
       </div>
     </div>
     <div class="highlight-box">
@@ -1396,6 +1298,31 @@
     <h2 class="section-title">Tarifs clairs, sans surprise</h2>
     <p class="section-subtitle">Devis personnalisé gratuit sous 48h — tarifs de départ selon surface et accessibilité.</p>
     <div class="pricing-grid">
+      <div class="price-card highlighted">
+        <span class="badge-popular">Le plus demandé</span>
+        <h3>Façade</h3>
+        <div class="price-from">À partir de</div>
+        <div class="price-value">7,90 €/m²</div>
+        <ul>
+          <li>Nettoyage + traitement</li>
+          <li>Tous supports</li>
+          <li>Sans échafaudage</li>
+          <li>Compte-rendu inclus</li>
+        </ul>
+        <a href="#devis" class="btn btn-navy">Devis gratuit</a>
+      </div>
+      <div class="price-card">
+        <h3>Toiture</h3>
+        <div class="price-from">À partir de</div>
+        <div class="price-value">7,90 €/m²</div>
+        <ul>
+          <li>Nettoyage + traitement</li>
+          <li>Biocide biodégradable</li>
+          <li>Sans haute pression</li>
+          <li>Sans échafaudage</li>
+        </ul>
+        <a href="#devis" class="btn btn-navy">Devis gratuit</a>
+      </div>
       <div class="price-card">
         <h3>Panneaux Solaires</h3>
         <div class="price-from">À partir de</div>
@@ -1404,33 +1331,19 @@
           <li>Eau osmosée</li>
           <li>Basse pression</li>
           <li>Drone ou perche</li>
-          <li>Sans produit chimique</li>
           <li>Sans trace</li>
         </ul>
         <a href="#devis" class="btn btn-navy">Devis gratuit</a>
       </div>
-      <div class="price-card highlighted">
-        <span class="badge-popular">Le plus demandé</span>
-        <h3>Démoussage</h3>
-        <div class="price-from">À partir de</div>
-        <div class="price-value">7,90 €/m²</div>
-        <ul>
-          <li>Biocide biodégradable</li>
-          <li>Sans haute pression</li>
-          <li>Action lente</li>
-          <li>Protection durable</li>
-        </ul>
-        <a href="#devis" class="btn btn-navy">Devis gratuit</a>
-      </div>
       <div class="price-card">
-        <h3>Façade & Toiture</h3>
+        <h3>Vitres</h3>
         <div class="price-from">À partir de</div>
-        <div class="price-value">7,90 €/m²</div>
+        <div class="price-value">6,90 €/m²</div>
         <ul>
-          <li>Tous supports</li>
-          <li>Sans nacelle</li>
-          <li>Sans échafaudage</li>
-          <li>Compte-rendu inclus</li>
+          <li>Eau osmosée</li>
+          <li>Sans trace ni calcaire</li>
+          <li>Perche ou drone</li>
+          <li>Sans produit chimique</li>
         </ul>
         <a href="#devis" class="btn btn-navy">Devis gratuit</a>
       </div>
@@ -1456,16 +1369,20 @@
       </div>
       <div class="calculator-results">
         <div class="calculator-result">
+          <div class="label">Façade</div>
+          <div class="amount"><span class="approx">≈ </span><span id="result-facade">790 €</span></div>
+        </div>
+        <div class="calculator-result">
+          <div class="label">Toiture</div>
+          <div class="amount"><span class="approx">≈ </span><span id="result-toiture">790 €</span></div>
+        </div>
+        <div class="calculator-result">
           <div class="label">Panneaux Solaires</div>
           <div class="amount"><span class="approx">≈ </span><span id="result-solar">590 €</span></div>
         </div>
         <div class="calculator-result">
-          <div class="label">Démoussage</div>
-          <div class="amount"><span class="approx">≈ </span><span id="result-moss">790 €</span></div>
-        </div>
-        <div class="calculator-result">
-          <div class="label">Façade &amp; Toiture</div>
-          <div class="amount"><span class="approx">≈ </span><span id="result-facade">790 €</span></div>
+          <div class="label">Vitres</div>
+          <div class="amount"><span class="approx">≈ </span><span id="result-vitres">690 €</span></div>
         </div>
       </div>
       <div class="calculator-footer">
@@ -1568,11 +1485,10 @@
             <label for="prestation">Type de prestation *</label>
             <select id="prestation" name="prestation" required>
               <option value="">Sélectionnez...</option>
+              <option>Nettoyage de façade</option>
+              <option>Nettoyage de toiture</option>
               <option>Nettoyage panneaux solaires</option>
-              <option>Démoussage toiture</option>
-              <option>Démoussage façade</option>
-              <option>Nettoyage façade</option>
-              <option>Nettoyage toiture</option>
+              <option>Nettoyage de vitres</option>
               <option>Plusieurs prestations</option>
             </select>
           </div>
@@ -1690,15 +1606,6 @@
   </div>
 </section>
 
-<div class="modal-overlay" id="service-modal">
-  <div class="modal-panel" role="dialog" aria-modal="true">
-    <button class="modal-close" id="modal-close" aria-label="Fermer">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="4" x2="20" y2="20"></line><line x1="20" y1="4" x2="4" y2="20"></line></svg>
-    </button>
-    <div id="modal-body"></div>
-  </div>
-</div>
-
 <footer>
   <div class="container footer-top">
     <div class="footer-col">
@@ -1779,10 +1686,11 @@
   // Calculateur de prix
   const surfaceSlider = document.getElementById('surface-slider');
   const surfaceValue = document.getElementById('surface-value');
-  const resultSolar = document.getElementById('result-solar');
-  const resultMoss = document.getElementById('result-moss');
   const resultFacade = document.getElementById('result-facade');
-  const RATES = { solar: 5.9, moss: 7.9, facade: 7.9 };
+  const resultToiture = document.getElementById('result-toiture');
+  const resultSolar = document.getElementById('result-solar');
+  const resultVitres = document.getElementById('result-vitres');
+  const RATES = { facade: 7.9, toiture: 7.9, solar: 5.9, vitres: 6.9 };
   const discountBadge = document.getElementById('discount-badge');
 
   function formatEuro(n) {
@@ -1800,9 +1708,10 @@
     const surface = parseInt(surfaceSlider.value, 10);
     const discount = getDiscount(surface);
     surfaceValue.textContent = surface + ' m²';
-    resultSolar.textContent = formatEuro(surface * RATES.solar * (1 - discount));
-    resultMoss.textContent = formatEuro(surface * RATES.moss * (1 - discount));
     resultFacade.textContent = formatEuro(surface * RATES.facade * (1 - discount));
+    resultToiture.textContent = formatEuro(surface * RATES.toiture * (1 - discount));
+    resultSolar.textContent = formatEuro(surface * RATES.solar * (1 - discount));
+    resultVitres.textContent = formatEuro(surface * RATES.vitres * (1 - discount));
     discountBadge.style.visibility = discount > 0 ? 'visible' : 'hidden';
     const min = parseInt(surfaceSlider.min, 10);
     const max = parseInt(surfaceSlider.max, 10);
@@ -1856,138 +1765,6 @@
       submitBtn.disabled = false;
       submitBtn.textContent = submitBtnDefaultText;
     }
-  });
-
-  // Service detail modals
-  const serviceDetails = {
-    solar: {
-      icon: 'icon-solar',
-      title: 'Panneaux Solaires',
-      subtitle: 'Drone & Perche Télescopique',
-      body: `
-        <h4>Pourquoi faire appel à un professionnel ?</h4>
-        <p>Intervenir soi-même sur des panneaux en toiture est risqué — chute, glissade, endommagement des modules par une pression ou un produit inadapté. Nos équipes certifiées DGAC utilisent les techniques et les produits appropriés pour un résultat parfait en toute sécurité, sans risque pour votre installation ni pour vous.</p>
-
-        <h4>Le problème : un panneau sale, c'est de l'argent perdu</h4>
-        <p>Poussières, pollens, sable, fientes d'oiseaux et dépôts calcaires s'accumulent progressivement sur vos modules. Cette salissure, souvent invisible à l'œil nu, peut faire chuter le rendement énergétique de votre installation de 20 à 30 %. Sans entretien régulier, vous perdez de l'énergie chaque jour sans le savoir.</p>
-
-        <h4>Notre méthode : eau osmosée, basse pression, zéro risque</h4>
-        <p>Nous utilisons exclusivement de l'eau purifiée par osmose inverse — sans minéraux, sans produit chimique. Résultat garanti : aucune trace de calcaire au séchage, aucun risque pour les cellules photovoltaïques, les joints ou les revêtements anti-reflets de vos modules.</p>
-        <p>Selon la configuration de votre installation, nous intervenons avec deux outils complémentaires :</p>
-        <ul class="modal-tools">
-          <li><strong>Le drone</strong> — pour les toitures en hauteur, les surfaces inaccessibles ou les grandes installations. Le télépilote reste au sol, aucune pression mécanique sur vos panneaux, intervention rapide même sur les toits les plus difficiles d'accès.</li>
-          <li><strong>La perche télescopique water-fed</strong> — pour les installations en faible hauteur ou nécessitant plus de précision. La brosse douce combinée à l'eau osmosée assure un nettoyage en profondeur sans endommager la surface des modules.</li>
-        </ul>
-
-        <h4>Pour les particuliers</h4>
-        <p>Vous avez des panneaux solaires sur votre maison individuelle ? Nous intervenons rapidement, sans perturber votre quotidien, avec un matériel adapté à toutes les configurations de toitures résidentielles. Devis gratuit sous 48h.</p>
-
-        <h4>Pour les professionnels</h4>
-        <p>Gestionnaires de parcs photovoltaïques, propriétaires d'ombrières, exploitants agricoles, gestionnaires de bâtiments commerciaux — un entretien régulier est indispensable pour protéger votre investissement et maximiser votre production d'énergie. Nous proposons des contrats d'entretien annuels avec intervention planifiée et compte-rendu à chaque passage.</p>
-
-        <h4>Notre intervention en 4 étapes</h4>
-        <ol class="modal-steps">
-          <li><span class="modal-step-num">1</span><span class="modal-step-body"><strong>Analyse &amp; devis gratuit</strong><p>Évaluation de votre installation, de son accessibilité et de son état. Devis personnalisé sous 48h, sans engagement.</p></span></li>
-          <li><span class="modal-step-num">2</span><span class="modal-step-body"><strong>Planification</strong><p>Organisation de l'intervention selon les conditions météorologiques et votre disponibilité. Toutes nos déclarations de vol sont conformes aux exigences DGAC/EASA.</p></span></li>
-          <li><span class="modal-step-num">3</span><span class="modal-step-body"><strong>Nettoyage</strong><p>Intervention par drone ou perche selon la configuration. Eau osmosée, basse pression, contrôle en temps réel de chaque zone traitée.</p></span></li>
-          <li><span class="modal-step-num">4</span><span class="modal-step-body"><strong>Contrôle &amp; compte-rendu</strong><p>Inspection finale pour valider le résultat. Conseils d'entretien pour prolonger l'efficacité du traitement entre deux interventions.</p></span></li>
-        </ol>
-      `
-    },
-    moss: {
-      icon: 'icon-roof',
-      title: 'Démoussage',
-      subtitle: 'Traitement Biocide Écologique',
-      body: `
-        <h4>Le démoussage, une nécessité avant tout</h4>
-        <p>La mousse, les lichens et les algues ne sont pas qu'une question d'esthétique. Ces micro-organismes s'incrustent dans les matériaux, retiennent l'humidité et dégradent progressivement l'étanchéité de votre toiture ou de votre façade. À terme, ils favorisent les infiltrations d'eau et accélèrent la détérioration des enduits et des tuiles. En région Sud, les alternances de chaleur et d'humidité créent des conditions idéales pour leur développement rapide.</p>
-
-        <h4>Notre méthode : traitement à action lente</h4>
-        <p>Contrairement à la haute pression qui arrache la mousse sans traiter le problème en profondeur, nous appliquons par drone un traitement biocide biodégradable à action lente. Le produit pénètre en profondeur dans les matériaux, élimine les organismes à la racine, et continue d'agir plusieurs semaines après l'intervention. La mousse disparaît progressivement avec les pluies — sans agression mécanique sur vos tuiles ou votre enduit.</p>
-
-        <h4>Pourquoi pas la haute pression ?</h4>
-        <ul class="modal-list">
-          <li>Elle fragilise les tuiles et les crépis</li>
-          <li>Elle arrache sans traiter — la mousse revient plus vite</li>
-          <li>Elle peut provoquer des infiltrations sur les toitures fragilisées</li>
-          <li>Elle endommage les joints et les revêtements</li>
-        </ul>
-
-        <h4>Nos produits</h4>
-        <p>Biocides certifiés AMM, sans javel, sans chlore. Biodégradables et respectueux de l'environnement. Homologués pour un usage professionnel sur toitures et façades.</p>
-
-        <h4>Option traitement hydrofuge</h4>
-        <p>Après le démoussage, nous pouvons appliquer un traitement hydrofuge qui imperméabilise les matériaux poreux tout en les laissant respirer. Résultat : la mousse revient beaucoup plus lentement, et votre toiture est protégée durablement contre l'humidité.</p>
-
-        <h4>Pour qui ?</h4>
-        <p>Particuliers, copropriétés, bâtiments industriels, bâtiments agricoles, toute surface exposée à la mousse et aux organismes biologiques.</p>
-      `
-    },
-    facade: {
-      icon: 'icon-building',
-      title: 'Nettoyage Façade & Toiture',
-      subtitle: 'Drone Professionnel Certifié',
-      body: `
-        <h4>Le nettoyage, pour redonner éclat et protection</h4>
-        <p>Une toiture ou une façade encrassée par la pollution urbaine, les dépôts de suie, les traces noires ou les salissures biologiques finit par perdre son aspect et se dégrader. Ce n'est pas de la mousse, c'est l'accumulation de particules, de dépôts urbains et d'algues en surface qui altèrent l'esthétique et accélèrent le vieillissement des matériaux.</p>
-
-        <h4>Notre méthode : pulvérisation douce par drone</h4>
-        <p>Notre drone captif relié au sol pulvérise un nettoyant écologique adapté au type de surface. La pression est dosée précisément selon le matériau, suffisante pour éliminer les salissures, jamais agressive au point de fragiliser les supports. Le résultat est immédiat et visible dès la fin de l'intervention.</p>
-
-        <h4>Les supports que nous traitons</h4>
-        <ul class="modal-list">
-          <li><strong>Crépi &amp; enduit</strong> — nettoyage doux, préservation de la surface</li>
-          <li><strong>Bardage métallique ou composite</strong> — dégraissant adapté, sans produit corrosif</li>
-          <li><strong>Pierre naturelle</strong> — protocole spécifique, sans acide, sans haute pression</li>
-          <li><strong>Béton &amp; béton brut</strong> — élimination des traces noires, coulures et dépôts urbains</li>
-          <li><strong>Toiture tuiles, ardoises, bac acier</strong> — nettoyage de surface sans contact agressif</li>
-        </ul>
-
-        <h4>Une alternative au ravalement</h4>
-        <p>Un ravalement complet coûte cher et s'impose généralement tous les 10 à 15 ans. Un nettoyage régulier par drone repousse considérablement cette échéance en maintenant la façade propre et protégée à moindre coût. Un mur bien entretenu gagne facilement 10 à 15 ans de durée de vie.</p>
-
-        <h4>Intervention discrète, activité maintenue</h4>
-        <p>Pas de bâches, pas de fermeture de voirie, pas d'échafaudage. Nos drones interviennent depuis le sol sans perturber les occupants ni la circulation. Idéal pour les hôtels, restaurants, commerces et immeubles en activité. Interventions possibles en horaires décalés sur demande.</p>
-
-        <h4>Pour qui ?</h4>
-        <p>Particuliers souhaitant redonner de l'éclat à leur bien, copropriétés, hôtels et résidences touristiques, bâtiments commerciaux et industriels.</p>
-      `
-    }
-  };
-
-  const serviceModal = document.getElementById('service-modal');
-  const modalBody = document.getElementById('modal-body');
-  const modalClose = document.getElementById('modal-close');
-
-  function openServiceModal(event, el) {
-    event.preventDefault();
-    const key = el.getAttribute('data-service');
-    const data = serviceDetails[key];
-    if (!data) return;
-    modalBody.innerHTML = `
-      <div class="modal-header">
-        <span class="modal-icon-badge"><svg class="icon" width="26" height="26"><use href="#${data.icon}"></use></svg></span>
-        <h3>${data.title}</h3>
-      </div>
-      <div class="modal-subtitle">${data.subtitle}</div>
-      ${data.body}
-      <a href="#devis" class="btn btn-navy modal-cta" onclick="closeServiceModal()">Demander un devis →</a>
-    `;
-    serviceModal.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeServiceModal() {
-    serviceModal.classList.remove('open');
-    document.body.style.overflow = '';
-  }
-
-  modalClose.addEventListener('click', closeServiceModal);
-  serviceModal.addEventListener('click', (e) => {
-    if (e.target === serviceModal) closeServiceModal();
-  });
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && serviceModal.classList.contains('open')) closeServiceModal();
   });
 </script>
 
