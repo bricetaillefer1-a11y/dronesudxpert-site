@@ -144,6 +144,40 @@
   .content-tools{margin-top:14px;display:flex;flex-direction:column;gap:14px;}
   .content-tools li{background:var(--highlight);border-radius:10px;padding:14px 16px;font-size:0.98rem;color:#333;line-height:1.6;}
   .content-tools li strong{color:var(--navy);}
+  .photo-gallery{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+    margin:24px 0 32px;
+  }
+  .photo-card{
+    position:relative;
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow:0 14px 36px rgba(26,58,92,0.18);
+  }
+  .photo-card img{
+    width:100%;
+    height:280px;
+    object-fit:cover;
+    display:block;
+    transition:transform .5s ease;
+  }
+  .photo-card:hover img{transform:scale(1.06);}
+  .photo-card figcaption{
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:0;
+    background:linear-gradient(0deg, rgba(13,13,13,0.75) 0%, rgba(13,13,13,0) 100%);
+    color:#fff;
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:800;
+    font-size:1.15rem;
+    letter-spacing:0.6px;
+    text-transform:uppercase;
+    padding:34px 18px 14px;
+  }
   .content-aside{position:sticky;top:130px;}
   .aside-card{
     border:2px solid var(--navy);
@@ -195,6 +229,7 @@
     .content-aside{position:static;}
     .footer-top{grid-template-columns:1fr;}
     .section{padding:56px 0;}
+    .photo-gallery{grid-template-columns:1fr;}
   }
 </style>
 </head>
@@ -273,6 +308,17 @@
 
       <h4>Notre méthode : nettoyage et traitement combinés, par drone</h4>
       <p>Notre drone captif relié au sol pulvérise un nettoyant écologique adapté au type de surface, avec une pression dosée précisément selon le matériau — suffisante pour éliminer les salissures, jamais agressive au point de fragiliser les supports. Lorsque de la mousse ou des organismes biologiques sont présents, nous appliquons en complément un traitement biocide biodégradable à action lente : il pénètre en profondeur, élimine les organismes à la racine, et continue d'agir plusieurs semaines après l'intervention.</p>
+
+      <div class="photo-gallery">
+        <figure class="photo-card">
+          <img src="assets/facade-nettoyage.jpg" alt="Nettoyage de façade par drone - DroneSudXpert" loading="lazy">
+          <figcaption>Nettoyage</figcaption>
+        </figure>
+        <figure class="photo-card">
+          <img src="assets/facade-traitement.jpg" alt="Traitement anti-mousse de façade par drone - DroneSudXpert" loading="lazy">
+          <figcaption>Traitement</figcaption>
+        </figure>
+      </div>
 
       <h4>Les supports que nous traitons</h4>
       <ul class="content-list">
