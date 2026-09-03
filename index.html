@@ -606,13 +606,13 @@
   /* TARIFS */
   .pricing-grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:28px;
+    grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+    gap:18px;
   }
   .price-card{
     border:1px solid var(--border);
     border-radius:12px;
-    padding:36px 28px;
+    padding:24px 18px;
     background:#fff;
     position:relative;
     display:flex;
@@ -629,20 +629,20 @@
   }
   .badge-popular{
     position:absolute;
-    top:-14px;
+    top:-13px;
     left:50%;
     transform:translateX(-50%);
     background:var(--navy);
     color:#fff;
-    font-size:0.78rem;
+    font-size:0.68rem;
     font-weight:700;
-    padding:6px 16px;
+    padding:5px 12px;
     border-radius:20px;
     white-space:nowrap;
   }
-  .price-card h3{font-size:1.5rem;margin-bottom:6px;}
+  .price-card h3{font-size:1.15rem;margin-bottom:4px;}
   .price-from{
-    font-size:0.85rem;
+    font-size:0.72rem;
     font-weight:600;
     color:#666;
     text-transform:uppercase;
@@ -651,17 +651,18 @@
   }
   .price-value{
     font-family:'Barlow Condensed',sans-serif;
-    font-size:2.6rem;
+    font-size:1.7rem;
     font-weight:900;
     color:var(--navy);
-    margin-bottom:18px;
+    margin-bottom:12px;
   }
-  .price-card ul{margin-bottom:16px;flex:1;}
+  .price-card ul{margin-bottom:12px;flex:1;}
   .price-card ul li{
-    padding:6px 0;
-    font-size:0.95rem;
+    padding:4px 0;
+    font-size:0.82rem;
     color:#444;
   }
+  .price-card .btn{padding:11px 12px;font-size:0.85rem;}
   .price-card ul li::before{
     content:"✓ ";
     color:var(--accent);
