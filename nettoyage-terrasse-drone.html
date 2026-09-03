@@ -99,8 +99,10 @@
   .nav-links{display:flex;gap:32px;}
   .nav-links a{font-weight:600;font-size:0.98rem;transition:color .2s ease;}
   .nav-links a:hover{color:var(--accent);}
-  .nav-cta{display:flex;align-items:center;}
-  .nav-cta .btn{padding:10px 22px;font-size:0.95rem;border-radius:30px;}
+  .nav-cta{display:flex;align-items:center;gap:10px;}
+  .nav-cta .btn{padding:10px 20px;font-size:0.92rem;border-radius:30px;white-space:nowrap;}
+  .btn-outline-navy{background:transparent;color:var(--navy);border:2px solid var(--navy);}
+  .btn-outline-navy:hover{background:var(--highlight);}
   .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:6px;}
   .hamburger span{width:26px;height:3px;background:var(--text);border-radius:2px;transition:.3s;}
   .mobile-nav{
@@ -222,6 +224,7 @@
       <a href="index.html#contact">Contact</a>
     </nav>
     <div class="nav-cta">
+      <a href="simulation.html" class="btn btn-outline-navy">Ma simulation</a>
       <a href="index.html#devis" class="btn btn-navy">Devis 48h →</a>
     </div>
     <button class="hamburger" id="hamburger" aria-label="Menu">
@@ -239,6 +242,7 @@
   <a href="index.html#zones">Zones</a>
   <a href="index.html#devis">Devis</a>
   <a href="index.html#contact">Contact</a>
+  <a href="simulation.html" class="btn btn-navy" style="margin-top:8px;">Démarrer une simulation →</a>
 </div>
 
 <section class="page-hero">
