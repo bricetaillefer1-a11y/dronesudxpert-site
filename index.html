@@ -431,12 +431,17 @@
   }
   .service-more:hover{color:var(--navy);}
   .photo-feature{
+    max-width:640px;
+    margin:56px auto 0;
     border-radius:14px;
     overflow:hidden;
     box-shadow:0 14px 36px rgba(26,58,92,0.18);
-    margin-top:56px;
   }
-  .photo-feature img{width:100%;aspect-ratio:3/2;object-fit:cover;object-position:center;display:block;}
+  .photo-feature img{width:100%;aspect-ratio:4/3;object-fit:cover;object-position:center;display:block;}
+  .photo-feature.photo-wide{max-width:720px;}
+  .photo-feature.photo-wide img{aspect-ratio:3/2;}
+  .photo-feature.photo-tall{max-width:400px;}
+  .photo-feature.photo-tall img{aspect-ratio:3/4;}
 
   /* METHODE */
   .methode-section{
@@ -1331,7 +1336,7 @@
         </div>
       </div>
     </div>
-    <figure class="photo-feature">
+    <figure class="photo-feature photo-wide">
       <img src="assets/equipe-terrain.jpg" alt="Technicien DroneSudXpert préparant le drone avant intervention" loading="lazy">
     </figure>
   </div>
@@ -1531,7 +1536,7 @@
       </div>
     </div>
 
-    <figure class="photo-feature" style="margin-top:0;margin-bottom:44px;">
+    <figure class="photo-feature photo-tall" style="margin:32px auto 44px;">
       <img src="assets/toiture-traitement.jpg" alt="Intervention par drone en hauteur sans échafaudage - DroneSudXpert" loading="lazy">
     </figure>
 
