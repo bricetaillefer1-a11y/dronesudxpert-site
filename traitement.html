@@ -132,6 +132,7 @@
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
     gap:28px;
+    align-items:start;
   }
   .service-card{
     border:1px solid var(--border);
@@ -207,6 +208,13 @@
     transition:color .2s ease;
   }
   .service-more:hover{color:var(--navy);}
+  .service-photo{
+    width:calc(100% + 56px);
+    margin:20px -28px 0;
+    height:200px;
+    object-fit:cover;
+    display:block;
+  }
   .photo-feature{
     border-radius:14px;
     overflow:hidden;
@@ -353,6 +361,7 @@
           <span class="price-tag">À partir de 7,90 €/m²</span>
           <a href="index.html#devis" class="service-link">Demander un devis →</a>
           <a href="traitement-toiture-drone.html" class="service-more">En savoir plus →</a>
+          <img class="service-photo" src="assets/toiture-traitement.jpg" alt="Traitement anti-mousse de toiture par drone - DroneSudXpert" loading="lazy">
         </div>
       </div>
     </div>
