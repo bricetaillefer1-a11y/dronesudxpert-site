@@ -309,52 +309,6 @@
 <section class="section">
   <div class="container sim-grid">
     <div>
-      <div class="sim-card">
-        <div class="sim-card-header">
-          <div class="sim-icon-badge"><svg class="icon" width="22" height="22"><use href="#icon-building"></use></svg></div>
-          <div>
-            <h3>Façade</h3>
-            <div class="sim-rate">7,90 €/m² TTC</div>
-          </div>
-        </div>
-        <div class="sim-slider-row">
-          <div class="sim-slider-label">
-            <span>Surface à traiter</span>
-            <span id="facade-value">0 m²</span>
-          </div>
-          <div class="sim-discount" id="facade-discount">✓ Réduction appliquée</div>
-          <input type="range" min="0" max="1000" step="10" value="0" class="sim-slider" id="facade-slider" aria-label="Surface de façade en m²">
-          <div class="sim-scale"><span>0 m²</span><span>1000 m²</span></div>
-        </div>
-        <div class="sim-price-row">
-          <div class="sim-price-ttc"><span>Prix TTC</span><strong id="facade-ttc">0 €</strong></div>
-          <div class="sim-price-ht"><span>Prix HT</span><strong id="facade-ht">0 €</strong></div>
-        </div>
-      </div>
-
-      <div class="sim-card">
-        <div class="sim-card-header">
-          <div class="sim-icon-badge"><svg class="icon" width="22" height="22"><use href="#icon-roof"></use></svg></div>
-          <div>
-            <h3>Toiture</h3>
-            <div class="sim-rate">7,90 €/m² TTC</div>
-          </div>
-        </div>
-        <div class="sim-slider-row">
-          <div class="sim-slider-label">
-            <span>Surface à traiter</span>
-            <span id="toiture-value">0 m²</span>
-          </div>
-          <div class="sim-discount" id="toiture-discount">✓ Réduction appliquée</div>
-          <input type="range" min="0" max="1000" step="10" value="0" class="sim-slider" id="toiture-slider" aria-label="Surface de toiture en m²">
-          <div class="sim-scale"><span>0 m²</span><span>1000 m²</span></div>
-        </div>
-        <div class="sim-price-row">
-          <div class="sim-price-ttc"><span>Prix TTC</span><strong id="toiture-ttc">0 €</strong></div>
-          <div class="sim-price-ht"><span>Prix HT</span><strong id="toiture-ht">0 €</strong></div>
-        </div>
-      </div>
-
       <div class="sim-card sim-card-treatment">
         <div class="sim-card-header">
           <div class="sim-icon-badge"><svg class="icon" width="22" height="22"><use href="#icon-leaf"></use></svg></div>
@@ -381,9 +335,55 @@
 
       <div class="sim-card">
         <div class="sim-card-header">
+          <div class="sim-icon-badge"><svg class="icon" width="22" height="22"><use href="#icon-building"></use></svg></div>
+          <div>
+            <h3>Nettoyage Façade</h3>
+            <div class="sim-rate">7,90 €/m² TTC</div>
+          </div>
+        </div>
+        <div class="sim-slider-row">
+          <div class="sim-slider-label">
+            <span>Surface à traiter</span>
+            <span id="facade-value">0 m²</span>
+          </div>
+          <div class="sim-discount" id="facade-discount">✓ Réduction appliquée</div>
+          <input type="range" min="0" max="1000" step="10" value="0" class="sim-slider" id="facade-slider" aria-label="Surface de façade en m²">
+          <div class="sim-scale"><span>0 m²</span><span>1000 m²</span></div>
+        </div>
+        <div class="sim-price-row">
+          <div class="sim-price-ttc"><span>Prix TTC</span><strong id="facade-ttc">0 €</strong></div>
+          <div class="sim-price-ht"><span>Prix HT</span><strong id="facade-ht">0 €</strong></div>
+        </div>
+      </div>
+
+      <div class="sim-card">
+        <div class="sim-card-header">
+          <div class="sim-icon-badge"><svg class="icon" width="22" height="22"><use href="#icon-roof"></use></svg></div>
+          <div>
+            <h3>Nettoyage Toiture</h3>
+            <div class="sim-rate">7,90 €/m² TTC</div>
+          </div>
+        </div>
+        <div class="sim-slider-row">
+          <div class="sim-slider-label">
+            <span>Surface à traiter</span>
+            <span id="toiture-value">0 m²</span>
+          </div>
+          <div class="sim-discount" id="toiture-discount">✓ Réduction appliquée</div>
+          <input type="range" min="0" max="1000" step="10" value="0" class="sim-slider" id="toiture-slider" aria-label="Surface de toiture en m²">
+          <div class="sim-scale"><span>0 m²</span><span>1000 m²</span></div>
+        </div>
+        <div class="sim-price-row">
+          <div class="sim-price-ttc"><span>Prix TTC</span><strong id="toiture-ttc">0 €</strong></div>
+          <div class="sim-price-ht"><span>Prix HT</span><strong id="toiture-ht">0 €</strong></div>
+        </div>
+      </div>
+
+      <div class="sim-card">
+        <div class="sim-card-header">
           <div class="sim-icon-badge"><svg class="icon" width="22" height="22"><use href="#icon-solar"></use></svg></div>
           <div>
-            <h3>Panneaux Solaires</h3>
+            <h3>Nettoyage Panneaux Solaires</h3>
             <div class="sim-rate">5,90 €/m² TTC</div>
           </div>
         </div>
@@ -406,7 +406,7 @@
         <div class="sim-card-header">
           <div class="sim-icon-badge"><svg class="icon" width="22" height="22"><use href="#icon-window"></use></svg></div>
           <div>
-            <h3>Vitres</h3>
+            <h3>Nettoyage Vitres</h3>
             <div class="sim-rate">6,90 €/m² TTC</div>
           </div>
         </div>
@@ -509,11 +509,11 @@
   // Simulateur
   const TVA = 1.2;
   const SERVICES = [
-    { key: 'facade', label: 'Façade (nettoyage)', rate: 7.9, prestation: 'Nettoyage de façade' },
-    { key: 'toiture', label: 'Toiture (nettoyage)', rate: 7.9, prestation: 'Nettoyage de toiture' },
     { key: 'traitement', label: 'Traitement', rate: 7.9, prestation: 'Traitement de façade/toiture', color: '#2f9e6b' },
-    { key: 'solar', label: 'Panneaux Solaires', rate: 5.9, prestation: 'Nettoyage panneaux solaires' },
-    { key: 'vitres', label: 'Vitres', rate: 6.9, prestation: 'Nettoyage de vitres' },
+    { key: 'facade', label: 'Nettoyage Façade', rate: 7.9, prestation: 'Nettoyage de façade' },
+    { key: 'toiture', label: 'Nettoyage Toiture', rate: 7.9, prestation: 'Nettoyage de toiture' },
+    { key: 'solar', label: 'Nettoyage Panneaux Solaires', rate: 5.9, prestation: 'Nettoyage panneaux solaires' },
+    { key: 'vitres', label: 'Nettoyage Vitres', rate: 6.9, prestation: 'Nettoyage de vitres' },
   ];
 
   function formatEuro(n) {
