@@ -252,37 +252,6 @@
     font-size:2rem;
     font-weight:700;
   }
-  .mobile-nav-dropdown{width:100%;text-align:center;}
-  .mobile-nav-toggle{
-    font-family:'Barlow Condensed',sans-serif;
-    font-size:2rem;
-    font-weight:700;
-    background:none;
-    border:none;
-    cursor:pointer;
-    color:var(--text);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:8px;
-    margin:0 auto;
-  }
-  .mobile-nav-toggle .nav-dropdown-arrow{font-size:1.1rem;}
-  .mobile-nav-toggle.open .nav-dropdown-arrow{transform:rotate(180deg);}
-  .mobile-nav-submenu{
-    display:none;
-    flex-direction:column;
-    align-items:center;
-    gap:16px;
-    margin-top:18px;
-  }
-  .mobile-nav-submenu.open{display:flex;}
-  .mobile-nav-submenu a{
-    font-family:'Barlow',sans-serif;
-    font-size:1.1rem;
-    font-weight:600;
-    color:#555;
-  }
   .mobile-close{
     position:absolute;
     top:24px;
@@ -1240,7 +1209,7 @@
     <nav class="nav-links">
       <a href="#accueil">Accueil</a>
       <div class="nav-dropdown">
-        <a href="#services" class="nav-dropdown-toggle">Nettoyage <span class="nav-dropdown-arrow">▾</span></a>
+        <a href="nettoyage.html" class="nav-dropdown-toggle">Nettoyage <span class="nav-dropdown-arrow">▾</span></a>
         <div class="nav-dropdown-menu">
           <a href="nettoyage-facade-drone.html">Nettoyage de Façade</a>
           <a href="nettoyage-toiture-drone.html">Nettoyage de Toiture</a>
@@ -1250,14 +1219,14 @@
         </div>
       </div>
       <div class="nav-dropdown">
-        <a href="#services" class="nav-dropdown-toggle">Traitement <span class="nav-dropdown-arrow">▾</span></a>
+        <a href="traitement.html" class="nav-dropdown-toggle">Traitement <span class="nav-dropdown-arrow">▾</span></a>
         <div class="nav-dropdown-menu">
           <a href="traitement-facade-drone.html">Traitement de Façade</a>
           <a href="traitement-toiture-drone.html">Traitement de Toiture</a>
         </div>
       </div>
       <div class="nav-dropdown">
-        <a href="#services" class="nav-dropdown-toggle">Inspection <span class="nav-dropdown-arrow">▾</span></a>
+        <a href="inspection.html" class="nav-dropdown-toggle">Inspection <span class="nav-dropdown-arrow">▾</span></a>
         <div class="nav-dropdown-menu">
           <a href="prise-de-vue-drone.html">Prise de Vue</a>
           <a href="inspection-technique-drone.html">Inspection Technique</a>
@@ -1282,30 +1251,9 @@
 <div class="mobile-nav" id="mobile-nav">
   <button class="mobile-close" id="mobile-close" aria-label="Fermer">✕</button>
   <a href="#accueil">Accueil</a>
-  <div class="mobile-nav-dropdown">
-    <button class="mobile-nav-toggle" data-target="mnd-nettoyage">Nettoyage <span class="nav-dropdown-arrow">▾</span></button>
-    <div class="mobile-nav-submenu" id="mnd-nettoyage">
-      <a href="nettoyage-facade-drone.html">Nettoyage de Façade</a>
-      <a href="nettoyage-toiture-drone.html">Nettoyage de Toiture</a>
-      <a href="nettoyage-panneaux-solaires-drone.html">Panneaux Solaires</a>
-      <a href="nettoyage-vitres-drone.html">Nettoyage de Vitres</a>
-      <a href="nettoyage-terrasse-drone.html">Nettoyage de Terrasse</a>
-    </div>
-  </div>
-  <div class="mobile-nav-dropdown">
-    <button class="mobile-nav-toggle" data-target="mnd-traitement">Traitement <span class="nav-dropdown-arrow">▾</span></button>
-    <div class="mobile-nav-submenu" id="mnd-traitement">
-      <a href="traitement-facade-drone.html">Traitement de Façade</a>
-      <a href="traitement-toiture-drone.html">Traitement de Toiture</a>
-    </div>
-  </div>
-  <div class="mobile-nav-dropdown">
-    <button class="mobile-nav-toggle" data-target="mnd-inspection">Inspection <span class="nav-dropdown-arrow">▾</span></button>
-    <div class="mobile-nav-submenu" id="mnd-inspection">
-      <a href="prise-de-vue-drone.html">Prise de Vue</a>
-      <a href="inspection-technique-drone.html">Inspection Technique</a>
-    </div>
-  </div>
+  <a href="nettoyage.html">Nettoyage</a>
+  <a href="traitement.html">Traitement</a>
+  <a href="inspection.html">Inspection</a>
   <a href="#methode">Méthode</a>
   <a href="#tarifs">Tarifs</a>
   <a href="#pourquoi-drone">Pourquoi le Drone ?</a>
@@ -1337,130 +1285,42 @@
 <section class="section" id="services">
   <div class="container">
     <h2 class="section-title">Nos prestations</h2>
-    <p class="section-subtitle">Des interventions rapides, précises et sans risque, organisées en trois domaines complémentaires.</p>
-
-    <div class="domain-group">
-      <h3 class="domain-title">Nettoyage</h3>
-      <div class="services-grid">
-        <div class="service-card">
-          <div class="service-top"></div>
-          <div class="service-body">
-            <div class="service-icon-badge"><svg class="icon" width="26" height="26"><use href="#icon-building"></use></svg></div>
-            <h3>Nettoyage de Façade</h3>
-            <div class="service-subtitle">Produit Actif & Haute Pression</div>
-            <p>Crépi, bardage, béton — un produit actif puis un rinçage haute pression par drone, pour une façade encrassée par la pollution.</p>
-            <span class="price-tag">À partir de 7,90 €/m²</span>
-            <a href="#devis" class="service-link">Demander un devis →</a>
-            <a href="nettoyage-facade-drone.html" class="service-more">En savoir plus →</a>
-          </div>
-        </div>
-        <div class="service-card">
-          <div class="service-top"></div>
-          <div class="service-body">
-            <div class="service-icon-badge"><svg class="icon" width="26" height="26"><use href="#icon-roof"></use></svg></div>
-            <h3>Nettoyage de Toiture</h3>
-            <div class="service-subtitle">Produit Actif & Haute Pression</div>
-            <p>Tuiles, ardoises, bac acier — un produit actif puis un rinçage haute pression par drone, sans échafaudage.</p>
-            <span class="price-tag">À partir de 7,90 €/m²</span>
-            <a href="#devis" class="service-link">Demander un devis →</a>
-            <a href="nettoyage-toiture-drone.html" class="service-more">En savoir plus →</a>
-          </div>
-        </div>
-        <div class="service-card">
-          <div class="service-top"></div>
-          <div class="service-body">
-            <div class="service-icon-badge"><svg class="icon" width="26" height="26"><use href="#icon-solar"></use></svg></div>
-            <h3>Panneaux Solaires</h3>
-            <div class="service-subtitle">Drone & Perche Télescopique</div>
-            <p>Un panneau encrassé perd jusqu'à 20% de rendement. Nous intervenons à l'eau osmosée basse pression — sans trace, sans rayure, sans produit chimique.</p>
-            <span class="price-tag">À partir de 5,90 €/m²</span>
-            <a href="#devis" class="service-link">Demander un devis →</a>
-            <a href="nettoyage-panneaux-solaires-drone.html" class="service-more">En savoir plus →</a>
-          </div>
-        </div>
-        <div class="service-card">
-          <div class="service-top"></div>
-          <div class="service-body">
-            <div class="service-icon-badge"><svg class="icon" width="26" height="26"><use href="#icon-window"></use></svg></div>
-            <h3>Nettoyage de Vitres</h3>
-            <div class="service-subtitle">Perche Télescopique & Eau Osmosée</div>
-            <p>Baies vitrées, vérandas, vitrines et façades vitrées — nettoyage sans trace à l'eau osmosée, drone en renfort pour les hauteurs inaccessibles.</p>
-            <span class="price-tag">À partir de 6,90 €/m²</span>
-            <a href="#devis" class="service-link">Demander un devis →</a>
-            <a href="nettoyage-vitres-drone.html" class="service-more">En savoir plus →</a>
-          </div>
-        </div>
-        <div class="service-card">
-          <div class="service-top"></div>
-          <div class="service-body">
-            <div class="service-icon-badge"><svg class="icon" width="26" height="26"><use href="#icon-terrace"></use></svg></div>
-            <h3>Nettoyage de Terrasse</h3>
-            <div class="service-subtitle">Produit Éco-responsable & Haute Pression</div>
-            <p>Carrelage, pierre naturelle, dallage — un produit éco-responsable puis un rinçage haute pression pour une terrasse impeccable.</p>
-            <span class="price-tag">Sur devis</span>
-            <a href="#devis" class="service-link">Demander un devis →</a>
-            <a href="nettoyage-terrasse-drone.html" class="service-more">En savoir plus →</a>
-          </div>
+    <p class="section-subtitle">Trois domaines complémentaires, chacun regroupant plusieurs prestations adaptées à votre bâtiment.</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-top"></div>
+        <div class="service-body">
+          <div class="service-icon-badge"><svg class="icon" width="26" height="26"><use href="#icon-droplet"></use></svg></div>
+          <h3>Nettoyage</h3>
+          <div class="service-subtitle">5 prestations</div>
+          <p>Façade, toiture, panneaux solaires, vitres, terrasse — un produit actif puis un rinçage haute pression, pour retrouver des surfaces impeccables.</p>
+          <span class="price-tag">À partir de 5,90 €/m²</span>
+          <a href="#devis" class="service-link">Demander un devis →</a>
+          <a href="nettoyage.html" class="service-more">Découvrir le nettoyage →</a>
         </div>
       </div>
-    </div>
-
-    <div class="domain-group">
-      <h3 class="domain-title">Traitement</h3>
-      <div class="services-grid">
-        <div class="service-card">
-          <div class="service-top"></div>
-          <div class="service-body">
-            <div class="service-icon-badge"><svg class="icon" width="26" height="26"><use href="#icon-building"></use></svg></div>
-            <h3>Traitement de Façade</h3>
-            <div class="service-subtitle">Action Lente & Éco-responsable</div>
-            <p>Mousse, lichens, micro-organismes — un traitement biocide à action lente (environ 6 mois), sans haute pression, pour une façade fragile ou envahie.</p>
-            <span class="price-tag">À partir de 7,90 €/m²</span>
-            <a href="#devis" class="service-link">Demander un devis →</a>
-            <a href="traitement-facade-drone.html" class="service-more">En savoir plus →</a>
-          </div>
-        </div>
-        <div class="service-card">
-          <div class="service-top"></div>
-          <div class="service-body">
-            <div class="service-icon-badge"><svg class="icon" width="26" height="26"><use href="#icon-roof"></use></svg></div>
-            <h3>Traitement de Toiture</h3>
-            <div class="service-subtitle">Action Lente & Éco-responsable</div>
-            <p>Mousse et micro-organismes éliminés à la racine, option hydrofuge, sans agresser vos tuiles ni votre couverture.</p>
-            <span class="price-tag">À partir de 7,90 €/m²</span>
-            <a href="#devis" class="service-link">Demander un devis →</a>
-            <a href="traitement-toiture-drone.html" class="service-more">En savoir plus →</a>
-          </div>
+      <div class="service-card">
+        <div class="service-top"></div>
+        <div class="service-body">
+          <div class="service-icon-badge"><svg class="icon" width="26" height="26"><use href="#icon-leaf"></use></svg></div>
+          <h3>Traitement</h3>
+          <div class="service-subtitle">2 prestations</div>
+          <p>Façade et toiture — un traitement biocide à action lente, éco-responsable, qui élimine mousse et micro-organismes sans haute pression.</p>
+          <span class="price-tag">À partir de 7,90 €/m²</span>
+          <a href="#devis" class="service-link">Demander un devis →</a>
+          <a href="traitement.html" class="service-more">Découvrir le traitement →</a>
         </div>
       </div>
-    </div>
-
-    <div class="domain-group">
-      <h3 class="domain-title">Inspection</h3>
-      <div class="services-grid">
-        <div class="service-card">
-          <div class="service-top"></div>
-          <div class="service-body">
-            <div class="service-icon-badge"><svg class="icon" width="26" height="26"><use href="#icon-camera"></use></svg></div>
-            <h3>Prise de Vue</h3>
-            <div class="service-subtitle">Photo, Vidéo 4K & Thermique</div>
-            <p>Suivi de chantier, valorisation de biens, communication d'entreprise — images aériennes 4K, avec option caméra thermique.</p>
-            <span class="price-tag">Sur devis</span>
-            <a href="#devis" class="service-link">Demander un devis →</a>
-            <a href="prise-de-vue-drone.html" class="service-more">En savoir plus →</a>
-          </div>
-        </div>
-        <div class="service-card">
-          <div class="service-top"></div>
-          <div class="service-body">
-            <div class="service-icon-badge"><svg class="icon" width="26" height="26"><use href="#icon-scan"></use></svg></div>
-            <h3>Inspection Technique</h3>
-            <div class="service-subtitle">Diagnostic Visuel & Thermique</div>
-            <p>Toitures, façades, panneaux solaires, ouvrages industriels — repérez fissures et anomalies sans échafaudage.</p>
-            <span class="price-tag">Sur devis</span>
-            <a href="#devis" class="service-link">Demander un devis →</a>
-            <a href="inspection-technique-drone.html" class="service-more">En savoir plus →</a>
-          </div>
+      <div class="service-card">
+        <div class="service-top"></div>
+        <div class="service-body">
+          <div class="service-icon-badge"><svg class="icon" width="26" height="26"><use href="#icon-scan"></use></svg></div>
+          <h3>Inspection</h3>
+          <div class="service-subtitle">2 prestations</div>
+          <p>Prise de vue et inspection technique par drone — images 4K, caméra thermique, diagnostic sans échafaudage.</p>
+          <span class="price-tag">Sur devis</span>
+          <a href="#devis" class="service-link">Demander un devis →</a>
+          <a href="inspection.html" class="service-more">Découvrir l'inspection →</a>
         </div>
       </div>
     </div>
@@ -1901,15 +1761,6 @@
   mobileClose.addEventListener('click', () => mobileNav.classList.remove('open'));
   mobileNav.querySelectorAll('a').forEach(a => {
     a.addEventListener('click', () => mobileNav.classList.remove('open'));
-  });
-
-  // Sous-menus déroulants du menu mobile (Nettoyage / Traitement / Inspection)
-  document.querySelectorAll('.mobile-nav-toggle').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const submenu = document.getElementById(btn.dataset.target);
-      submenu.classList.toggle('open');
-      btn.classList.toggle('open');
-    });
   });
 
   // Cartes de services entièrement cliquables vers la page dédiée
