@@ -136,6 +136,7 @@
   .sim-slider-row{margin-bottom:18px;}
   .sim-slider-label{display:flex;justify-content:space-between;font-weight:600;font-size:0.95rem;margin-bottom:10px;}
   .sim-slider-label span:last-child{color:var(--navy);font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.1rem;}
+  .sim-discount{font-size:0.85rem;font-weight:600;color:#1a8a4a;margin-bottom:10px;visibility:hidden;}
   .sim-slider{
     -webkit-appearance:none;appearance:none;
     width:100%;height:8px;border-radius:5px;
@@ -311,6 +312,7 @@
             <span>Surface à traiter</span>
             <span id="facade-value">0 m²</span>
           </div>
+          <div class="sim-discount" id="facade-discount">✓ Réduction appliquée</div>
           <input type="range" min="0" max="1000" step="10" value="0" class="sim-slider" id="facade-slider" aria-label="Surface de façade en m²">
           <div class="sim-scale"><span>0 m²</span><span>1000 m²</span></div>
         </div>
@@ -333,6 +335,7 @@
             <span>Surface à traiter</span>
             <span id="toiture-value">0 m²</span>
           </div>
+          <div class="sim-discount" id="toiture-discount">✓ Réduction appliquée</div>
           <input type="range" min="0" max="1000" step="10" value="0" class="sim-slider" id="toiture-slider" aria-label="Surface de toiture en m²">
           <div class="sim-scale"><span>0 m²</span><span>1000 m²</span></div>
         </div>
@@ -355,6 +358,7 @@
             <span>Surface à traiter</span>
             <span id="solar-value">0 m²</span>
           </div>
+          <div class="sim-discount" id="solar-discount">✓ Réduction appliquée</div>
           <input type="range" min="0" max="1000" step="10" value="0" class="sim-slider" id="solar-slider" aria-label="Surface de panneaux solaires en m²">
           <div class="sim-scale"><span>0 m²</span><span>1000 m²</span></div>
         </div>
@@ -377,6 +381,7 @@
             <span>Surface à traiter</span>
             <span id="vitres-value">0 m²</span>
           </div>
+          <div class="sim-discount" id="vitres-discount">✓ Réduction appliquée</div>
           <input type="range" min="0" max="1000" step="10" value="0" class="sim-slider" id="vitres-slider" aria-label="Surface de vitres en m²">
           <div class="sim-scale"><span>0 m²</span><span>1000 m²</span></div>
         </div>
@@ -521,6 +526,7 @@
     const valueEl = document.getElementById(s.key + '-value');
     const ttcEl = document.getElementById(s.key + '-ttc');
     const htEl = document.getElementById(s.key + '-ht');
+    const discountEl = document.getElementById(s.key + '-discount');
 
     function update() {
       const surface = parseInt(slider.value, 10);
@@ -530,6 +536,12 @@
       valueEl.textContent = surface + ' m²';
       ttcEl.textContent = formatEuro(ttc);
       htEl.textContent = formatEuro(ht);
+      if (discount > 0) {
+        discountEl.textContent = `✓ Réduction de ${Math.round(discount * 100)}% appliquée dès ${surface >= 600 ? 600 : surface >= 300 ? 300 : 150} m²`;
+        discountEl.style.visibility = 'visible';
+      } else {
+        discountEl.style.visibility = 'hidden';
+      }
       const min = parseInt(slider.min, 10);
       const max = parseInt(slider.max, 10);
       const pct = ((surface - min) / (max - min)) * 100;
