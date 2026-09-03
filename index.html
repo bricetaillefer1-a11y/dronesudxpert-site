@@ -532,6 +532,14 @@
     transition:background .2s ease, border-color .2s ease;
   }
   .method-domain-tag:hover{background:var(--accent);border-color:var(--accent);}
+  .method-photo{
+    margin-top:24px;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 10px 28px rgba(0,0,0,0.28);
+  }
+  .method-photo img{width:100%;aspect-ratio:4/3;object-fit:cover;object-position:center;display:block;}
+  .method-photo-square img{aspect-ratio:1/1;}
   .highlight-box{
     background:#fff;
     color:var(--navy);
@@ -1269,7 +1277,7 @@
       </div>
       <a href="#pourquoi-drone">Pourquoi le Drone ?</a>
       <a href="#tarifs">Tarifs</a>
-      <a href="#methode">Méthode</a>
+      <a href="#methode">Nos Drones</a>
       <a href="#zones">Zones</a>
       <a href="#devis">Devis</a>
       <a href="#contact">Contact</a>
@@ -1289,7 +1297,7 @@
   <a href="#services">Nos prestations</a>
   <a href="#pourquoi-drone">Pourquoi le Drone ?</a>
   <a href="#tarifs">Tarifs</a>
-  <a href="#methode">Méthode</a>
+  <a href="#methode">Nos Drones</a>
   <a href="#zones">Zones</a>
   <a href="#devis">Devis</a>
   <a href="#contact">Contact</a>
@@ -1529,45 +1537,50 @@
 
 <section class="section methode-section" id="methode">
   <div class="container">
-    <h2 class="section-title">Deux outils, une expertise</h2>
+    <h2 class="section-title">Nos Drones</h2>
     <div class="methode-grid">
       <div class="methode-col">
-        <h3><span class="method-icon"><svg class="icon" width="22" height="22"><use href="#icon-drone"></use></svg></span>Le Drone</h3>
+        <h3><span class="method-icon"><svg class="icon" width="22" height="22"><use href="#icon-drone"></use></svg></span>Aeotic Spray SR</h3>
         <ul>
-          <li><span>→</span>Intervention jusqu'à 50 mètres de hauteur</li>
-          <li><span>→</span>Télépilote au sol — zéro risque d'accident</li>
-          <li><span>→</span>Traitement homogène par pulvérisation</li>
-          <li><span>→</span>Idéal grandes surfaces & bâtiments inaccessibles</li>
-          <li><span>→</span>Télépilote professionnel certifié</li>
+          <li><span>→</span>Pulvérise le produit de façon homogène sur toute la surface</li>
+          <li><span>→</span>Câble de sécurité relié au sol — zéro risque de chute</li>
+          <li><span>→</span>Intervient en hauteur sans échafaudage ni nacelle</li>
+          <li><span>→</span>Télépilote au sol en permanence — zéro risque pour les personnes</li>
+          <li><span>→</span>Chantier réalisé en quelques heures, pas en plusieurs jours</li>
+          <li><span>→</span>Conçu en France, spécifiquement pour le nettoyage et le traitement de bâtiments</li>
         </ul>
         <div class="method-domains">
           <span class="method-domains-label">Utilisé pour :</span>
           <a href="nettoyage-facade-drone.html" class="method-domain-tag">Façade</a>
           <a href="nettoyage-toiture-drone.html" class="method-domain-tag">Toiture</a>
         </div>
+        <figure class="method-photo">
+          <img src="assets/aeotic-spray-sr.jpg" alt="Drone Aeotic Spray SR de DroneSudXpert prêt à intervenir" loading="lazy">
+        </figure>
       </div>
       <div class="methode-col">
-        <h3><span class="method-icon"><svg class="icon" width="20" height="20"><use href="#icon-droplet"></use></svg></span>La Perche Télescopique</h3>
+        <h3><span class="method-icon"><svg class="icon" width="20" height="20"><use href="#icon-camera"></use></svg></span>DJI Matrice 4T</h3>
         <ul>
-          <li><span>→</span>Eau osmosée pure — zéro trace de calcaire</li>
-          <li><span>→</span>Basse pression — préserve cellules photovoltaïques et vitrages</li>
-          <li><span>→</span>Idéal panneaux solaires & vitres en faible hauteur</li>
-          <li><span>→</span>Précision jusqu'à 12 mètres</li>
-          <li><span>→</span>Combinable avec le drone sur le même chantier</li>
+          <li><span>→</span>Caméra 4K et thermique — repère ce qui est invisible à l'œil nu</li>
+          <li><span>→</span>Zoom puissant pour inspecter chaque détail sans y monter</li>
+          <li><span>→</span>Repère fissures, fuites et points faibles avant qu'ils ne s'aggravent</li>
+          <li><span>→</span>Vol stable et précis, même par vent, pour des images exploitables</li>
+          <li><span>→</span>Autonomie élevée pour inspecter tout un bâtiment en un seul vol</li>
+          <li><span>→</span>Compte-rendu visuel complet remis avec chaque intervention</li>
         </ul>
         <div class="method-domains">
           <span class="method-domains-label">Utilisé pour :</span>
-          <a href="nettoyage-panneaux-solaires-drone.html" class="method-domain-tag">Panneaux Solaires</a>
-          <a href="nettoyage-vitres-drone.html" class="method-domain-tag">Vitres</a>
+          <a href="prise-de-vue-drone.html" class="method-domain-tag">Prise de Vue</a>
+          <a href="inspection-technique-drone.html" class="method-domain-tag">Inspection Technique</a>
         </div>
+        <figure class="method-photo method-photo-square">
+          <img src="assets/dji-matrice-4t.jpg" alt="Drone DJI Matrice 4T de DroneSudXpert utilisé pour l'inspection" loading="lazy">
+        </figure>
       </div>
     </div>
     <div class="highlight-box">
       Un panneau encrassé perd jusqu'à 20% de rendement. Un nettoyage annuel suffit à récupérer cette perte.
     </div>
-    <figure class="photo-feature">
-      <img src="assets/facade-nettoyage.jpg" alt="Nettoyage de façade par drone à Marseille - DroneSudXpert" loading="lazy">
-    </figure>
   </div>
 </section>
 
@@ -1778,7 +1791,7 @@
       <a href="#accueil">Accueil</a>
       <a href="#pourquoi-drone">Pourquoi le Drone ?</a>
       <a href="#tarifs">Tarifs</a>
-      <a href="#methode">Méthode</a>
+      <a href="#methode">Nos Drones</a>
       <a href="#zones">Zones</a>
       <a href="#devis">Devis</a>
       <a href="#contact">Contact</a>
