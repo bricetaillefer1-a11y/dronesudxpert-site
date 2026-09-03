@@ -161,6 +161,12 @@
   .sim-price-ttc strong{font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;color:var(--navy);}
   .sim-price-ht strong{font-family:'Barlow Condensed',sans-serif;font-size:1.15rem;color:#666;}
   .sim-card-terrasse p{color:#555;font-size:0.95rem;margin-bottom:14px;}
+  .sim-card-treatment{border:2px solid #2f9e6b;}
+  .sim-card-treatment .sim-icon-badge{background:#e3f5ea;color:#2f9e6b;}
+  .sim-card-treatment .sim-price-ttc strong{color:#2f9e6b;}
+  .sim-card-treatment .sim-slider-label span:last-child{color:#2f9e6b;}
+  .sim-slider-treatment::-webkit-slider-thumb{background:#2f9e6b;}
+  .sim-slider-treatment::-moz-range-thumb{background:#2f9e6b;}
   .sim-checkbox{display:flex;align-items:center;gap:10px;font-weight:600;cursor:pointer;}
   .sim-checkbox input{width:20px;height:20px;accent-color:var(--navy);cursor:pointer;}
 
@@ -252,6 +258,10 @@
     <symbol id="icon-terrace" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
       <path d="M3 9h18M3 9l2-5h14l2 5M5 9v10M19 9v10M9 19v-6M15 19v-6"></path>
     </symbol>
+    <symbol id="icon-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M5 20C5 12 10 4 21 4c0 11-8 16-16 16z"></path>
+      <path d="M5 20c2-5 6-9 11-11"></path>
+    </symbol>
   </defs>
 </svg>
 
@@ -342,6 +352,30 @@
         <div class="sim-price-row">
           <div class="sim-price-ttc"><span>Prix TTC</span><strong id="toiture-ttc">0 €</strong></div>
           <div class="sim-price-ht"><span>Prix HT</span><strong id="toiture-ht">0 €</strong></div>
+        </div>
+      </div>
+
+      <div class="sim-card sim-card-treatment">
+        <div class="sim-card-header">
+          <div class="sim-icon-badge"><svg class="icon" width="22" height="22"><use href="#icon-leaf"></use></svg></div>
+          <div>
+            <h3>Traitement (Façade &amp; Toiture)</h3>
+            <div class="sim-rate">7,90 €/m² TTC — différent du nettoyage</div>
+          </div>
+        </div>
+        <p style="color:#555;font-size:0.9rem;margin-bottom:16px;">Action lente contre la mousse et les micro-organismes — une prestation distincte du nettoyage haute pression, au même tarif.</p>
+        <div class="sim-slider-row">
+          <div class="sim-slider-label">
+            <span>Surface à traiter</span>
+            <span id="traitement-value">0 m²</span>
+          </div>
+          <div class="sim-discount" id="traitement-discount">✓ Réduction appliquée</div>
+          <input type="range" min="0" max="1000" step="10" value="0" class="sim-slider sim-slider-treatment" id="traitement-slider" aria-label="Surface à traiter en m²">
+          <div class="sim-scale"><span>0 m²</span><span>1000 m²</span></div>
+        </div>
+        <div class="sim-price-row">
+          <div class="sim-price-ttc"><span>Prix TTC</span><strong id="traitement-ttc">0 €</strong></div>
+          <div class="sim-price-ht"><span>Prix HT</span><strong id="traitement-ht">0 €</strong></div>
         </div>
       </div>
 
@@ -475,8 +509,9 @@
   // Simulateur
   const TVA = 1.2;
   const SERVICES = [
-    { key: 'facade', label: 'Façade', rate: 7.9, prestation: 'Nettoyage de façade' },
-    { key: 'toiture', label: 'Toiture', rate: 7.9, prestation: 'Nettoyage de toiture' },
+    { key: 'facade', label: 'Façade (nettoyage)', rate: 7.9, prestation: 'Nettoyage de façade' },
+    { key: 'toiture', label: 'Toiture (nettoyage)', rate: 7.9, prestation: 'Nettoyage de toiture' },
+    { key: 'traitement', label: 'Traitement', rate: 7.9, prestation: 'Traitement de façade/toiture', color: '#2f9e6b' },
     { key: 'solar', label: 'Panneaux Solaires', rate: 5.9, prestation: 'Nettoyage panneaux solaires' },
     { key: 'vitres', label: 'Vitres', rate: 6.9, prestation: 'Nettoyage de vitres' },
   ];
@@ -545,7 +580,8 @@
       const min = parseInt(slider.min, 10);
       const max = parseInt(slider.max, 10);
       const pct = ((surface - min) / (max - min)) * 100;
-      slider.style.background = `linear-gradient(90deg, var(--accent) 0%, var(--accent) ${pct}%, #d8e6ee ${pct}%, #d8e6ee 100%)`;
+      const fillColor = s.color || 'var(--accent)';
+      slider.style.background = `linear-gradient(90deg, ${fillColor} 0%, ${fillColor} ${pct}%, #d8e6ee ${pct}%, #d8e6ee 100%)`;
       state[s.key] = { surface, ttc, ht };
       updateSummary();
     }
