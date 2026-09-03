@@ -209,9 +209,11 @@
   }
   .nav-dropdown-menu a:hover{background:var(--highlight);color:var(--navy);}
   .nav-dropdown:hover .nav-dropdown-menu,
-  .nav-dropdown:focus-within .nav-dropdown-menu{display:block;}
+  .nav-dropdown:focus-within .nav-dropdown-menu,
+  .nav-dropdown.open .nav-dropdown-menu{display:block;}
   .nav-dropdown:hover .nav-dropdown-arrow,
-  .nav-dropdown:focus-within .nav-dropdown-arrow{transform:rotate(180deg);}
+  .nav-dropdown:focus-within .nav-dropdown-arrow,
+  .nav-dropdown.open .nav-dropdown-arrow{transform:rotate(180deg);}
   .nav-dropdown-mega{
     left:0;
     transform:none;
@@ -221,7 +223,8 @@
     padding:18px;
   }
   .nav-dropdown:hover .nav-dropdown-mega,
-  .nav-dropdown:focus-within .nav-dropdown-mega{display:grid;}
+  .nav-dropdown:focus-within .nav-dropdown-mega,
+  .nav-dropdown.open .nav-dropdown-mega{display:grid;}
   .nav-dropdown-col-title{
     font-family:'Barlow Condensed',sans-serif;
     font-weight:800 !important;
@@ -1805,6 +1808,24 @@
   mobileNav.querySelectorAll('a').forEach(a => {
     a.addEventListener('click', () => mobileNav.classList.remove('open'));
   });
+
+  // Menu déroulant "Nos prestations" : sur tactile (pas de :hover), le
+  // premier tap ouvre le volet au lieu de naviguer, un tap en dehors le referme
+  const navDropdown = document.querySelector('.nav-dropdown');
+  if (navDropdown) {
+    const navToggle = navDropdown.querySelector('.nav-dropdown-toggle');
+    navToggle.addEventListener('click', (e) => {
+      if (!navDropdown.classList.contains('open') && window.matchMedia('(hover: none)').matches) {
+        e.preventDefault();
+        navDropdown.classList.add('open');
+      }
+    });
+    document.addEventListener('click', (e) => {
+      if (!navDropdown.contains(e.target)) {
+        navDropdown.classList.remove('open');
+      }
+    });
+  }
 
   // Cartes de services entièrement cliquables vers la page dédiée
   document.querySelectorAll('.service-card').forEach(card => {
