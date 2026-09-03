@@ -430,6 +430,13 @@
     transition:color .2s ease;
   }
   .service-more:hover{color:var(--navy);}
+  .photo-feature{
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow:0 14px 36px rgba(26,58,92,0.18);
+    margin-top:56px;
+  }
+  .photo-feature img{width:100%;aspect-ratio:3/2;object-fit:cover;object-position:center;display:block;}
 
   /* METHODE */
   .methode-section{
@@ -1324,6 +1331,9 @@
         </div>
       </div>
     </div>
+    <figure class="photo-feature">
+      <img src="assets/equipe-terrain.jpg" alt="Technicien DroneSudXpert préparant le drone avant intervention" loading="lazy">
+    </figure>
   </div>
 </section>
 
@@ -1365,6 +1375,9 @@
     <div class="highlight-box">
       Un panneau encrassé perd jusqu'à 20% de rendement. Un nettoyage annuel suffit à récupérer cette perte.
     </div>
+    <figure class="photo-feature">
+      <img src="assets/facade-nettoyage.jpg" alt="Nettoyage de façade par drone à Marseille - DroneSudXpert" loading="lazy">
+    </figure>
   </div>
 </section>
 
@@ -1489,38 +1502,45 @@
       <div class="why-card">
         <div class="why-icon"><svg class="icon" width="24" height="24"><use href="#icon-clock"></use></svg></div>
         <h3>Un chantier en quelques heures, pas en plusieurs jours</h3>
-        <p>Monter un échafaudage prend en moyenne une à trois journées, avant même que le moindre travail de nettoyage ne commence. Il faut ensuite le démonter. Avec notre drone, la mise en place prend trente minutes. Le chantier est terminé dans la journée, sans mobiliser votre propriété pendant une semaine.</p>
+        <p>Trente minutes d'installation, chantier terminé le jour même — sans échafaudage à monter ni démonter.</p>
       </div>
       <div class="why-card">
         <div class="why-icon"><svg class="icon" width="24" height="24"><use href="#icon-euro"></use></svg></div>
         <h3>Un coût réellement inférieur</h3>
-        <p>L'échafaudage représente à lui seul entre 2 000 et 10 000 euros selon la hauteur et la surface du bâtiment, sans compter la main d'œuvre, les autorisations de voirie et les assurances spécifiques aux travaux en hauteur. Le drone supprime toutes ces lignes de coût. À surface égale, une intervention par drone revient en moyenne 30 à 50 % moins cher qu'une méthode traditionnelle.</p>
+        <p>Jusqu'à 30 à 50 % moins cher qu'un échafaudage, main d'œuvre et assurances comprises.</p>
       </div>
       <div class="why-card">
         <div class="why-icon"><svg class="icon" width="24" height="24"><use href="#icon-shield"></use></svg></div>
         <h3>Zéro risque pour les personnes</h3>
-        <p>Avec le drone, personne ne monte en hauteur. Le télépilote reste au sol à tout moment et pilote l'intervention à distance. Les risques de chute, de glissade et d'accident liés au travail en hauteur sont totalement supprimés pour nos équipes comme pour votre responsabilité.</p>
+        <p>Le télépilote reste au sol : aucun risque de chute ni d'accident en hauteur.</p>
       </div>
       <div class="why-card">
         <div class="why-icon"><svg class="icon" width="24" height="24"><use href="#icon-material"></use></svg></div>
         <h3>Vos matériaux préservés</h3>
-        <p>La haute pression mal dosée fragilise les crépis, décolle les enduits et peut provoquer des infiltrations sur les toitures et façades déjà fragilisées. Notre méthode par drone utilise uniquement la basse pression, avec un produit adapté à chaque type de support. Tuiles, ardoises, pierre, bardage, béton, chaque matériau reçoit le traitement qu'il mérite, sans agression mécanique.</p>
+        <p>Basse pression et produit adapté à chaque support — tuiles, pierre ou bardage, sans agression.</p>
       </div>
       <div class="why-card">
         <div class="why-icon"><svg class="icon" width="24" height="24"><use href="#icon-door"></use></svg></div>
         <h3>Une gêne réduite au strict minimum</h3>
-        <p>Pas de bâches sur la façade, pas de fermeture de voirie, pas d'échafaudage qui bloque l'accès pendant des semaines. Nos interventions durent quelques heures et se déroulent sans perturber les occupants ni le voisinage. Pour les hôtels, les copropriétés et les commerces, nous pouvons même intervenir en horaires décalés afin de garantir une continuité totale d'activité.</p>
+        <p>Pas de bâches, pas d'échafaudage bloquant l'accès — une intervention discrète de quelques heures.</p>
       </div>
       <div class="why-card">
         <div class="why-icon"><svg class="icon" width="24" height="24"><use href="#icon-leaf"></use></svg></div>
         <h3>Un impact environnemental maîtrisé</h3>
-        <p>Nos drones pulvérisent des produits biocides biodégradables, sans javel ni chlore, avec une précision qui limite les quantités utilisées. La consommation d'eau est réduite par rapport à un nettoyage haute pression classique. Aucun déchet de chantier, aucune nuisance sonore excessive. Une intervention propre, du début à la fin.</p>
+        <p>Produits biodégradables, consommation d'eau réduite, aucun déchet de chantier.</p>
       </div>
     </div>
 
+    <figure class="photo-feature" style="margin-top:0;margin-bottom:44px;">
+      <img src="assets/toiture-traitement.jpg" alt="Intervention par drone en hauteur sans échafaudage - DroneSudXpert" loading="lazy">
+    </figure>
+
     <div class="why-summary">
       <p><strong>En résumé :</strong> le drone c'est moins cher, plus rapide, plus sûr pour les personnes, plus doux pour vos matériaux et moins contraignant pour votre quotidien. C'est pour toutes ces raisons que nous avons fait ce choix et que nos clients ne reviennent jamais à l'échafaudage.</p>
-      <a href="#devis" class="btn btn-navy">Demander un devis →</a>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:8px;">
+        <a href="#devis" class="btn btn-navy">Demander un devis →</a>
+        <a href="pourquoi-le-drone.html" class="btn" style="border:2px solid var(--navy);color:var(--navy);">Tous les détails →</a>
+      </div>
     </div>
   </div>
 </section>
