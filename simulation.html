@@ -161,10 +161,24 @@
   .sim-price-ttc strong{font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;color:var(--navy);}
   .sim-price-ht strong{font-family:'Barlow Condensed',sans-serif;font-size:1.15rem;color:#666;}
   .sim-card-terrasse p{color:#555;font-size:0.95rem;margin-bottom:14px;}
-  .sim-card-treatment{border:2px solid #2f9e6b;}
-  .sim-card-treatment .sim-icon-badge{background:#e3f5ea;color:#2f9e6b;}
-  .sim-card-treatment .sim-price-ttc strong{color:#2f9e6b;}
-  .sim-card-treatment .sim-slider-label span:last-child{color:#2f9e6b;}
+  .sim-subtreatment{
+    margin-top:20px;
+    padding:18px 18px 4px;
+    border:2px solid #2f9e6b;
+    border-radius:10px;
+    background:#f3fbf6;
+  }
+  .sim-subtreatment-header{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    color:#2f9e6b;
+    font-weight:700;
+    font-size:0.92rem;
+    margin-bottom:14px;
+  }
+  .sim-subtreatment .sim-price-ttc strong{color:#2f9e6b;}
+  .sim-subtreatment .sim-slider-label span:last-child{color:#2f9e6b;}
   .sim-slider-treatment::-webkit-slider-thumb{background:#2f9e6b;}
   .sim-slider-treatment::-moz-range-thumb{background:#2f9e6b;}
   .sim-checkbox{display:flex;align-items:center;gap:10px;font-weight:600;cursor:pointer;}
@@ -309,30 +323,6 @@
 <section class="section">
   <div class="container sim-grid">
     <div>
-      <div class="sim-card sim-card-treatment">
-        <div class="sim-card-header">
-          <div class="sim-icon-badge"><svg class="icon" width="22" height="22"><use href="#icon-leaf"></use></svg></div>
-          <div>
-            <h3>Traitement (Façade &amp; Toiture)</h3>
-            <div class="sim-rate">7,90 €/m² TTC — différent du nettoyage</div>
-          </div>
-        </div>
-        <p style="color:#555;font-size:0.9rem;margin-bottom:16px;">Action lente contre la mousse et les micro-organismes — une prestation distincte du nettoyage haute pression, au même tarif.</p>
-        <div class="sim-slider-row">
-          <div class="sim-slider-label">
-            <span>Surface à traiter</span>
-            <span id="traitement-value">0 m²</span>
-          </div>
-          <div class="sim-discount" id="traitement-discount">✓ Réduction appliquée</div>
-          <input type="range" min="0" max="1000" step="10" value="0" class="sim-slider sim-slider-treatment" id="traitement-slider" aria-label="Surface à traiter en m²">
-          <div class="sim-scale"><span>0 m²</span><span>1000 m²</span></div>
-        </div>
-        <div class="sim-price-row">
-          <div class="sim-price-ttc"><span>Prix TTC</span><strong id="traitement-ttc">0 €</strong></div>
-          <div class="sim-price-ht"><span>Prix HT</span><strong id="traitement-ht">0 €</strong></div>
-        </div>
-      </div>
-
       <div class="sim-card">
         <div class="sim-card-header">
           <div class="sim-icon-badge"><svg class="icon" width="22" height="22"><use href="#icon-building"></use></svg></div>
@@ -353,6 +343,25 @@
         <div class="sim-price-row">
           <div class="sim-price-ttc"><span>Prix TTC</span><strong id="facade-ttc">0 €</strong></div>
           <div class="sim-price-ht"><span>Prix HT</span><strong id="facade-ht">0 €</strong></div>
+        </div>
+        <div class="sim-subtreatment">
+          <div class="sim-subtreatment-header">
+            <svg class="icon" width="16" height="16"><use href="#icon-leaf"></use></svg>
+            <span>+ Traitement Façade — 7,90 €/m² TTC</span>
+          </div>
+          <div class="sim-slider-row">
+            <div class="sim-slider-label">
+              <span>Surface à traiter</span>
+              <span id="traitement-facade-value">0 m²</span>
+            </div>
+            <div class="sim-discount" id="traitement-facade-discount">✓ Réduction appliquée</div>
+            <input type="range" min="0" max="1000" step="10" value="0" class="sim-slider sim-slider-treatment" id="traitement-facade-slider" aria-label="Surface de traitement façade en m²">
+            <div class="sim-scale"><span>0 m²</span><span>1000 m²</span></div>
+          </div>
+          <div class="sim-price-row">
+            <div class="sim-price-ttc"><span>Prix TTC</span><strong id="traitement-facade-ttc">0 €</strong></div>
+            <div class="sim-price-ht"><span>Prix HT</span><strong id="traitement-facade-ht">0 €</strong></div>
+          </div>
         </div>
       </div>
 
@@ -376,6 +385,25 @@
         <div class="sim-price-row">
           <div class="sim-price-ttc"><span>Prix TTC</span><strong id="toiture-ttc">0 €</strong></div>
           <div class="sim-price-ht"><span>Prix HT</span><strong id="toiture-ht">0 €</strong></div>
+        </div>
+        <div class="sim-subtreatment">
+          <div class="sim-subtreatment-header">
+            <svg class="icon" width="16" height="16"><use href="#icon-leaf"></use></svg>
+            <span>+ Traitement Toiture — 7,90 €/m² TTC</span>
+          </div>
+          <div class="sim-slider-row">
+            <div class="sim-slider-label">
+              <span>Surface à traiter</span>
+              <span id="traitement-toiture-value">0 m²</span>
+            </div>
+            <div class="sim-discount" id="traitement-toiture-discount">✓ Réduction appliquée</div>
+            <input type="range" min="0" max="1000" step="10" value="0" class="sim-slider sim-slider-treatment" id="traitement-toiture-slider" aria-label="Surface de traitement toiture en m²">
+            <div class="sim-scale"><span>0 m²</span><span>1000 m²</span></div>
+          </div>
+          <div class="sim-price-row">
+            <div class="sim-price-ttc"><span>Prix TTC</span><strong id="traitement-toiture-ttc">0 €</strong></div>
+            <div class="sim-price-ht"><span>Prix HT</span><strong id="traitement-toiture-ht">0 €</strong></div>
+          </div>
         </div>
       </div>
 
@@ -509,9 +537,10 @@
   // Simulateur
   const TVA = 1.2;
   const SERVICES = [
-    { key: 'traitement', label: 'Traitement', rate: 7.9, prestation: 'Traitement de façade/toiture', color: '#2f9e6b' },
     { key: 'facade', label: 'Nettoyage Façade', rate: 7.9, prestation: 'Nettoyage de façade' },
+    { key: 'traitement-facade', label: 'Traitement Façade', rate: 7.9, prestation: 'Traitement de façade/toiture', color: '#2f9e6b' },
     { key: 'toiture', label: 'Nettoyage Toiture', rate: 7.9, prestation: 'Nettoyage de toiture' },
+    { key: 'traitement-toiture', label: 'Traitement Toiture', rate: 7.9, prestation: 'Traitement de façade/toiture', color: '#2f9e6b' },
     { key: 'solar', label: 'Nettoyage Panneaux Solaires', rate: 5.9, prestation: 'Nettoyage panneaux solaires' },
     { key: 'vitres', label: 'Nettoyage Vitres', rate: 6.9, prestation: 'Nettoyage de vitres' },
   ];
