@@ -212,6 +212,27 @@
   .nav-dropdown:focus-within .nav-dropdown-menu{display:block;}
   .nav-dropdown:hover .nav-dropdown-arrow,
   .nav-dropdown:focus-within .nav-dropdown-arrow{transform:rotate(180deg);}
+  .nav-dropdown-mega{
+    left:0;
+    transform:none;
+    min-width:580px;
+    grid-template-columns:repeat(3,1fr);
+    gap:2px 28px;
+    padding:18px;
+  }
+  .nav-dropdown:hover .nav-dropdown-mega,
+  .nav-dropdown:focus-within .nav-dropdown-mega{display:grid;}
+  .nav-dropdown-col-title{
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:800 !important;
+    font-size:0.82rem !important;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    color:var(--accent) !important;
+    padding:6px 14px 8px !important;
+    margin-bottom:4px;
+    border-bottom:1px solid var(--border);
+  }
   .nav-cta{
     display:flex;
     align-items:center;
@@ -1221,27 +1242,26 @@
     <nav class="nav-links">
       <a href="#accueil">Accueil</a>
       <div class="nav-dropdown">
-        <a href="nettoyage.html" class="nav-dropdown-toggle">Nettoyage <span class="nav-dropdown-arrow">▾</span></a>
-        <div class="nav-dropdown-menu">
-          <a href="nettoyage-facade-drone.html">Nettoyage de Façade</a>
-          <a href="nettoyage-toiture-drone.html">Nettoyage de Toiture</a>
-          <a href="nettoyage-panneaux-solaires-drone.html">Panneaux Solaires</a>
-          <a href="nettoyage-vitres-drone.html">Nettoyage de Vitres</a>
-          <a href="nettoyage-terrasse-drone.html">Nettoyage de Terrasse</a>
-        </div>
-      </div>
-      <div class="nav-dropdown">
-        <a href="traitement.html" class="nav-dropdown-toggle">Traitement <span class="nav-dropdown-arrow">▾</span></a>
-        <div class="nav-dropdown-menu">
-          <a href="traitement-facade-drone.html">Traitement de Façade</a>
-          <a href="traitement-toiture-drone.html">Traitement de Toiture</a>
-        </div>
-      </div>
-      <div class="nav-dropdown">
-        <a href="inspection.html" class="nav-dropdown-toggle">Inspection <span class="nav-dropdown-arrow">▾</span></a>
-        <div class="nav-dropdown-menu">
-          <a href="prise-de-vue-drone.html">Prise de Vue</a>
-          <a href="inspection-technique-drone.html">Inspection Technique</a>
+        <a href="#services" class="nav-dropdown-toggle">Nos prestations <span class="nav-dropdown-arrow">▾</span></a>
+        <div class="nav-dropdown-menu nav-dropdown-mega">
+          <div class="nav-dropdown-col">
+            <a href="nettoyage.html" class="nav-dropdown-col-title">Nettoyage</a>
+            <a href="nettoyage-facade-drone.html">Façade</a>
+            <a href="nettoyage-toiture-drone.html">Toiture</a>
+            <a href="nettoyage-panneaux-solaires-drone.html">Panneaux Solaires</a>
+            <a href="nettoyage-vitres-drone.html">Vitres</a>
+            <a href="nettoyage-terrasse-drone.html">Terrasse</a>
+          </div>
+          <div class="nav-dropdown-col">
+            <a href="traitement.html" class="nav-dropdown-col-title">Traitement</a>
+            <a href="traitement-facade-drone.html">Façade</a>
+            <a href="traitement-toiture-drone.html">Toiture</a>
+          </div>
+          <div class="nav-dropdown-col">
+            <a href="inspection.html" class="nav-dropdown-col-title">Inspection</a>
+            <a href="prise-de-vue-drone.html">Prise de Vue</a>
+            <a href="inspection-technique-drone.html">Inspection Technique</a>
+          </div>
         </div>
       </div>
       <a href="#methode">Méthode</a>
@@ -1263,9 +1283,7 @@
 <div class="mobile-nav" id="mobile-nav">
   <button class="mobile-close" id="mobile-close" aria-label="Fermer">✕</button>
   <a href="#accueil">Accueil</a>
-  <a href="nettoyage.html">Nettoyage</a>
-  <a href="traitement.html">Traitement</a>
-  <a href="inspection.html">Inspection</a>
+  <a href="#services">Nos prestations</a>
   <a href="#methode">Méthode</a>
   <a href="#tarifs">Tarifs</a>
   <a href="#pourquoi-drone">Pourquoi le Drone ?</a>
