@@ -796,6 +796,16 @@
     font-weight:600;
     color:#888;
   }
+  .calc-treatment{
+    margin-top:10px;
+    padding-top:10px;
+    border-top:1px dashed #2f9e6b;
+    display:flex;
+    justify-content:space-between;
+    font-size:0.8rem;
+    font-weight:700;
+    color:#2f9e6b;
+  }
   .calculator-footer{
     text-align:center;
   }
@@ -1532,19 +1542,21 @@
       </div>
       <div class="calculator-results">
         <div class="calculator-result">
-          <div class="label">Façade</div>
+          <div class="label">Nettoyage Façade</div>
           <div class="amount"><span class="approx">≈ </span><span id="result-facade">790 €</span></div>
+          <div class="calc-treatment"><span>Traitement</span><span id="result-traitement-facade">790 €</span></div>
         </div>
         <div class="calculator-result">
-          <div class="label">Toiture</div>
+          <div class="label">Nettoyage Toiture</div>
           <div class="amount"><span class="approx">≈ </span><span id="result-toiture">790 €</span></div>
+          <div class="calc-treatment"><span>Traitement</span><span id="result-traitement-toiture">790 €</span></div>
         </div>
         <div class="calculator-result">
-          <div class="label">Panneaux Solaires</div>
+          <div class="label">Nettoyage Panneaux Solaires</div>
           <div class="amount"><span class="approx">≈ </span><span id="result-solar">590 €</span></div>
         </div>
         <div class="calculator-result">
-          <div class="label">Vitres</div>
+          <div class="label">Nettoyage Vitres</div>
           <div class="amount"><span class="approx">≈ </span><span id="result-vitres">690 €</span></div>
         </div>
       </div>
@@ -1898,6 +1910,8 @@
   const resultToiture = document.getElementById('result-toiture');
   const resultSolar = document.getElementById('result-solar');
   const resultVitres = document.getElementById('result-vitres');
+  const resultTraitementFacade = document.getElementById('result-traitement-facade');
+  const resultTraitementToiture = document.getElementById('result-traitement-toiture');
   const RATES = { facade: 7.9, toiture: 7.9, solar: 5.9, vitres: 6.9 };
   const discountBadge = document.getElementById('discount-badge');
 
@@ -1918,6 +1932,8 @@
     surfaceValue.textContent = surface + ' m²';
     resultFacade.textContent = formatEuro(surface * RATES.facade * (1 - discount));
     resultToiture.textContent = formatEuro(surface * RATES.toiture * (1 - discount));
+    resultTraitementFacade.textContent = formatEuro(surface * RATES.facade * (1 - discount));
+    resultTraitementToiture.textContent = formatEuro(surface * RATES.toiture * (1 - discount));
     resultSolar.textContent = formatEuro(surface * RATES.solar * (1 - discount));
     resultVitres.textContent = formatEuro(surface * RATES.vitres * (1 - discount));
     discountBadge.style.visibility = discount > 0 ? 'visible' : 'hidden';
