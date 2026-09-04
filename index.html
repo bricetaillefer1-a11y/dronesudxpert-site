@@ -207,10 +207,8 @@
     color:var(--navy);
   }
   .nav-dropdown-menu a:hover{background:var(--highlight);color:var(--navy);}
-  .nav-dropdown:hover .nav-dropdown-menu,
   .nav-dropdown:focus-within .nav-dropdown-menu,
   .nav-dropdown.open .nav-dropdown-menu{display:block;}
-  .nav-dropdown:hover .nav-dropdown-arrow,
   .nav-dropdown:focus-within .nav-dropdown-arrow,
   .nav-dropdown.open .nav-dropdown-arrow{transform:rotate(180deg);}
   .nav-dropdown-mega{
@@ -221,7 +219,6 @@
     gap:2px 28px;
     padding:18px;
   }
-  .nav-dropdown:hover .nav-dropdown-mega,
   .nav-dropdown:focus-within .nav-dropdown-mega,
   .nav-dropdown.open .nav-dropdown-mega{display:grid;}
   .nav-dropdown-col-title{
@@ -1860,19 +1857,22 @@
     a.addEventListener('click', () => mobileNav.classList.remove('open'));
   });
 
-  // Menu déroulant "Nos prestations" : sur tactile (pas de :hover), le
-  // premier tap ouvre le volet au lieu de naviguer, un tap en dehors le referme
+  // Menu déroulant "Nos prestations" : un clic ouvre/ferme le volet
+  // (au lieu du survol, peu fiable à la souris), un clic en dehors le referme
   const navDropdown = document.querySelector('.nav-dropdown');
   if (navDropdown) {
     const navToggle = navDropdown.querySelector('.nav-dropdown-toggle');
     navToggle.addEventListener('click', (e) => {
-      if (!navDropdown.classList.contains('open') && window.matchMedia('(hover: none)').matches) {
-        e.preventDefault();
-        navDropdown.classList.add('open');
-      }
+      e.preventDefault();
+      navDropdown.classList.toggle('open');
     });
     document.addEventListener('click', (e) => {
       if (!navDropdown.contains(e.target)) {
+        navDropdown.classList.remove('open');
+      }
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
         navDropdown.classList.remove('open');
       }
     });
