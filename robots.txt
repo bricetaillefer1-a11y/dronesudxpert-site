@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /templates/
 
 Sitemap: https://dronesudxpert.com/sitemap.xml
