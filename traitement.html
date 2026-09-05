@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Traitement par Drone à Marseille | DroneSudXpert</title>
+<meta name="description" content="Traitement anti-mousse par drone à Marseille et dans le Sud : façade et toiture. Action lente, éco-responsable, sans haute pression. Devis gratuit.">
+<link rel="canonical" href="https://dronesudxpert.com/traitement.html">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Traitement par drone",
+  "name": "Traitement anti-mousse par drone",
+  "description": "Traitement biocide à action lente par drone pour façades et toitures, éco-responsable, sans haute pression.",
+  "provider": { "@type": "LocalBusiness", "name": "DroneSudXpert", "url": "https://dronesudxpert.com/", "telephone": "+33658222541" },
+  "areaServed": ["Marseille", "Bouches-du-Rhône", "Var", "Vaucluse", "Alpes-Maritimes", "PACA", "Occitanie"],
+  "url": "https://dronesudxpert.com/traitement.html"
+}
+</script>
+<style>
+  :root{
+    --bg:#FFFFFF;
+    --text:#0D0D0D;
+    --accent:#4BB8E8;
+    --navy:#1A3A5C;
+    --highlight:#EBF7FD;
+    --border:#E0E0E0;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Barlow',sans-serif;
+    color:var(--text);
+    background:var(--bg);
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,h4{
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:800;
+    letter-spacing:0.5px;
+    line-height:1.1;
+  }
+  a{text-decoration:none;color:inherit;}
+  ul,ol{list-style:none;}
+  img{max-width:100%;display:block;}
+  .container{max-width:1180px;margin:0 auto;padding:0 24px;}
+  .section{padding:80px 0;}
+  .icon{fill:none;stroke:currentColor;}
+  .icon-inline{fill:none;stroke:currentColor;flex-shrink:0;}
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    padding:14px 30px;
+    border-radius:6px;
+    font-family:'Barlow',sans-serif;
+    font-weight:600;
+    font-size:1rem;
+    cursor:pointer;
+    border:2px solid transparent;
+    transition:transform .2s ease, box-shadow .2s ease, background .2s ease, color .2s ease;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-navy{background:var(--navy);color:#fff;}
+  .btn-navy:hover{box-shadow:0 8px 20px rgba(26,58,92,0.35);}
+  .btn-outline-light{background:transparent;color:#fff;border:2px solid rgba(255,255,255,0.7);}
+  .btn-outline-light:hover{background:rgba(255,255,255,0.12);}
+
+  /* NAVBAR */
+  header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    background:linear-gradient(120deg, var(--highlight) 0%, #ffffff 55%);
+    border-bottom:1px solid var(--border);
+    transition:box-shadow .3s ease;
+  }
+  header.scrolled{box-shadow:0 4px 20px rgba(0,0,0,0.08);}
+  .navbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:6px 24px;
+    max-width:1180px;
+    margin:0 auto;
+  }
+  .logo-img{height:104px;width:auto;mix-blend-mode:multiply;background:transparent;}
+  .nav-links{display:flex;align-items:center;gap:22px;}
+  .nav-links a{font-weight:600;font-size:0.94rem;transition:color .2s ease;}
+  .nav-links a:hover{color:var(--accent);}
+  .nav-cta{display:flex;align-items:center;gap:10px;}
+  .nav-cta .btn{padding:10px 20px;font-size:0.92rem;border-radius:30px;white-space:nowrap;}
+  .btn-outline-navy{background:transparent;color:var(--navy);border:2px solid var(--navy);}
+  .btn-outline-navy:hover{background:var(--highlight);}
+  .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:6px;}
+  .hamburger span{width:26px;height:3px;background:var(--text);border-radius:2px;transition:.3s;}
+  .mobile-nav{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:#fff;
+    z-index:2000;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:28px;
+  }
+  .mobile-nav.open{display:flex;}
+  .mobile-nav a{font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:700;}
+  .mobile-close{position:absolute;top:24px;right:24px;font-size:2rem;background:none;border:none;cursor:pointer;}
+
+  /* PAGE HERO */
+  .page-hero{background:var(--navy);color:#fff;padding:56px 0 52px;}
+  .breadcrumb{font-size:0.85rem;color:#b8c9db;margin-bottom:18px;}
+  .breadcrumb a{color:#b8c9db;}
+  .breadcrumb a:hover{color:var(--accent);}
+  .page-hero h1{font-size:clamp(2.2rem,5vw,3.4rem);margin-bottom:16px;color:#fff;}
+  .page-hero-sub{font-size:1.05rem;color:#d8e3ee;max-width:720px;margin-bottom:32px;line-height:1.6;}
+  .page-hero-buttons{display:flex;gap:16px;flex-wrap:wrap;}
+
+  /* SERVICES GRID (repris du site) */
+  .services-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:28px;
+    align-items:start;
+  }
+  .service-card{
+    border:1px solid var(--border);
+    border-radius:12px;
+    overflow:hidden;
+    background:#fff;
+    display:flex;
+    flex-direction:column;
+    transition:transform .25s ease, box-shadow .25s ease;
+    cursor:pointer;
+  }
+  .service-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 16px 40px rgba(0,0,0,0.1);
+  }
+  .service-top{
+    height:6px;
+    background:linear-gradient(90deg,var(--accent),var(--navy));
+  }
+  .service-body{
+    padding:32px 28px;
+    display:flex;
+    flex-direction:column;
+    flex:1;
+  }
+  .service-icon-badge{
+    width:56px;
+    height:56px;
+    border-radius:50%;
+    background:var(--highlight);
+    color:var(--navy);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:16px;
+  }
+  .service-body h3{font-size:1.6rem;margin-bottom:4px;}
+  .service-subtitle{
+    color:var(--accent);
+    font-weight:700;
+    font-size:0.92rem;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    margin-bottom:14px;
+  }
+  .service-body p{
+    color:#444;
+    font-size:0.98rem;
+    margin-bottom:20px;
+    flex:1;
+  }
+  .price-tag{
+    display:inline-block;
+    background:var(--highlight);
+    color:var(--navy);
+    font-weight:700;
+    padding:8px 16px;
+    border-radius:6px;
+    margin-bottom:16px;
+    font-size:0.95rem;
+  }
+  .service-link{
+    font-weight:700;
+    color:var(--navy);
+    transition:color .2s ease;
+  }
+  .service-link:hover{color:var(--accent);}
+  .service-more{
+    font-weight:600;
+    color:#666;
+    font-size:0.92rem;
+    margin-top:8px;
+    transition:color .2s ease;
+  }
+  .service-more:hover{color:var(--navy);}
+  .service-photo{
+    width:calc(100% + 56px);
+    margin:20px -28px 0;
+    aspect-ratio:3/4;
+    object-fit:cover;
+    object-position:center;
+    display:block;
+  }
+  .photo-feature{
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow:0 14px 36px rgba(26,58,92,0.18);
+    margin-bottom:56px;
+  }
+  .photo-feature img{width:100%;aspect-ratio:4/3;object-fit:cover;object-position:center;display:block;}
+  .back-link{display:inline-block;margin-top:48px;font-weight:700;color:var(--navy);}
+  .back-link:hover{color:var(--accent);}
+
+  /* FOOTER */
+  footer{background:var(--navy);color:#fff;}
+  .footer-top{padding:64px 0 40px;display:grid;grid-template-columns:1.1fr 0.85fr 0.85fr 0.85fr;gap:32px;}
+  .footer-logo-wrap{background:#fff;border-radius:10px;padding:10px 16px;display:inline-block;margin-bottom:16px;}
+  .footer-logo-wrap img{height:60px;}
+  .footer-col h4{font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;margin-bottom:18px;color:var(--accent);}
+  .footer-col p, .footer-col a{color:#d8e3ee;font-size:0.95rem;margin-bottom:10px;display:block;}
+  .footer-col a:hover{color:var(--accent);}
+  .footer-tagline{color:#d8e3ee;margin-bottom:6px;}
+  .contact-line{display:flex;align-items:center;gap:10px;}
+  .contact-line .icon-inline{color:var(--accent);}
+  .footer-bottom{
+    border-top:1px solid rgba(255,255,255,0.15);
+    background:#142f4a;
+    text-align:center;
+    padding:20px;
+    font-size:0.85rem;
+    color:#b8c9db;
+  }
+  .footer-legal-links{display:block;margin-top:8px;}
+  .footer-legal-links a{color:#b8c9db;text-decoration:underline;display:inline;}
+  .footer-legal-links a:hover{color:var(--accent);}
+
+  @media (max-width: 900px){
+    .nav-links, .nav-cta{display:none;}
+    .hamburger{display:flex;}
+    .services-grid{grid-template-columns:1fr;}
+    .footer-top{grid-template-columns:1fr;}
+    .section{padding:56px 0;}
+  }
+</style>
+</head>
+<body>
+
+<svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
+  <defs>
+    <symbol id="icon-building" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="5" y="3" width="14" height="18" rx="1"></rect>
+      <line x1="8" y1="7.2" x2="10" y2="7.2"></line>
+      <line x1="14" y1="7.2" x2="16" y2="7.2"></line>
+      <line x1="8" y1="11.5" x2="10" y2="11.5"></line>
+      <line x1="14" y1="11.5" x2="16" y2="11.5"></line>
+      <line x1="10" y1="21" x2="10" y2="16.5"></line>
+      <line x1="14" y1="21" x2="14" y2="16.5"></line>
+    </symbol>
+    <symbol id="icon-roof" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 12L12 4l9 8"></path>
+      <path d="M5.5 10.5V19h13v-8.5"></path>
+      <path d="M15 6.2V4h2v4.4"></path>
+    </symbol>
+    <symbol id="icon-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M6.5 3h3l1.5 4.5-2 1.5a13 13 0 0 0 6 6l1.5-2 4.5 1.5v3a2 2 0 0 1-2 2C10.5 21.5 2.5 13.5 4.5 5a2 2 0 0 1 2-2z"></path>
+    </symbol>
+    <symbol id="icon-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+      <path d="M3.5 6l8.5 7 8.5-7"></path>
+    </symbol>
+    <symbol id="icon-facebook" viewBox="0 0 24 24">
+      <path d="M22 12.06C22 6.505 17.523 2 12 2S2 6.505 2 12.06c0 5.02 3.657 9.184 8.438 9.94v-7.03H7.898v-2.91h2.54V9.845c0-2.507 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562v1.877h2.773l-.443 2.91h-2.33V22c4.78-.756 8.437-4.92 8.437-9.94z"></path>
+    </symbol>
+  </defs>
+</svg>
+
+<header id="site-header">
+  <div class="navbar">
+    <a href="index.html"><img class="logo-img" src="assets/Black_White_Modern_Drone_Pilot_Logo.png" alt="DroneSudXpert"></a>
+    <nav class="nav-links">
+      <a href="index.html">Accueil</a>
+      <a href="nettoyage.html">Nettoyage</a>
+      <a href="traitement.html">Traitement</a>
+      <a href="inspection.html">Inspection</a>
+      <a href="index.html#methode">Méthode</a>
+      <a href="index.html#tarifs">Tarifs</a>
+      <a href="index.html#zones">Zones</a>
+      <a href="index.html#devis">Devis</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="simulation.html" class="btn btn-outline-navy">Ma simulation</a>
+      <a href="index.html#devis" class="btn btn-navy">Devis 48h →</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="mobile-nav" id="mobile-nav">
+  <button class="mobile-close" id="mobile-close" aria-label="Fermer">✕</button>
+  <a href="index.html">Accueil</a>
+  <a href="nettoyage.html">Nettoyage</a>
+  <a href="traitement.html">Traitement</a>
+  <a href="inspection.html">Inspection</a>
+  <a href="index.html#methode">Méthode</a>
+  <a href="index.html#tarifs">Tarifs</a>
+  <a href="index.html#zones">Zones</a>
+  <a href="index.html#devis">Devis</a>
+  <a href="index.html#contact">Contact</a>
+  <a href="simulation.html" class="btn btn-navy" style="margin-top:8px;">Démarrer une simulation →</a>
+</div>
+
+<section class="page-hero">
+  <div class="container">
+    <p class="breadcrumb"><a href="index.html">Accueil</a> / Traitement</p>
+    <h1>Traitement par Drone</h1>
+    <p class="page-hero-sub">Façade et toiture — un traitement biocide à action lente, éco-responsable, qui élimine la mousse et les micro-organismes en profondeur, sans les dégâts d'une haute pression.</p>
+    <div class="page-hero-buttons">
+      <a href="index.html#devis" class="btn btn-navy">Demander un devis</a>
+      <a href="tel:+33658222541" class="btn btn-outline-light">06 58 22 25 41</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <figure class="photo-feature">
+      <img src="assets/facade-traitement.jpg" alt="Traitement anti-mousse de façade par drone - DroneSudXpert" loading="lazy">
+    </figure>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-top"></div>
+        <div class="service-body">
+          <div class="service-icon-badge"><svg class="icon" width="26" height="26"><use href="#icon-building"></use></svg></div>
+          <h3>Traitement de Façade</h3>
+          <div class="service-subtitle">Action Lente & Éco-responsable</div>
+          <p>Mousse, lichens, micro-organismes — un traitement biocide à action lente (environ 6 mois), sans haute pression, pour une façade fragile ou envahie.</p>
+          <span class="price-tag">À partir de 7,90 €/m²</span>
+          <a href="index.html#devis" class="service-link">Demander un devis →</a>
+          <a href="traitement-facade-drone.html" class="service-more">En savoir plus →</a>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-top"></div>
+        <div class="service-body">
+          <div class="service-icon-badge"><svg class="icon" width="26" height="26"><use href="#icon-roof"></use></svg></div>
+          <h3>Traitement de Toiture</h3>
+          <div class="service-subtitle">Action Lente & Éco-responsable</div>
+          <p>Mousse et micro-organismes éliminés à la racine, option hydrofuge, sans agresser vos tuiles ni votre couverture.</p>
+          <span class="price-tag">À partir de 7,90 €/m²</span>
+          <a href="index.html#devis" class="service-link">Demander un devis →</a>
+          <a href="traitement-toiture-drone.html" class="service-more">En savoir plus →</a>
+          <img class="service-photo" src="assets/toiture-traitement.jpg" alt="Traitement anti-mousse de toiture par drone - DroneSudXpert" loading="lazy">
+        </div>
+      </div>
+    </div>
+    <a href="index.html#services" class="back-link">← Retour à nos prestations</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container footer-top">
+    <div class="footer-col">
+      <div class="footer-logo-wrap">
+        <img src="assets/Black_White_Modern_Drone_Pilot_Logo.png" alt="DroneSudXpert">
+      </div>
+      <p class="footer-tagline"><strong>DroneSudXpert</strong></p>
+      <p class="footer-tagline">L'expertise aérienne au service de vos bâtiments</p>
+      <p class="footer-tagline">SAS — Marseille</p>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <p class="contact-line"><svg class="icon-inline" width="16" height="16"><use href="#icon-phone"></use></svg>06.58.22.25.41 · 07.62.59.09.82</p>
+      <p class="contact-line"><svg class="icon-inline" width="16" height="16"><use href="#icon-mail"></use></svg>contact@dronesudxpert.fr</p>
+      <p class="contact-line"><svg class="icon-inline" width="16" height="16" style="fill:currentColor;stroke:none;"><use href="#icon-facebook"></use></svg><a href="https://www.facebook.com/share/1cJQa3SKA9/?mibextid=wwXIfr" target="_blank" rel="noopener" style="color:inherit;">Facebook</a></p>
+    </div>
+    <div class="footer-col">
+      <h4>Domaines</h4>
+      <a href="nettoyage.html">Nettoyage</a>
+      <a href="traitement.html">Traitement</a>
+      <a href="inspection.html">Inspection</a>
+    </div>
+    <div class="footer-col">
+      <h4>Traitement</h4>
+      <a href="traitement-facade-drone.html">Façade</a>
+      <a href="traitement-toiture-drone.html">Toiture</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2026 DroneSudXpert SAS — Tous droits réservés — Télépilotes certifiés DGAC/EASA
+    <span class="footer-legal-links">
+      <a href="mentions-legales.html">Mentions légales</a> · <a href="politique-confidentialite.html">Politique de confidentialité</a>
+    </span>
+  </div>
+</footer>
+
+<script>
+  const header = document.getElementById('site-header');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 10);
+  });
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobile-nav');
+  const mobileClose = document.getElementById('mobile-close');
+  hamburger.addEventListener('click', () => mobileNav.classList.add('open'));
+  mobileClose.addEventListener('click', () => mobileNav.classList.remove('open'));
+  mobileNav.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => mobileNav.classList.remove('open'));
+  });
+
+  document.querySelectorAll('.service-card').forEach(card => {
+    const moreLink = card.querySelector('.service-more');
+    if (!moreLink) return;
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('a')) return;
+      window.location.href = moreLink.getAttribute('href');
+    });
+  });
+</script>
+
+</body>
+</html>

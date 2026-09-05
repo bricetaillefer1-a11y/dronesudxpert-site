@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulez votre devis en ligne | DroneSudXpert</title>
+<meta name="description" content="Simulez le prix de votre nettoyage ou traitement par drone à Marseille : façade, toiture, panneaux solaires, vitres. Estimation TTC et HT immédiate, devis en 2 minutes.">
+<link rel="canonical" href="https://dronesudxpert.com/simulation.html">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFFFFF;
+    --text:#0D0D0D;
+    --accent:#4BB8E8;
+    --navy:#1A3A5C;
+    --highlight:#EBF7FD;
+    --border:#E0E0E0;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Barlow',sans-serif;
+    color:var(--text);
+    background:var(--bg);
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,h4{
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:800;
+    letter-spacing:0.5px;
+    line-height:1.1;
+  }
+  a{text-decoration:none;color:inherit;}
+  ul,ol{list-style:none;}
+  img{max-width:100%;display:block;}
+  .container{max-width:1180px;margin:0 auto;padding:0 24px;}
+  .section{padding:64px 0 80px;}
+  .icon{fill:none;stroke:currentColor;}
+  .icon-inline{fill:none;stroke:currentColor;flex-shrink:0;}
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    padding:14px 30px;
+    border-radius:6px;
+    font-family:'Barlow',sans-serif;
+    font-weight:600;
+    font-size:1rem;
+    cursor:pointer;
+    border:2px solid transparent;
+    transition:transform .2s ease, box-shadow .2s ease, background .2s ease, color .2s ease;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-navy{background:var(--navy);color:#fff;}
+  .btn-navy:hover{box-shadow:0 8px 20px rgba(26,58,92,0.35);}
+  .btn-outline-light{background:transparent;color:#fff;border:2px solid rgba(255,255,255,0.7);}
+  .btn-outline-light:hover{background:rgba(255,255,255,0.12);}
+
+  /* NAVBAR */
+  header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    background:linear-gradient(120deg, var(--highlight) 0%, #ffffff 55%);
+    border-bottom:1px solid var(--border);
+    transition:box-shadow .3s ease;
+  }
+  header.scrolled{box-shadow:0 4px 20px rgba(0,0,0,0.08);}
+  .navbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:6px 24px;
+    max-width:1180px;
+    margin:0 auto;
+  }
+  .logo-img{height:104px;width:auto;mix-blend-mode:multiply;background:transparent;}
+  .nav-links{display:flex;gap:26px;}
+  .nav-links a{font-weight:600;font-size:0.94rem;transition:color .2s ease;}
+  .nav-links a:hover{color:var(--accent);}
+  .nav-cta{display:flex;align-items:center;gap:10px;}
+  .nav-cta .btn{padding:10px 20px;font-size:0.92rem;border-radius:30px;white-space:nowrap;}
+  .btn-outline-navy{background:transparent;color:var(--navy);border:2px solid var(--navy);}
+  .btn-outline-navy:hover{background:var(--highlight);}
+  .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:6px;}
+  .hamburger span{width:26px;height:3px;background:var(--text);border-radius:2px;transition:.3s;}
+  .mobile-nav{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:#fff;
+    z-index:2000;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:24px;
+  }
+  .mobile-nav.open{display:flex;}
+  .mobile-nav a{font-family:'Barlow Condensed',sans-serif;font-size:1.8rem;font-weight:700;}
+  .mobile-close{position:absolute;top:24px;right:24px;font-size:2rem;background:none;border:none;cursor:pointer;}
+
+  /* PAGE HERO */
+  .page-hero{background:var(--navy);color:#fff;padding:56px 0 48px;}
+  .breadcrumb{font-size:0.85rem;color:#b8c9db;margin-bottom:18px;}
+  .breadcrumb a{color:#b8c9db;}
+  .breadcrumb a:hover{color:var(--accent);}
+  .page-hero h1{font-size:clamp(2.2rem,5vw,3.2rem);margin-bottom:14px;color:#fff;}
+  .page-hero-sub{font-size:1.05rem;color:#d8e3ee;max-width:680px;line-height:1.6;}
+
+  /* SIMULATOR */
+  .sim-grid{display:grid;grid-template-columns:2fr 1fr;gap:32px;align-items:start;}
+  .sim-card{
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:26px 28px;
+    margin-bottom:24px;
+    background:#fff;
+  }
+  .sim-card-header{display:flex;align-items:center;gap:16px;margin-bottom:20px;}
+  .sim-icon-badge{
+    width:48px;height:48px;border-radius:50%;
+    background:var(--highlight);color:var(--navy);
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .sim-card-header h3{font-size:1.25rem;}
+  .sim-rate{font-size:0.88rem;color:#666;font-weight:600;}
+  .sim-slider-row{margin-bottom:18px;}
+  .sim-slider-label{display:flex;justify-content:space-between;font-weight:600;font-size:0.95rem;margin-bottom:10px;}
+  .sim-slider-label span:last-child{color:var(--navy);font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.1rem;}
+  .sim-discount{font-size:0.85rem;font-weight:600;color:#1a8a4a;margin-bottom:10px;visibility:hidden;}
+  .sim-slider{
+    -webkit-appearance:none;appearance:none;
+    width:100%;height:8px;border-radius:5px;
+    background:#d8e6ee;outline:none;cursor:pointer;
+  }
+  .sim-slider::-webkit-slider-thumb{
+    -webkit-appearance:none;appearance:none;
+    width:24px;height:24px;border-radius:50%;
+    background:var(--navy);border:3px solid #fff;
+    box-shadow:0 2px 8px rgba(0,0,0,0.3);cursor:pointer;
+  }
+  .sim-slider::-moz-range-thumb{
+    width:24px;height:24px;border-radius:50%;
+    background:var(--navy);border:3px solid #fff;
+    box-shadow:0 2px 8px rgba(0,0,0,0.3);cursor:pointer;border:none;
+  }
+  .sim-slider::-moz-range-track{background:#d8e6ee;height:8px;border-radius:5px;}
+  .sim-scale{display:flex;justify-content:space-between;font-size:0.78rem;color:#999;margin-top:6px;}
+  .sim-price-row{display:flex;gap:16px;padding-top:16px;border-top:1px solid var(--border);}
+  .sim-price-ttc, .sim-price-ht{flex:1;}
+  .sim-price-row span{display:block;font-size:0.78rem;color:#888;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:2px;}
+  .sim-price-ttc strong{font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;color:var(--navy);}
+  .sim-price-ht strong{font-family:'Barlow Condensed',sans-serif;font-size:1.15rem;color:#666;}
+  .sim-card-terrasse p{color:#555;font-size:0.95rem;margin-bottom:14px;}
+  .sim-subtreatment{
+    margin-top:20px;
+    padding:18px 18px 4px;
+    border:2px solid #2f9e6b;
+    border-radius:10px;
+    background:#f3fbf6;
+  }
+  .sim-subtreatment-header{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    color:#2f9e6b;
+    font-weight:700;
+    font-size:0.92rem;
+    margin-bottom:14px;
+  }
+  .sim-subtreatment .sim-price-ttc strong{color:#2f9e6b;}
+  .sim-subtreatment .sim-slider-label span:last-child{color:#2f9e6b;}
+  .sim-slider-treatment::-webkit-slider-thumb{background:#2f9e6b;}
+  .sim-slider-treatment::-moz-range-thumb{background:#2f9e6b;}
+  .sim-checkbox{display:flex;align-items:center;gap:10px;font-weight:600;cursor:pointer;}
+  .sim-checkbox input{width:20px;height:20px;accent-color:var(--navy);cursor:pointer;}
+
+  .sim-summary{position:sticky;top:130px;}
+  .sim-summary-card{
+    border:2px solid var(--navy);
+    border-radius:14px;
+    padding:28px 26px;
+    background:#fff;
+    box-shadow:0 14px 34px rgba(26,58,92,0.14);
+  }
+  .sim-summary-card h3{font-size:1.3rem;margin-bottom:16px;}
+  .sim-summary-list{margin-bottom:18px;min-height:24px;}
+  .sim-summary-empty{color:#999;font-size:0.9rem;}
+  .sim-summary-line{display:flex;justify-content:space-between;gap:10px;font-size:0.92rem;padding:8px 0;border-bottom:1px solid var(--border);}
+  .sim-summary-line .name{color:#333;font-weight:600;}
+  .sim-summary-line .val{color:var(--navy);font-weight:700;white-space:nowrap;}
+  .sim-total{background:var(--highlight);border-radius:10px;padding:16px 18px;margin-bottom:18px;}
+  .sim-total div{display:flex;justify-content:space-between;align-items:baseline;}
+  .sim-total div + div{margin-top:6px;}
+  .sim-total span{font-size:0.85rem;color:#555;font-weight:600;}
+  .sim-total strong{font-family:'Barlow Condensed',sans-serif;color:var(--navy);}
+  .sim-total div:first-child strong{font-size:1.7rem;}
+  .sim-total div:last-child strong{font-size:1.05rem;color:#666;}
+  .sim-submit{width:100%;margin-bottom:12px;}
+  .sim-note{font-size:0.82rem;color:#888;line-height:1.5;}
+  .sim-validation{display:none;color:#c0392b;font-size:0.88rem;font-weight:600;margin-bottom:12px;}
+
+  /* FOOTER */
+  footer{background:var(--navy);color:#fff;}
+  .footer-top{padding:64px 0 40px;display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:40px;}
+  .footer-logo-wrap{background:#fff;border-radius:10px;padding:10px 16px;display:inline-block;margin-bottom:16px;}
+  .footer-logo-wrap img{height:60px;}
+  .footer-col h4{font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;margin-bottom:18px;color:var(--accent);}
+  .footer-col p, .footer-col a{color:#d8e3ee;font-size:0.95rem;margin-bottom:10px;display:block;}
+  .footer-col a:hover{color:var(--accent);}
+  .footer-tagline{color:#d8e3ee;margin-bottom:6px;}
+  .contact-line{display:flex;align-items:center;gap:10px;}
+  .contact-line .icon-inline{color:var(--accent);}
+  .footer-bottom{
+    border-top:1px solid rgba(255,255,255,0.15);
+    background:#142f4a;
+    text-align:center;
+    padding:20px;
+    font-size:0.85rem;
+    color:#b8c9db;
+  }
+  .footer-legal-links{display:block;margin-top:8px;}
+  .footer-legal-links a{color:#b8c9db;text-decoration:underline;display:inline;}
+  .footer-legal-links a:hover{color:var(--accent);}
+
+  @media (max-width: 900px){
+    .nav-links, .nav-cta{display:none;}
+    .hamburger{display:flex;}
+    .sim-grid{grid-template-columns:1fr;}
+    .sim-summary{position:static;}
+    .footer-top{grid-template-columns:1fr;}
+    .section{padding:48px 0 56px;}
+  }
+</style>
+</head>
+<body>
+
+<svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
+  <defs>
+    <symbol id="icon-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M6.5 3h3l1.5 4.5-2 1.5a13 13 0 0 0 6 6l1.5-2 4.5 1.5v3a2 2 0 0 1-2 2C10.5 21.5 2.5 13.5 4.5 5a2 2 0 0 1 2-2z"></path>
+    </symbol>
+    <symbol id="icon-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+      <path d="M3.5 6l8.5 7 8.5-7"></path>
+    </symbol>
+    <symbol id="icon-building" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="4" y="3" width="16" height="18" rx="1"></rect>
+      <path d="M8 7h2M14 7h2M8 11h2M14 11h2M8 15h2M14 15h2"></path>
+    </symbol>
+    <symbol id="icon-roof" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 12L12 4l9 8"></path>
+      <path d="M6 11v9h12v-9"></path>
+    </symbol>
+    <symbol id="icon-solar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="6" width="18" height="12" rx="1"></rect>
+      <path d="M3 10h18M3 14h18M9 6v12M15 6v12"></path>
+    </symbol>
+    <symbol id="icon-window" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="4" y="4" width="16" height="16" rx="1"></rect>
+      <path d="M12 4v16M4 12h16"></path>
+    </symbol>
+    <symbol id="icon-terrace" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 9h18M3 9l2-5h14l2 5M5 9v10M19 9v10M9 19v-6M15 19v-6"></path>
+    </symbol>
+    <symbol id="icon-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M5 20C5 12 10 4 21 4c0 11-8 16-16 16z"></path>
+      <path d="M5 20c2-5 6-9 11-11"></path>
+    </symbol>
+    <symbol id="icon-facebook" viewBox="0 0 24 24">
+      <path d="M22 12.06C22 6.505 17.523 2 12 2S2 6.505 2 12.06c0 5.02 3.657 9.184 8.438 9.94v-7.03H7.898v-2.91h2.54V9.845c0-2.507 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562v1.877h2.773l-.443 2.91h-2.33V22c4.78-.756 8.437-4.92 8.437-9.94z"></path>
+    </symbol>
+  </defs>
+</svg>
+
+<header id="site-header">
+  <div class="navbar">
+    <a href="index.html"><img class="logo-img" src="assets/Black_White_Modern_Drone_Pilot_Logo.png" alt="DroneSudXpert"></a>
+    <nav class="nav-links">
+      <a href="index.html">Accueil</a>
+      <a href="index.html#services">Nos prestations</a>
+      <a href="index.html#pourquoi-drone">Pourquoi le Drone ?</a>
+      <a href="index.html#tarifs">Tarifs</a>
+      <a href="index.html#methode">Nos Drones</a>
+      <a href="index.html#zones">Zones</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="index.html#devis" class="btn btn-outline-navy">Devis 48h →</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="mobile-nav" id="mobile-nav">
+  <button class="mobile-close" id="mobile-close" aria-label="Fermer">✕</button>
+  <a href="index.html">Accueil</a>
+  <a href="index.html#services">Nos prestations</a>
+  <a href="index.html#pourquoi-drone">Pourquoi le Drone ?</a>
+  <a href="index.html#tarifs">Tarifs</a>
+  <a href="index.html#methode">Nos Drones</a>
+  <a href="index.html#zones">Zones</a>
+  <a href="index.html#devis">Devis</a>
+  <a href="index.html#contact">Contact</a>
+</div>
+
+<section class="page-hero">
+  <div class="container">
+    <p class="breadcrumb"><a href="index.html">Accueil</a> / Simulation</p>
+    <h1>Ma simulation personnalisée</h1>
+    <p class="page-hero-sub">Ajustez les réglettes selon vos surfaces et obtenez une estimation immédiate, TTC et HT. Une fois votre simulation prête, transmettez-la en un clic — il ne vous restera plus qu'à indiquer vos coordonnées.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container sim-grid">
+    <div>
+      <div class="sim-card">
+        <div class="sim-card-header">
+          <div class="sim-icon-badge"><svg class="icon" width="22" height="22"><use href="#icon-building"></use></svg></div>
+          <div>
+            <h3>Nettoyage Façade</h3>
+            <div class="sim-rate">7,90 €/m² TTC</div>
+          </div>
+        </div>
+        <div class="sim-slider-row">
+          <div class="sim-slider-label">
+            <span>Surface à traiter</span>
+            <span id="facade-value">0 m²</span>
+          </div>
+          <div class="sim-discount" id="facade-discount">✓ Réduction appliquée</div>
+          <input type="range" min="0" max="1000" step="10" value="0" class="sim-slider" id="facade-slider" aria-label="Surface de façade en m²">
+          <div class="sim-scale"><span>0 m²</span><span>1000 m²</span></div>
+        </div>
+        <div class="sim-price-row">
+          <div class="sim-price-ttc"><span>Prix TTC</span><strong id="facade-ttc">0 €</strong></div>
+          <div class="sim-price-ht"><span>Prix HT</span><strong id="facade-ht">0 €</strong></div>
+        </div>
+        <div class="sim-subtreatment">
+          <div class="sim-subtreatment-header">
+            <svg class="icon" width="16" height="16"><use href="#icon-leaf"></use></svg>
+            <span>+ Traitement Façade — 7,90 €/m² TTC</span>
+          </div>
+          <div class="sim-slider-row">
+            <div class="sim-slider-label">
+              <span>Surface à traiter</span>
+              <span id="traitement-facade-value">0 m²</span>
+            </div>
+            <div class="sim-discount" id="traitement-facade-discount">✓ Réduction appliquée</div>
+            <input type="range" min="0" max="1000" step="10" value="0" class="sim-slider sim-slider-treatment" id="traitement-facade-slider" aria-label="Surface de traitement façade en m²">
+            <div class="sim-scale"><span>0 m²</span><span>1000 m²</span></div>
+          </div>
+          <div class="sim-price-row">
+            <div class="sim-price-ttc"><span>Prix TTC</span><strong id="traitement-facade-ttc">0 €</strong></div>
+            <div class="sim-price-ht"><span>Prix HT</span><strong id="traitement-facade-ht">0 €</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sim-card">
+        <div class="sim-card-header">
+          <div class="sim-icon-badge"><svg class="icon" width="22" height="22"><use href="#icon-roof"></use></svg></div>
+          <div>
+            <h3>Nettoyage Toiture</h3>
+            <div class="sim-rate">7,90 €/m² TTC</div>
+          </div>
+        </div>
+        <div class="sim-slider-row">
+          <div class="sim-slider-label">
+            <span>Surface à traiter</span>
+            <span id="toiture-value">0 m²</span>
+          </div>
+          <div class="sim-discount" id="toiture-discount">✓ Réduction appliquée</div>
+          <input type="range" min="0" max="1000" step="10" value="0" class="sim-slider" id="toiture-slider" aria-label="Surface de toiture en m²">
+          <div class="sim-scale"><span>0 m²</span><span>1000 m²</span></div>
+        </div>
+        <div class="sim-price-row">
+          <div class="sim-price-ttc"><span>Prix TTC</span><strong id="toiture-ttc">0 €</strong></div>
+          <div class="sim-price-ht"><span>Prix HT</span><strong id="toiture-ht">0 €</strong></div>
+        </div>
+        <div class="sim-subtreatment">
+          <div class="sim-subtreatment-header">
+            <svg class="icon" width="16" height="16"><use href="#icon-leaf"></use></svg>
+            <span>+ Traitement Toiture — 7,90 €/m² TTC</span>
+          </div>
+          <div class="sim-slider-row">
+            <div class="sim-slider-label">
+              <span>Surface à traiter</span>
+              <span id="traitement-toiture-value">0 m²</span>
+            </div>
+            <div class="sim-discount" id="traitement-toiture-discount">✓ Réduction appliquée</div>
+            <input type="range" min="0" max="1000" step="10" value="0" class="sim-slider sim-slider-treatment" id="traitement-toiture-slider" aria-label="Surface de traitement toiture en m²">
+            <div class="sim-scale"><span>0 m²</span><span>1000 m²</span></div>
+          </div>
+          <div class="sim-price-row">
+            <div class="sim-price-ttc"><span>Prix TTC</span><strong id="traitement-toiture-ttc">0 €</strong></div>
+            <div class="sim-price-ht"><span>Prix HT</span><strong id="traitement-toiture-ht">0 €</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sim-card">
+        <div class="sim-card-header">
+          <div class="sim-icon-badge"><svg class="icon" width="22" height="22"><use href="#icon-solar"></use></svg></div>
+          <div>
+            <h3>Nettoyage Panneaux Solaires</h3>
+            <div class="sim-rate">5,90 €/m² TTC</div>
+          </div>
+        </div>
+        <div class="sim-slider-row">
+          <div class="sim-slider-label">
+            <span>Surface à traiter</span>
+            <span id="solar-value">0 m²</span>
+          </div>
+          <div class="sim-discount" id="solar-discount">✓ Réduction appliquée</div>
+          <input type="range" min="0" max="1000" step="10" value="0" class="sim-slider" id="solar-slider" aria-label="Surface de panneaux solaires en m²">
+          <div class="sim-scale"><span>0 m²</span><span>1000 m²</span></div>
+        </div>
+        <div class="sim-price-row">
+          <div class="sim-price-ttc"><span>Prix TTC</span><strong id="solar-ttc">0 €</strong></div>
+          <div class="sim-price-ht"><span>Prix HT</span><strong id="solar-ht">0 €</strong></div>
+        </div>
+      </div>
+
+      <div class="sim-card">
+        <div class="sim-card-header">
+          <div class="sim-icon-badge"><svg class="icon" width="22" height="22"><use href="#icon-window"></use></svg></div>
+          <div>
+            <h3>Nettoyage Vitres</h3>
+            <div class="sim-rate">6,90 €/m² TTC</div>
+          </div>
+        </div>
+        <div class="sim-slider-row">
+          <div class="sim-slider-label">
+            <span>Surface à traiter</span>
+            <span id="vitres-value">0 m²</span>
+          </div>
+          <div class="sim-discount" id="vitres-discount">✓ Réduction appliquée</div>
+          <input type="range" min="0" max="1000" step="10" value="0" class="sim-slider" id="vitres-slider" aria-label="Surface de vitres en m²">
+          <div class="sim-scale"><span>0 m²</span><span>1000 m²</span></div>
+        </div>
+        <div class="sim-price-row">
+          <div class="sim-price-ttc"><span>Prix TTC</span><strong id="vitres-ttc">0 €</strong></div>
+          <div class="sim-price-ht"><span>Prix HT</span><strong id="vitres-ht">0 €</strong></div>
+        </div>
+      </div>
+
+      <div class="sim-card sim-card-terrasse">
+        <div class="sim-card-header">
+          <div class="sim-icon-badge"><svg class="icon" width="22" height="22"><use href="#icon-terrace"></use></svg></div>
+          <div>
+            <h3>Terrasse</h3>
+            <div class="sim-rate">Sur devis</div>
+          </div>
+        </div>
+        <p>Le tarif dépend du revêtement et de la configuration. Cochez la case pour l'inclure dans votre demande — nous vous chiffrerons cette prestation séparément.</p>
+        <label class="sim-checkbox"><input type="checkbox" id="terrasse-check"> J'ai aussi une terrasse à nettoyer</label>
+      </div>
+    </div>
+
+    <aside class="sim-summary">
+      <div class="sim-summary-card">
+        <h3>Mon estimation</h3>
+        <div class="sim-summary-list" id="summary-list">
+          <p class="sim-summary-empty">Ajustez les réglettes pour voir votre estimation.</p>
+        </div>
+        <div class="sim-total">
+          <div><span>Total TTC</span><strong id="total-ttc">0 €</strong></div>
+          <div><span>Total HT</span><strong id="total-ht">0 €</strong></div>
+        </div>
+        <p class="sim-validation" id="sim-validation">Ajustez au moins une réglette avant de continuer.</p>
+        <button type="button" class="btn btn-navy sim-submit" id="sim-submit">Recevoir mon devis →</button>
+        <p class="sim-note">Estimation indicative basée sur nos tarifs de départ — le prix final dépend de l'accessibilité et de l'état du support. TVA 20% incluse dans le prix TTC.</p>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<footer>
+  <div class="container footer-top">
+    <div class="footer-col">
+      <div class="footer-logo-wrap">
+        <img src="assets/Black_White_Modern_Drone_Pilot_Logo.png" alt="DroneSudXpert">
+      </div>
+      <p class="footer-tagline"><strong>DroneSudXpert</strong></p>
+      <p class="footer-tagline">L'expertise aérienne au service de vos bâtiments</p>
+      <p class="footer-tagline">SAS — Marseille</p>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <p class="contact-line"><svg class="icon-inline" width="16" height="16"><use href="#icon-phone"></use></svg>06.58.22.25.41 · 07.62.59.09.82</p>
+      <p class="contact-line"><svg class="icon-inline" width="16" height="16"><use href="#icon-mail"></use></svg>contact@dronesudxpert.fr</p>
+      <p class="contact-line"><svg class="icon-inline" width="16" height="16" style="fill:currentColor;stroke:none;"><use href="#icon-facebook"></use></svg><a href="https://www.facebook.com/share/1cJQa3SKA9/?mibextid=wwXIfr" target="_blank" rel="noopener" style="color:inherit;">Facebook</a></p>
+    </div>
+    <div class="footer-col">
+      <h4>Nos prestations</h4>
+      <a href="nettoyage-facade-drone.html">Nettoyage de Façade</a>
+      <a href="traitement-facade-drone.html">Traitement de Façade</a>
+      <a href="nettoyage-toiture-drone.html">Nettoyage de Toiture</a>
+      <a href="traitement-toiture-drone.html">Traitement de Toiture</a>
+      <a href="nettoyage-panneaux-solaires-drone.html">Panneaux Solaires</a>
+      <a href="nettoyage-vitres-drone.html">Nettoyage de Vitres</a>
+      <a href="nettoyage-terrasse-drone.html">Nettoyage de Terrasse</a>
+      <a href="prise-de-vue-drone.html">Prise de Vue</a>
+      <a href="inspection-technique-drone.html">Inspection Technique</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2026 DroneSudXpert SAS — Tous droits réservés — Télépilotes certifiés DGAC/EASA
+    <span class="footer-legal-links">
+      <a href="mentions-legales.html">Mentions légales</a> · <a href="politique-confidentialite.html">Politique de confidentialité</a>
+    </span>
+  </div>
+</footer>
+
+<script>
+  const header = document.getElementById('site-header');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 10);
+  });
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobile-nav');
+  const mobileClose = document.getElementById('mobile-close');
+  hamburger.addEventListener('click', () => mobileNav.classList.add('open'));
+  mobileClose.addEventListener('click', () => mobileNav.classList.remove('open'));
+  mobileNav.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => mobileNav.classList.remove('open'));
+  });
+
+  // Simulateur
+  const TVA = 1.2;
+  const SERVICES = [
+    { key: 'facade', label: 'Nettoyage Façade', rate: 7.9, prestation: 'Nettoyage de façade' },
+    { key: 'traitement-facade', label: 'Traitement Façade', rate: 7.9, prestation: 'Traitement de façade/toiture', color: '#2f9e6b' },
+    { key: 'toiture', label: 'Nettoyage Toiture', rate: 7.9, prestation: 'Nettoyage de toiture' },
+    { key: 'traitement-toiture', label: 'Traitement Toiture', rate: 7.9, prestation: 'Traitement de façade/toiture', color: '#2f9e6b' },
+    { key: 'solar', label: 'Nettoyage Panneaux Solaires', rate: 5.9, prestation: 'Nettoyage panneaux solaires' },
+    { key: 'vitres', label: 'Nettoyage Vitres', rate: 6.9, prestation: 'Nettoyage de vitres' },
+  ];
+
+  function formatEuro(n) {
+    return Math.round(n).toLocaleString('fr-FR') + ' €';
+  }
+
+  function getDiscount(surface) {
+    if (surface >= 600) return 0.15;
+    if (surface >= 300) return 0.10;
+    if (surface >= 150) return 0.05;
+    return 0;
+  }
+
+  const state = {};
+  const terrasseCheck = document.getElementById('terrasse-check');
+  const summaryList = document.getElementById('summary-list');
+  const totalTtcEl = document.getElementById('total-ttc');
+  const totalHtEl = document.getElementById('total-ht');
+  const validationEl = document.getElementById('sim-validation');
+
+  function updateSummary() {
+    const lines = [];
+    let totalTtc = 0, totalHt = 0;
+    SERVICES.forEach(s => {
+      const d = state[s.key];
+      if (d && d.surface > 0) {
+        lines.push(`<div class="sim-summary-line"><span class="name">${s.label} — ${d.surface} m²</span><span class="val">${formatEuro(d.ttc)}</span></div>`);
+        totalTtc += d.ttc;
+        totalHt += d.ht;
+      }
+    });
+    if (terrasseCheck.checked) {
+      lines.push('<div class="sim-summary-line"><span class="name">Terrasse</span><span class="val">Sur devis</span></div>');
+    }
+    summaryList.innerHTML = lines.length
+      ? lines.join('')
+      : '<p class="sim-summary-empty">Ajustez les réglettes pour voir votre estimation.</p>';
+    totalTtcEl.textContent = formatEuro(totalTtc);
+    totalHtEl.textContent = formatEuro(totalHt);
+    validationEl.style.display = 'none';
+  }
+
+  SERVICES.forEach(s => {
+    const slider = document.getElementById(s.key + '-slider');
+    const valueEl = document.getElementById(s.key + '-value');
+    const ttcEl = document.getElementById(s.key + '-ttc');
+    const htEl = document.getElementById(s.key + '-ht');
+    const discountEl = document.getElementById(s.key + '-discount');
+
+    function update() {
+      const surface = parseInt(slider.value, 10);
+      const discount = getDiscount(surface);
+      const ttc = surface * s.rate * (1 - discount);
+      const ht = ttc / TVA;
+      valueEl.textContent = surface + ' m²';
+      ttcEl.textContent = formatEuro(ttc);
+      htEl.textContent = formatEuro(ht);
+      if (discount > 0) {
+        discountEl.textContent = `✓ Réduction de ${Math.round(discount * 100)}% appliquée dès ${surface >= 600 ? 600 : surface >= 300 ? 300 : 150} m²`;
+        discountEl.style.visibility = 'visible';
+      } else {
+        discountEl.style.visibility = 'hidden';
+      }
+      const min = parseInt(slider.min, 10);
+      const max = parseInt(slider.max, 10);
+      const pct = ((surface - min) / (max - min)) * 100;
+      const fillColor = s.color || 'var(--accent)';
+      slider.style.background = `linear-gradient(90deg, ${fillColor} 0%, ${fillColor} ${pct}%, #d8e6ee ${pct}%, #d8e6ee 100%)`;
+      state[s.key] = { surface, ttc, ht };
+      updateSummary();
+    }
+
+    slider.addEventListener('input', update);
+    update();
+  });
+
+  terrasseCheck.addEventListener('change', updateSummary);
+
+  function surfaceBucket(total) {
+    if (total < 50) return 'Moins de 50m²';
+    if (total < 150) return '50–150m²';
+    if (total < 300) return '150–300m²';
+    if (total <= 1000) return '300–1000m²';
+    return 'Plus de 1000m²';
+  }
+
+  document.getElementById('sim-submit').addEventListener('click', () => {
+    const chosen = SERVICES.filter(s => state[s.key] && state[s.key].surface > 0);
+    const terrasse = terrasseCheck.checked;
+
+    if (!chosen.length && !terrasse) {
+      validationEl.style.display = 'block';
+      return;
+    }
+
+    let totalSurface = 0, totalTtc = 0, totalHt = 0;
+    const messageLines = ['Simulation réalisée en ligne :'];
+    chosen.forEach(s => {
+      const d = state[s.key];
+      messageLines.push(`- ${s.label} : ${d.surface} m² → ${formatEuro(d.ttc)} TTC (${formatEuro(d.ht)} HT)`);
+      totalSurface += d.surface;
+      totalTtc += d.ttc;
+      totalHt += d.ht;
+    });
+    if (terrasse) {
+      messageLines.push('- Terrasse : à chiffrer séparément (sur devis)');
+    }
+    messageLines.push(`Total estimé : ${formatEuro(totalTtc)} TTC (${formatEuro(totalHt)} HT)`);
+
+    let prestation = 'Plusieurs prestations';
+    if (chosen.length === 1 && !terrasse) {
+      prestation = chosen[0].prestation;
+    } else if (chosen.length === 0 && terrasse) {
+      prestation = 'Plusieurs prestations';
+    }
+
+    sessionStorage.setItem('dsx_simulation', JSON.stringify({
+      message: messageLines.join('\n'),
+      prestation,
+      surface: surfaceBucket(totalSurface),
+    }));
+
+    window.location.href = 'index.html#devis';
+  });
+</script>
+
+</body>
+</html>
