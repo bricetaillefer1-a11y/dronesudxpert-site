@@ -179,6 +179,27 @@
   }
   .sim-subtreatment .sim-price-ttc strong{color:#2f9e6b;}
   .sim-subtreatment .sim-slider-label span:last-child{color:#2f9e6b;}
+  .sim-formule-hint{
+    display:none;
+    background:#fff8e6;
+    border:1px dashed #d4a017;
+    border-radius:8px;
+    padding:10px 14px;
+    font-size:0.85rem;
+    color:#7a5c00;
+    margin-bottom:14px;
+  }
+  .sim-formule-applied{
+    display:none;
+    background:#e3f5ea;
+    border:1px solid #2f9e6b;
+    border-radius:8px;
+    padding:10px 14px;
+    font-size:0.85rem;
+    color:#1a6b45;
+    font-weight:600;
+    margin-bottom:14px;
+  }
   .sim-slider-treatment::-webkit-slider-thumb{background:#2f9e6b;}
   .sim-slider-treatment::-moz-range-thumb{background:#2f9e6b;}
   .sim-checkbox{display:flex;align-items:center;gap:10px;font-weight:600;cursor:pointer;}
@@ -352,6 +373,8 @@
             <svg class="icon" width="16" height="16"><use href="#icon-leaf"></use></svg>
             <span>+ Traitement Façade — 7,90 €/m² TTC</span>
           </div>
+          <p class="sim-formule-hint" id="formule-hint-facade">💡 Ajoutez le traitement pour bénéficier de la <strong>formule Nettoyage + Traitement</strong> et économiser 15% sur l'ensemble de la façade.</p>
+          <p class="sim-formule-applied" id="formule-applied-facade">🎉 Formule Nettoyage + Traitement appliquée — <strong>-15%</strong> sur la façade !</p>
           <div class="sim-slider-row">
             <div class="sim-slider-label">
               <span>Surface à traiter</span>
@@ -394,6 +417,8 @@
             <svg class="icon" width="16" height="16"><use href="#icon-leaf"></use></svg>
             <span>+ Traitement Toiture — 7,90 €/m² TTC</span>
           </div>
+          <p class="sim-formule-hint" id="formule-hint-toiture">💡 Ajoutez le traitement pour bénéficier de la <strong>formule Nettoyage + Traitement</strong> et économiser 15% sur l'ensemble de la toiture.</p>
+          <p class="sim-formule-applied" id="formule-applied-toiture">🎉 Formule Nettoyage + Traitement appliquée — <strong>-15%</strong> sur la toiture !</p>
           <div class="sim-slider-row">
             <div class="sim-slider-label">
               <span>Surface à traiter</span>
@@ -567,9 +592,16 @@
   const totalHtEl = document.getElementById('total-ht');
   const validationEl = document.getElementById('sim-validation');
 
+  const FORMULE_DISCOUNT = 0.15;
+  const FORMULE_ZONES = [
+    { key: 'facade', nettoyage: 'facade', traitement: 'traitement-facade', label: 'Façade' },
+    { key: 'toiture', nettoyage: 'toiture', traitement: 'traitement-toiture', label: 'Toiture' },
+  ];
+
   function updateSummary() {
     const lines = [];
     let totalTtc = 0, totalHt = 0;
+
     SERVICES.forEach(s => {
       const d = state[s.key];
       if (d && d.surface > 0) {
@@ -578,6 +610,26 @@
         totalHt += d.ht;
       }
     });
+
+    FORMULE_ZONES.forEach(zone => {
+      const n = state[zone.nettoyage];
+      const t = state[zone.traitement];
+      const hintEl = document.getElementById('formule-hint-' + zone.key);
+      const appliedEl = document.getElementById('formule-applied-' + zone.key);
+      const formuleActive = n && t && n.surface > 0 && t.surface > 0;
+
+      if (formuleActive) {
+        const bonusTtc = (n.ttc + t.ttc) * FORMULE_DISCOUNT;
+        const bonusHt = (n.ht + t.ht) * FORMULE_DISCOUNT;
+        totalTtc -= bonusTtc;
+        totalHt -= bonusHt;
+        lines.push(`<div class="sim-summary-line"><span class="name">🎁 Formule Nettoyage + Traitement ${zone.label} (-15%)</span><span class="val">-${formatEuro(bonusTtc)}</span></div>`);
+      }
+
+      if (hintEl) hintEl.style.display = (n && n.surface > 0 && !formuleActive) ? 'block' : 'none';
+      if (appliedEl) appliedEl.style.display = formuleActive ? 'block' : 'none';
+    });
+
     if (terrasseCheck.checked) {
       lines.push('<div class="sim-summary-line"><span class="name">Terrasse</span><span class="val">Sur devis</span></div>');
     }
@@ -651,6 +703,18 @@
       totalTtc += d.ttc;
       totalHt += d.ht;
     });
+    FORMULE_ZONES.forEach(zone => {
+      const n = state[zone.nettoyage];
+      const t = state[zone.traitement];
+      if (n && t && n.surface > 0 && t.surface > 0) {
+        const bonusTtc = (n.ttc + t.ttc) * FORMULE_DISCOUNT;
+        const bonusHt = (n.ht + t.ht) * FORMULE_DISCOUNT;
+        totalTtc -= bonusTtc;
+        totalHt -= bonusHt;
+        messageLines.push(`- Formule Nettoyage + Traitement ${zone.label} (-15%) : -${formatEuro(bonusTtc)} TTC`);
+      }
+    });
+
     if (terrasse) {
       messageLines.push('- Terrasse : à chiffrer séparément (sur devis)');
     }
