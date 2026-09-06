@@ -802,6 +802,38 @@
     font-weight:700;
     color:#2f9e6b;
   }
+  .calc-formule-check{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    margin-top:10px;
+    font-size:0.8rem;
+    font-weight:600;
+    color:#555;
+    cursor:pointer;
+  }
+  .calc-formule-check input{accent-color:#2f9e6b;cursor:pointer;}
+  .calc-formule-hint{
+    display:none;
+    margin-top:8px;
+    font-size:0.75rem;
+    color:#7a5c00;
+    background:#fff8e6;
+    border:1px dashed #d4a017;
+    border-radius:6px;
+    padding:6px 8px;
+  }
+  .calc-formule-total{
+    display:none;
+    margin-top:8px;
+    font-size:0.8rem;
+    color:#1a6b45;
+    background:#e3f5ea;
+    border:1px solid #2f9e6b;
+    border-radius:6px;
+    padding:6px 8px;
+  }
+  .calc-formule-total strong{font-family:'Barlow Condensed',sans-serif;font-size:1rem;}
   .calculator-footer{
     text-align:center;
   }
@@ -1543,12 +1575,22 @@
         <div class="calculator-result">
           <div class="label">Nettoyage Façade</div>
           <div class="amount"><span class="approx">≈ </span><span id="result-facade">790 €</span></div>
-          <div class="calc-treatment"><span>Traitement</span><span id="result-traitement-facade">790 €</span></div>
+          <div class="calc-treatment">
+            <span>Traitement</span><span id="result-traitement-facade">790 €</span>
+          </div>
+          <label class="calc-formule-check"><input type="checkbox" id="formule-facade-check"> Ajouter le traitement</label>
+          <div class="calc-formule-hint" id="calc-formule-hint-facade">💡 Formule Nettoyage + Traitement : -15%</div>
+          <div class="calc-formule-total" id="calc-formule-total-facade">🎉 Total formule -15% : <strong id="calc-formule-value-facade">0 €</strong></div>
         </div>
         <div class="calculator-result">
           <div class="label">Nettoyage Toiture</div>
           <div class="amount"><span class="approx">≈ </span><span id="result-toiture">790 €</span></div>
-          <div class="calc-treatment"><span>Traitement</span><span id="result-traitement-toiture">790 €</span></div>
+          <div class="calc-treatment">
+            <span>Traitement</span><span id="result-traitement-toiture">790 €</span>
+          </div>
+          <label class="calc-formule-check"><input type="checkbox" id="formule-toiture-check"> Ajouter le traitement</label>
+          <div class="calc-formule-hint" id="calc-formule-hint-toiture">💡 Formule Nettoyage + Traitement : -15%</div>
+          <div class="calc-formule-total" id="calc-formule-total-toiture">🎉 Total formule -15% : <strong id="calc-formule-value-toiture">0 €</strong></div>
         </div>
         <div class="calculator-result">
           <div class="label">Nettoyage Panneaux Solaires</div>
@@ -1916,6 +1958,9 @@
   const resultTraitementToiture = document.getElementById('result-traitement-toiture');
   const RATES = { facade: 7.9, toiture: 7.9, solar: 5.9, vitres: 6.9 };
   const discountBadge = document.getElementById('discount-badge');
+  const FORMULE_DISCOUNT = 0.15;
+  const formuleFacadeCheck = document.getElementById('formule-facade-check');
+  const formuleToitureCheck = document.getElementById('formule-toiture-check');
 
   function formatEuro(n) {
     return Math.round(n).toLocaleString('fr-FR') + ' €';
@@ -1932,18 +1977,42 @@
     const surface = parseInt(surfaceSlider.value, 10);
     const discount = getDiscount(surface);
     surfaceValue.textContent = surface + ' m²';
-    resultFacade.textContent = formatEuro(surface * RATES.facade * (1 - discount));
-    resultToiture.textContent = formatEuro(surface * RATES.toiture * (1 - discount));
-    resultTraitementFacade.textContent = formatEuro(surface * RATES.facade * (1 - discount));
-    resultTraitementToiture.textContent = formatEuro(surface * RATES.toiture * (1 - discount));
+    const facadePrice = surface * RATES.facade * (1 - discount);
+    const toiturePrice = surface * RATES.toiture * (1 - discount);
+    resultFacade.textContent = formatEuro(facadePrice);
+    resultToiture.textContent = formatEuro(toiturePrice);
+    resultTraitementFacade.textContent = formatEuro(facadePrice);
+    resultTraitementToiture.textContent = formatEuro(toiturePrice);
     resultSolar.textContent = formatEuro(surface * RATES.solar * (1 - discount));
     resultVitres.textContent = formatEuro(surface * RATES.vitres * (1 - discount));
     discountBadge.style.visibility = discount > 0 ? 'visible' : 'hidden';
+
+    updateFormule('facade', facadePrice, formuleFacadeCheck);
+    updateFormule('toiture', toiturePrice, formuleToitureCheck);
     const min = parseInt(surfaceSlider.min, 10);
     const max = parseInt(surfaceSlider.max, 10);
     const pct = ((surface - min) / (max - min)) * 100;
     surfaceSlider.style.background = `linear-gradient(90deg, var(--accent) 0%, var(--accent) ${pct}%, #d8e6ee ${pct}%, #d8e6ee 100%)`;
   }
+
+  function updateFormule(zone, price, checkbox) {
+    const hintEl = document.getElementById('calc-formule-hint-' + zone);
+    const totalEl = document.getElementById('calc-formule-total-' + zone);
+    const valueEl = document.getElementById('calc-formule-value-' + zone);
+    const active = checkbox.checked;
+    if (active) {
+      const total = (price * 2) * (1 - FORMULE_DISCOUNT);
+      valueEl.textContent = formatEuro(total);
+      totalEl.style.display = 'block';
+      hintEl.style.display = 'none';
+    } else {
+      totalEl.style.display = 'none';
+      hintEl.style.display = 'block';
+    }
+  }
+
+  formuleFacadeCheck.addEventListener('change', updateCalculator);
+  formuleToitureCheck.addEventListener('change', updateCalculator);
 
   surfaceSlider.addEventListener('input', updateCalculator);
   updateCalculator();
