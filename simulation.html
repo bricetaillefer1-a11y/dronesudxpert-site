@@ -160,7 +160,6 @@
   .sim-price-row span{display:block;font-size:0.78rem;color:#888;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:2px;}
   .sim-price-ttc strong{font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;color:var(--navy);}
   .sim-price-ht strong{font-family:'Barlow Condensed',sans-serif;font-size:1.15rem;color:#666;}
-  .sim-card-terrasse p{color:#555;font-size:0.95rem;margin-bottom:14px;}
   .sim-subtreatment{
     margin-top:20px;
     padding:18px 18px 4px;
@@ -289,9 +288,6 @@
     <symbol id="icon-window" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
       <rect x="4" y="4" width="16" height="16" rx="1"></rect>
       <path d="M12 4v16M4 12h16"></path>
-    </symbol>
-    <symbol id="icon-terrace" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M3 9h18M3 9l2-5h14l2 5M5 9v10M19 9v10M9 19v-6M15 19v-6"></path>
     </symbol>
     <symbol id="icon-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
       <path d="M5 20C5 12 10 4 21 4c0 11-8 16-16 16z"></path>
@@ -480,18 +476,6 @@
           <div class="sim-price-ht"><span>Prix HT</span><strong id="vitres-ht">0 €</strong></div>
         </div>
       </div>
-
-      <div class="sim-card sim-card-terrasse">
-        <div class="sim-card-header">
-          <div class="sim-icon-badge"><svg class="icon" width="22" height="22"><use href="#icon-terrace"></use></svg></div>
-          <div>
-            <h3>Terrasse</h3>
-            <div class="sim-rate">Sur devis</div>
-          </div>
-        </div>
-        <p>Le tarif dépend du revêtement et de la configuration. Cochez la case pour l'inclure dans votre demande — nous vous chiffrerons cette prestation séparément.</p>
-        <label class="sim-checkbox"><input type="checkbox" id="terrasse-check"> J'ai aussi une terrasse à nettoyer</label>
-      </div>
     </div>
 
     <aside class="sim-summary">
@@ -536,7 +520,6 @@
       <a href="traitement-toiture-drone.html">Traitement de Toiture</a>
       <a href="nettoyage-panneaux-solaires-drone.html">Panneaux Solaires</a>
       <a href="nettoyage-vitres-drone.html">Nettoyage de Vitres</a>
-      <a href="nettoyage-terrasse-drone.html">Nettoyage de Terrasse</a>
       <a href="prise-de-vue-drone.html">Prise de Vue</a>
       <a href="inspection-technique-drone.html">Inspection Technique</a>
     </div>
@@ -586,7 +569,6 @@
   }
 
   const state = {};
-  const terrasseCheck = document.getElementById('terrasse-check');
   const summaryList = document.getElementById('summary-list');
   const totalTtcEl = document.getElementById('total-ttc');
   const totalHtEl = document.getElementById('total-ht');
@@ -630,9 +612,6 @@
       if (appliedEl) appliedEl.style.display = formuleActive ? 'block' : 'none';
     });
 
-    if (terrasseCheck.checked) {
-      lines.push('<div class="sim-summary-line"><span class="name">Terrasse</span><span class="val">Sur devis</span></div>');
-    }
     summaryList.innerHTML = lines.length
       ? lines.join('')
       : '<p class="sim-summary-empty">Ajustez les réglettes pour voir votre estimation.</p>';
@@ -675,8 +654,6 @@
     update();
   });
 
-  terrasseCheck.addEventListener('change', updateSummary);
-
   function surfaceBucket(total) {
     if (total < 50) return 'Moins de 50m²';
     if (total < 150) return '50–150m²';
@@ -687,9 +664,8 @@
 
   document.getElementById('sim-submit').addEventListener('click', () => {
     const chosen = SERVICES.filter(s => state[s.key] && state[s.key].surface > 0);
-    const terrasse = terrasseCheck.checked;
 
-    if (!chosen.length && !terrasse) {
+    if (!chosen.length) {
       validationEl.style.display = 'block';
       return;
     }
@@ -715,16 +691,11 @@
       }
     });
 
-    if (terrasse) {
-      messageLines.push('- Terrasse : à chiffrer séparément (sur devis)');
-    }
     messageLines.push(`Total estimé : ${formatEuro(totalTtc)} TTC (${formatEuro(totalHt)} HT)`);
 
     let prestation = 'Plusieurs prestations';
-    if (chosen.length === 1 && !terrasse) {
+    if (chosen.length === 1) {
       prestation = chosen[0].prestation;
-    } else if (chosen.length === 0 && terrasse) {
-      prestation = 'Plusieurs prestations';
     }
 
     sessionStorage.setItem('dsx_simulation', JSON.stringify({
