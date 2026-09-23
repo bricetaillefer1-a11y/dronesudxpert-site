@@ -41,6 +41,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://dronesudxpert.com/notre-methode.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://dronesudxpert.com/nettoyage-panneaux-solaires-drone.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
