@@ -1143,6 +1143,50 @@
     font-size:0.98rem;
   }
 
+  /* AVIS CLIENTS */
+  .reviews-section{background:var(--highlight);}
+  .reviews-header{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:36px;}
+  .reviews-header .section-title, .reviews-header .section-subtitle{margin-bottom:0;}
+  .reviews-carousel{position:relative;max-width:760px;margin:0 auto;}
+  .reviews-track-wrap{overflow:hidden;border-radius:14px;}
+  .reviews-track{display:flex;transition:transform .5s ease;}
+  .review-card{
+    flex:0 0 100%;
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:36px;
+    box-shadow:0 4px 16px rgba(0,0,0,0.05);
+  }
+  .review-stars{color:#f5a623;font-size:1.15rem;letter-spacing:2px;margin-bottom:16px;}
+  .review-text{font-size:1.05rem;color:#333;line-height:1.7;margin-bottom:22px;}
+  .review-author{display:flex;align-items:center;gap:12px;}
+  .review-avatar{
+    width:44px;height:44px;border-radius:50%;
+    background:var(--navy);color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.05rem;
+    flex-shrink:0;
+  }
+  .review-name{font-weight:700;color:var(--navy);font-size:0.98rem;}
+  .review-meta{font-size:0.85rem;color:#777;}
+  .reviews-nav{display:flex;justify-content:center;align-items:center;gap:18px;margin-top:28px;}
+  .reviews-arrow{
+    width:40px;height:40px;border-radius:50%;
+    border:2px solid var(--navy);background:#fff;color:var(--navy);
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;transition:background .2s ease,color .2s ease;
+    flex-shrink:0;
+  }
+  .reviews-arrow:hover{background:var(--navy);color:#fff;}
+  .reviews-dots{display:flex;align-items:center;gap:8px;}
+  .review-dot{width:9px;height:9px;border-radius:50%;background:#c7d4de;border:none;cursor:pointer;padding:0;transition:background .2s ease,transform .2s ease;}
+  .review-dot.active{background:var(--navy);transform:scale(1.3);}
+
+  @media (max-width: 640px){
+    .review-card{padding:26px 22px;}
+  }
+
   /* FOOTER */
   footer{
     background:var(--navy);
@@ -1865,6 +1909,38 @@
   </div>
 </section>
 
+<!--
+  AVIS CLIENTS — section masquée automatiquement tant que le tableau `reviews`
+  ci-dessous (dans le <script> en bas de page) est vide. Dès qu'un avis arrive
+  sur la fiche Google, ajoutez-le dans ce tableau au même format que l'exemple
+  en commentaire, et la section apparaît toute seule avec le défilement actif.
+-->
+<section class="section reviews-section" id="avis">
+  <div class="container">
+    <div class="reviews-header">
+      <div>
+        <h2 class="section-title">Ce que disent nos clients</h2>
+        <p class="section-subtitle">Avis laissés sur notre fiche Google.</p>
+      </div>
+      <a href="#" id="reviews-cta" class="btn btn-navy" style="display:none;" target="_blank" rel="noopener">Laisser un avis →</a>
+    </div>
+    <div class="reviews-carousel" id="reviews-carousel">
+      <div class="reviews-track-wrap">
+        <div class="reviews-track" id="reviews-track"></div>
+      </div>
+      <div class="reviews-nav">
+        <button class="reviews-arrow" id="reviews-prev" aria-label="Avis précédent">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"></path></svg>
+        </button>
+        <div class="reviews-dots" id="reviews-dots"></div>
+        <button class="reviews-arrow" id="reviews-next" aria-label="Avis suivant">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"></path></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
 <footer>
   <div class="container footer-top">
     <div class="footer-col">
@@ -2116,6 +2192,91 @@
       submitBtn.textContent = submitBtnDefaultText;
     }
   });
+</script>
+
+<script>
+  // AVIS CLIENTS — ajoutez chaque nouvel avis ici, au même format que l'exemple
+  // ci-dessous (décommentez-le et dupliquez-le pour l'avis suivant). Dès qu'il
+  // y a au moins un avis dans ce tableau, la section s'affiche automatiquement
+  // avec le défilement actif.
+  const reviews = [
+    // {
+    //   name: "Jean Dupont",
+    //   initials: "JD",
+    //   rating: 5,
+    //   text: "Intervention rapide et soignée, le résultat sur notre toiture est impeccable. Je recommande.",
+    //   meta: "Avis Google — novembre 2026"
+    // },
+  ];
+
+  const reviewsSection = document.getElementById('avis');
+  if (reviews.length === 0) {
+    reviewsSection.style.display = 'none';
+  } else {
+    const track = document.getElementById('reviews-track');
+    const dotsWrap = document.getElementById('reviews-dots');
+    const prevBtn = document.getElementById('reviews-prev');
+    const nextBtn = document.getElementById('reviews-next');
+    const navWrap = document.querySelector('.reviews-nav');
+    const ctaLink = document.getElementById('reviews-cta');
+
+    // Une fois que vous avez le lien "Laisser un avis" de votre fiche Google
+    // (bouton "Partagez votre lien d'avis" dans vos réglages), collez-le ici :
+    const reviewLink = '';
+    if (reviewLink) {
+      ctaLink.href = reviewLink;
+      ctaLink.style.display = '';
+    }
+
+    track.innerHTML = reviews.map(r => `
+      <div class="review-card">
+        <div class="review-stars">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</div>
+        <p class="review-text">« ${r.text} »</p>
+        <div class="review-author">
+          <div class="review-avatar">${r.initials}</div>
+          <div>
+            <div class="review-name">${r.name}</div>
+            <div class="review-meta">${r.meta}</div>
+          </div>
+        </div>
+      </div>
+    `).join('');
+
+    if (reviews.length > 1) {
+      dotsWrap.innerHTML = reviews.map((_, i) => `<button class="review-dot" aria-label="Avis ${i + 1}"></button>`).join('');
+    } else {
+      navWrap.style.display = 'none';
+    }
+
+    const dots = dotsWrap.querySelectorAll('.review-dot');
+    let current = 0;
+    let timer;
+
+    function goTo(index) {
+      current = (index + reviews.length) % reviews.length;
+      track.style.transform = `translateX(-${current * 100}%)`;
+      dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    }
+
+    function startAutoplay() {
+      stopAutoplay();
+      if (reviews.length > 1) timer = setInterval(() => goTo(current + 1), 5000);
+    }
+    function stopAutoplay() {
+      if (timer) clearInterval(timer);
+    }
+
+    prevBtn.addEventListener('click', () => { goTo(current - 1); startAutoplay(); });
+    nextBtn.addEventListener('click', () => { goTo(current + 1); startAutoplay(); });
+    dots.forEach((dot, i) => dot.addEventListener('click', () => { goTo(i); startAutoplay(); }));
+
+    const carousel = document.getElementById('reviews-carousel');
+    carousel.addEventListener('mouseenter', stopAutoplay);
+    carousel.addEventListener('mouseleave', startAutoplay);
+
+    goTo(0);
+    startAutoplay();
+  }
 </script>
 
 </body>
