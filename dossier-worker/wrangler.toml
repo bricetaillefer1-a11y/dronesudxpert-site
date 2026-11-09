@@ -1,0 +1,21 @@
+name = "dronesudxpert-dossiers"
+main = "src/worker.js"
+compatibility_date = "2024-11-01"
+
+# One run per day at 03:00 UTC — deletes any dossier past its expiry date.
+[triggers]
+crons = ["0 3 * * *"]
+
+[[r2_buckets]]
+binding = "DOSSIERS_BUCKET"
+bucket_name = "dronesudxpert-dossiers"
+
+[[kv_namespaces]]
+binding = "DOSSIERS_KV"
+id = "REPLACE_WITH_KV_NAMESPACE_ID"
+
+[vars]
+# Comma-separated list of origins allowed to call this API from the browser.
+ALLOWED_ORIGIN = "https://dronesudxpert.com"
+
+# ADMIN_PASSWORD is set as a secret (not here) — see ../README.md

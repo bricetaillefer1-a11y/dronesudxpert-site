@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Dossiers clients — DroneSudXpert</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="/assets/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFFFFF;
+    --text:#0D0D0D;
+    --accent:#4BB8E8;
+    --navy:#1A3A5C;
+    --highlight:#EBF7FD;
+    --border:#E0E0E0;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Barlow',sans-serif;color:var(--text);background:#F4F7FA;line-height:1.6;}
+  h1,h2,h3{font-family:'Barlow Condensed',sans-serif;font-weight:800;color:var(--navy);}
+  header{background:var(--navy);color:#fff;padding:18px 24px;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.2rem;}
+  main{max-width:760px;margin:0 auto;padding:40px 20px 100px;}
+
+  .card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:28px;margin-bottom:24px;}
+
+  #gate{max-width:360px;margin:60px auto;text-align:center;}
+  #gate input{width:100%;padding:12px;border:2px solid var(--border);border-radius:8px;margin:16px 0;font-size:1rem;}
+
+  label{display:block;font-weight:600;margin-bottom:6px;margin-top:16px;}
+  input[type=text], input[type=number], input[type=password]{
+    width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-size:1rem;
+  }
+  .row{display:flex;gap:12px;}
+  .row > div{flex:1;}
+
+  .btn{
+    font-family:'Barlow',sans-serif;font-weight:700;font-size:0.95rem;
+    padding:12px 22px;border-radius:8px;border:none;
+    background:var(--navy);color:#fff;cursor:pointer;margin-top:18px;
+  }
+  .btn:hover{background:#13293f;}
+  .btn:disabled{opacity:.6;cursor:default;}
+  .btn-danger{background:#c0392b;}
+  .btn-danger:hover{background:#962d20;}
+  .btn-small{padding:6px 14px;font-size:0.82rem;margin-top:0;}
+
+  #dropzone{
+    border:2px dashed var(--border);border-radius:10px;padding:28px;text-align:center;
+    color:#777;margin-top:16px;cursor:pointer;background:var(--highlight);
+  }
+  #dropzone.dragover{border-color:var(--accent);background:#dff3fb;}
+
+  .upload-item{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:0.9rem;}
+  .upload-item:last-child{border-bottom:none;}
+  .upload-status{color:#888;}
+  .upload-status.done{color:#1a7a3c;font-weight:600;}
+  .upload-status.error{color:#c0392b;font-weight:600;}
+
+  .code-display{
+    font-family:'Barlow Condensed',sans-serif;font-size:1.8rem;font-weight:800;
+    color:var(--navy);text-align:center;letter-spacing:2px;margin:16px 0;
+  }
+  .email-template{
+    background:var(--highlight);border:1px solid var(--border);border-radius:8px;
+    padding:16px;white-space:pre-wrap;font-size:0.9rem;margin-top:10px;
+  }
+
+  .dossier-row{border-bottom:1px solid var(--border);padding:14px 0;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;}
+  .dossier-row:last-child{border-bottom:none;}
+  .dossier-meta{font-size:0.85rem;color:#666;}
+  .msg{margin-top:12px;font-weight:600;}
+  .msg.error{color:#c0392b;}
+  .msg.ok{color:#1a7a3c;}
+</style>
+</head>
+<body>
+
+<header>DroneSudXpert — Admin Dossiers</header>
+
+<main>
+  <div id="gate" class="card">
+    <h2>Accès réservé</h2>
+    <input type="password" id="admin-password" placeholder="Mot de passe">
+    <button class="btn" id="login-btn">Se connecter</button>
+    <p class="msg error" id="gate-msg"></p>
+  </div>
+
+  <div id="app" style="display:none;">
+
+    <div class="card">
+      <h2>Nouveau dossier client</h2>
+      <div class="row">
+        <div>
+          <label>Nom du client</label>
+          <input type="text" id="client-name" placeholder="Ex: M. et Mme Dupont">
+        </div>
+        <div style="max-width:140px;">
+          <label>Durée (jours)</label>
+          <input type="number" id="client-days" value="10" min="1" max="60">
+        </div>
+      </div>
+      <button class="btn" id="create-btn">Créer le dossier</button>
+
+      <div id="created-block" style="display:none;margin-top:24px;">
+        <p style="text-align:center;color:#666;">Code généré :</p>
+        <div class="code-display" id="created-code"></div>
+
+        <div id="dropzone">Glissez vos photos et le rapport ici, ou cliquez pour choisir des fichiers</div>
+        <input type="file" id="file-input" multiple style="display:none;">
+        <div id="upload-list"></div>
+
+        <h3 style="margin-top:24px;font-size:1.1rem;">Texte prêt à copier pour l'e-mail client</h3>
+        <div class="email-template" id="email-template"></div>
+        <button class="btn btn-small" id="copy-email-btn">Copier le texte</button>
+      </div>
+
+      <p class="msg" id="create-msg"></p>
+    </div>
+
+    <div class="card">
+      <h2>Dossiers actifs</h2>
+      <div id="dossier-list">Chargement...</div>
+    </div>
+
+  </div>
+</main>
+
+<script>
+  // Remplacé automatiquement une fois le service Cloudflare déployé.
+  const WORKER_URL = "https://dronesudxpert-dossiers.WORKER-SUBDOMAIN.workers.dev";
+  const RECUP_URL = "https://dronesudxpert.com/recuperer-mon-dossier.html";
+
+  const gate = document.getElementById('gate');
+  const app = document.getElementById('app');
+  const gateMsg = document.getElementById('gate-msg');
+
+  function getPassword() { return sessionStorage.getItem('dsx_admin_pw') || ''; }
+
+  async function adminFetch(path, options = {}) {
+    options.headers = Object.assign({}, options.headers, { 'X-Admin-Password': getPassword() });
+    return fetch(`${WORKER_URL}${path}`, options);
+  }
+
+  document.getElementById('login-btn').addEventListener('click', async () => {
+    const pw = document.getElementById('admin-password').value;
+    sessionStorage.setItem('dsx_admin_pw', pw);
+    const resp = await adminFetch('/api/admin/list');
+    if (resp.ok) {
+      gate.style.display = 'none';
+      app.style.display = 'block';
+      loadDossiers();
+    } else {
+      gateMsg.textContent = 'Mot de passe incorrect.';
+    }
+  });
+
+  // Auto-login if a password was already validated this session
+  if (getPassword()) {
+    adminFetch('/api/admin/list').then(resp => {
+      if (resp.ok) {
+        gate.style.display = 'none';
+        app.style.display = 'block';
+        loadDossiers();
+      }
+    });
+  }
+
+  let currentCode = null;
+
+  document.getElementById('create-btn').addEventListener('click', async () => {
+    const clientName = document.getElementById('client-name').value.trim();
+    const days = parseInt(document.getElementById('client-days').value, 10) || 10;
+    const createMsg = document.getElementById('create-msg');
+    createMsg.textContent = '';
+    createMsg.className = 'msg';
+
+    if (!clientName) {
+      createMsg.textContent = 'Indiquez le nom du client.';
+      createMsg.className = 'msg error';
+      return;
+    }
+
+    const resp = await adminFetch('/api/admin/create', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ clientName, days }),
+    });
+
+    if (!resp.ok) {
+      createMsg.textContent = 'Erreur lors de la création du dossier.';
+      createMsg.className = 'msg error';
+      return;
+    }
+
+    const data = await resp.json();
+    currentCode = data.code;
+    document.getElementById('created-code').textContent = data.code;
+    document.getElementById('created-block').style.display = 'block';
+    document.getElementById('upload-list').innerHTML = '';
+
+    const expiryDate = new Date(data.expiresAt).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+    document.getElementById('email-template').textContent =
+`Bonjour,
+
+Voici le rapport et les photos de votre chantier.
+
+Rendez-vous sur ${RECUP_URL}
+puis entrez le code : ${data.code}
+
+Ce dossier sera disponible jusqu'au ${expiryDate}.
+
+Cordialement,
+L'équipe DroneSudXpert`;
+
+    loadDossiers();
+  });
+
+  document.getElementById('copy-email-btn').addEventListener('click', () => {
+    const text = document.getElementById('email-template').textContent;
+    navigator.clipboard.writeText(text);
+  });
+
+  function humanSize(bytes) {
+    if (!bytes) return '';
+    const units = ['o', 'Ko', 'Mo', 'Go'];
+    let i = 0, n = bytes;
+    while (n >= 1024 && i < units.length - 1) { n /= 1024; i++; }
+    return `${n.toFixed(i === 0 ? 0 : 1)} ${units[i]}`;
+  }
+
+  async function uploadFile(file) {
+    const uploadList = document.getElementById('upload-list');
+    const row = document.createElement('div');
+    row.className = 'upload-item';
+    row.innerHTML = `<span>${file.name} <span style="color:#999;">(${humanSize(file.size)})</span></span><span class="upload-status">envoi...</span>`;
+    uploadList.appendChild(row);
+    const statusEl = row.querySelector('.upload-status');
+
+    try {
+      const resp = await adminFetch(`/api/admin/upload/${currentCode}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': file.type || 'application/octet-stream',
+          'X-Filename': file.name,
+          'Content-Length': file.size,
+        },
+        body: file,
+      });
+      if (resp.ok) {
+        statusEl.textContent = 'envoyé ✓';
+        statusEl.className = 'upload-status done';
+      } else {
+        statusEl.textContent = 'échec';
+        statusEl.className = 'upload-status error';
+      }
+    } catch (err) {
+      statusEl.textContent = 'échec';
+      statusEl.className = 'upload-status error';
+    }
+  }
+
+  async function handleFiles(fileList) {
+    if (!currentCode) {
+      alert('Créez d\'abord un dossier.');
+      return;
+    }
+    for (const file of fileList) {
+      await uploadFile(file);
+    }
+    loadDossiers();
+  }
+
+  const dropzone = document.getElementById('dropzone');
+  const fileInput = document.getElementById('file-input');
+  dropzone.addEventListener('click', () => fileInput.click());
+  fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
+  dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('dragover'); });
+  dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+  dropzone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropzone.classList.remove('dragover');
+    handleFiles(e.dataTransfer.files);
+  });
+
+  async function loadDossiers() {
+    const listEl = document.getElementById('dossier-list');
+    const resp = await adminFetch('/api/admin/list');
+    if (!resp.ok) { listEl.textContent = 'Erreur de chargement.'; return; }
+    const data = await resp.json();
+    if (!data.dossiers.length) { listEl.textContent = 'Aucun dossier actif.'; return; }
+
+    listEl.innerHTML = '';
+    data.dossiers.forEach(d => {
+      const row = document.createElement('div');
+      row.className = 'dossier-row';
+      const expiry = new Date(d.expiresAt).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+      row.innerHTML = `
+        <div>
+          <strong>${d.clientName}</strong> — <code>${d.code}</code>
+          <div class="dossier-meta">${d.files.length} fichier(s) · expire le ${expiry}</div>
+        </div>
+        <button class="btn btn-danger btn-small" data-code="${d.code}">Supprimer</button>
+      `;
+      row.querySelector('button').addEventListener('click', async (e) => {
+        if (!confirm(`Supprimer définitivement le dossier de ${d.clientName} ?`)) return;
+        await adminFetch(`/api/admin/delete/${d.code}`, { method: 'DELETE' });
+        loadDossiers();
+      });
+      listEl.appendChild(row);
+    });
+  }
+</script>
+
+</body>
+</html>

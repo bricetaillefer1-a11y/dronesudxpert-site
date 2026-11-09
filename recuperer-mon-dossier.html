@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Récupérer mon dossier — DroneSudXpert</title>
+<meta name="description" content="Entrez le code reçu par e-mail pour télécharger le rapport et les photos de votre chantier.">
+<meta name="robots" content="noindex,follow">
+<link rel="icon" href="/assets/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFFFFF;
+    --text:#0D0D0D;
+    --accent:#4BB8E8;
+    --navy:#1A3A5C;
+    --highlight:#EBF7FD;
+    --border:#E0E0E0;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    font-family:'Barlow',sans-serif;
+    color:var(--text);
+    background:var(--bg);
+    line-height:1.7;
+  }
+  h1,h2{
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:800;
+    color:var(--navy);
+  }
+  a{color:var(--navy);}
+  a:hover{color:var(--accent);}
+  header{
+    border-bottom:1px solid var(--border);
+    padding:16px 24px;
+  }
+  .logo-link{
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:800;
+    font-size:1.2rem;
+    color:var(--navy);
+    text-decoration:none;
+  }
+  main{
+    max-width:640px;
+    margin:0 auto;
+    padding:56px 24px 100px;
+  }
+  h1{font-size:2.2rem;margin-bottom:10px;text-align:center;}
+  .subtitle{color:#555;text-align:center;margin-bottom:40px;}
+
+  .code-card{
+    background:var(--highlight);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:36px;
+    text-align:center;
+  }
+  .code-form{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;}
+  #code-input{
+    flex:1;
+    min-width:200px;
+    font-family:'Barlow Condensed',sans-serif;
+    font-size:1.5rem;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    text-align:center;
+    padding:14px 12px;
+    border:2px solid var(--border);
+    border-radius:8px;
+    color:var(--navy);
+  }
+  #code-input:focus{outline:none;border-color:var(--accent);}
+  .btn{
+    font-family:'Barlow',sans-serif;
+    font-weight:700;
+    font-size:1rem;
+    padding:14px 28px;
+    border-radius:8px;
+    border:none;
+    background:var(--navy);
+    color:#fff;
+    cursor:pointer;
+    transition:background .2s ease;
+  }
+  .btn:hover{background:#13293f;}
+  .btn:disabled{opacity:.6;cursor:default;}
+
+  #message{margin-top:18px;font-weight:600;}
+  #message.error{color:#c0392b;}
+  #message.info{color:var(--navy);}
+
+  #result{display:none;margin-top:32px;text-align:left;}
+  .result-header{margin-bottom:6px;}
+  .result-expiry{color:#666;font-size:0.9rem;margin-bottom:22px;}
+  .file-list{list-style:none;}
+  .file-item{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:14px 18px;
+    margin-bottom:10px;
+  }
+  .file-name{font-weight:600;word-break:break-all;}
+  .file-size{color:#888;font-size:0.82rem;font-weight:400;}
+  .file-download{
+    flex-shrink:0;
+    font-weight:700;
+    color:var(--navy);
+    text-decoration:none;
+    border:2px solid var(--navy);
+    border-radius:6px;
+    padding:6px 14px;
+    font-size:0.9rem;
+  }
+  .file-download:hover{background:var(--navy);color:#fff;}
+
+  .note{color:#777;font-size:0.85rem;text-align:center;margin-top:32px;}
+
+  footer{
+    background:var(--navy);
+    color:#b8c9db;
+    text-align:center;
+    padding:24px;
+    font-size:0.85rem;
+  }
+  footer a{color:#b8c9db;text-decoration:underline;}
+
+  @media (max-width:480px){
+    .code-form{flex-direction:column;}
+    .btn{width:100%;}
+  }
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-R6ML9JX6H3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-R6ML9JX6H3');
+</script>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo-link">DroneSudXpert</a>
+</header>
+
+<main>
+  <h1>Récupérer mon dossier</h1>
+  <p class="subtitle">Entrez le code reçu par e-mail pour accéder au rapport et aux photos de votre chantier.</p>
+
+  <div class="code-card">
+    <form class="code-form" id="code-form">
+      <input type="text" id="code-input" placeholder="A7K9-XQ2M" maxlength="20" autocomplete="off" required>
+      <button type="submit" class="btn" id="submit-btn">Valider</button>
+    </form>
+    <div id="message"></div>
+
+    <div id="result">
+      <h2 class="result-header" id="result-client"></h2>
+      <p class="result-expiry" id="result-expiry"></p>
+      <ul class="file-list" id="file-list"></ul>
+    </div>
+  </div>
+
+  <p class="note">Ce dossier est disponible pendant une durée limitée après l'intervention. Passé ce délai, contactez-nous pour le recevoir à nouveau.</p>
+</main>
+
+<footer>
+  © 2026 DroneSudXpert SAS — <a href="mentions-legales.html">Mentions légales</a> · <a href="cgv.html">CGV</a> · <a href="politique-confidentialite.html">Politique de confidentialité</a> · <a href="recuperer-mon-dossier.html">Récupérer mon dossier</a>
+</footer>
+
+<script>
+  // Remplacé automatiquement une fois le service Cloudflare déployé.
+  const WORKER_URL = "https://dronesudxpert-dossiers.WORKER-SUBDOMAIN.workers.dev";
+
+  const form = document.getElementById('code-form');
+  const input = document.getElementById('code-input');
+  const submitBtn = document.getElementById('submit-btn');
+  const message = document.getElementById('message');
+  const result = document.getElementById('result');
+  const resultClient = document.getElementById('result-client');
+  const resultExpiry = document.getElementById('result-expiry');
+  const fileList = document.getElementById('file-list');
+
+  input.addEventListener('input', () => {
+    input.value = input.value.toUpperCase();
+  });
+
+  function humanSize(bytes) {
+    if (!bytes) return '';
+    const units = ['o', 'Ko', 'Mo', 'Go'];
+    let i = 0, n = bytes;
+    while (n >= 1024 && i < units.length - 1) { n /= 1024; i++; }
+    return `${n.toFixed(i === 0 ? 0 : 1)} ${units[i]}`;
+  }
+
+  function formatDate(ts) {
+    return new Date(ts).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const code = input.value.trim().toUpperCase();
+    if (!code) return;
+
+    message.textContent = '';
+    message.className = '';
+    result.style.display = 'none';
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Vérification...';
+
+    try {
+      const resp = await fetch(`${WORKER_URL}/api/dossier/${encodeURIComponent(code)}`);
+      if (!resp.ok) {
+        message.textContent = "Code invalide ou dossier expiré. Vérifiez votre code ou contactez-nous.";
+        message.className = 'error';
+        return;
+      }
+      const data = await resp.json();
+
+      resultClient.textContent = `Dossier de ${data.clientName}`;
+      resultExpiry.textContent = `Disponible jusqu'au ${formatDate(data.expiresAt)}`;
+
+      fileList.innerHTML = '';
+      if (!data.files || data.files.length === 0) {
+        fileList.innerHTML = '<li class="file-item">Aucun fichier pour le moment.</li>';
+      } else {
+        data.files.forEach(f => {
+          const li = document.createElement('li');
+          li.className = 'file-item';
+          li.innerHTML = `
+            <span class="file-name">${f.name} <span class="file-size">${humanSize(f.size)}</span></span>
+            <a class="file-download" href="${WORKER_URL}/api/dossier/${encodeURIComponent(code)}/file/${encodeURIComponent(f.name)}" target="_blank" rel="noopener">Télécharger</a>
+          `;
+          fileList.appendChild(li);
+        });
+      }
+
+      result.style.display = 'block';
+    } catch (err) {
+      message.textContent = "Erreur de connexion. Réessayez dans un instant.";
+      message.className = 'error';
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Valider';
+    }
+  });
+</script>
+
+</body>
+</html>

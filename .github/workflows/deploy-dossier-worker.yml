@@ -1,0 +1,42 @@
+name: Deploy dossier worker
+
+on:
+  push:
+    branches:
+      - claude/dronesudxpert-website-25k2hs
+      - main
+    paths:
+      - "dossier-worker/**"
+      - ".github/workflows/deploy-dossier-worker.yml"
+  workflow_dispatch: {}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: dossier-worker
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - run: npm install
+
+      - name: Deploy worker
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: dossier-worker
+          command: deploy
+
+      - name: Set admin password secret
+        working-directory: dossier-worker
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          WORKER_ADMIN_PASSWORD: ${{ secrets.WORKER_ADMIN_PASSWORD }}
+        run: echo "$WORKER_ADMIN_PASSWORD" | npx wrangler secret put ADMIN_PASSWORD
