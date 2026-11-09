@@ -12,10 +12,10 @@ bucket_name = "dronesudxpert-dossiers"
 
 [[kv_namespaces]]
 binding = "DOSSIERS_KV"
-id = "REPLACE_WITH_KV_NAMESPACE_ID"
+id = "fb2c3d0f6756480298b1d54f637e6f46"
 
 [vars]
 # Comma-separated list of origins allowed to call this API from the browser.
 ALLOWED_ORIGIN = "https://dronesudxpert.com"
 
-# ADMIN_PASSWORD is set as a secret (not here) — see ../README.md
+# ADMIN_PASSWORD is set as a secret, via the GitHub Action (see .github/workflows/deploy-dossier-worker.yml)
