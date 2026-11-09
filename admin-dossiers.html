@@ -71,6 +71,9 @@
   .dossier-row{border-bottom:1px solid var(--border);padding:14px 0;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;}
   .dossier-row:last-child{border-bottom:none;}
   .dossier-meta{font-size:0.85rem;color:#666;}
+  .dossier-status{font-size:0.85rem;font-weight:600;margin-top:2px;}
+  .dossier-status.viewed{color:#1a7a3c;}
+  .dossier-status.not-viewed{color:#b8860b;}
   .msg{margin-top:12px;font-weight:600;}
   .msg.error{color:#c0392b;}
   .msg.ok{color:#1a7a3c;}
@@ -297,10 +300,14 @@ L'équipe DroneSudXpert`;
       const row = document.createElement('div');
       row.className = 'dossier-row';
       const expiry = new Date(d.expiresAt).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+      const statusHtml = d.firstViewedAt
+        ? `<div class="dossier-status viewed">✓ Consulté le ${new Date(d.firstViewedAt).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}</div>`
+        : `<div class="dossier-status not-viewed">Pas encore consulté</div>`;
       row.innerHTML = `
         <div>
           <strong>${d.clientName}</strong> — <code>${d.code}</code>
           <div class="dossier-meta">${d.files.length} fichier(s) · expire le ${expiry}</div>
+          ${statusHtml}
         </div>
         <button class="btn btn-danger btn-small" data-code="${d.code}">Supprimer</button>
       `;

@@ -146,6 +146,10 @@ export default {
         const code = lookupMatch[1].toUpperCase();
         const dossier = await getDossier(env, code);
         if (!dossier) return json({ error: "not_found" }, 404, cors);
+        if (!dossier.firstViewedAt) {
+          dossier.firstViewedAt = Date.now();
+          await env.DOSSIERS_KV.put(`dossier:${code}`, JSON.stringify(dossier));
+        }
         return json({
           clientName: dossier.clientName,
           createdAt: dossier.createdAt,
