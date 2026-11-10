@@ -112,17 +112,34 @@
   }
   .file-name{font-weight:600;word-break:break-all;}
   .file-size{color:#888;font-size:0.82rem;font-weight:400;}
-  .file-download{
-    flex-shrink:0;
+  .file-actions{display:flex;gap:8px;flex-shrink:0;}
+  .file-btn{
+    font-family:'Barlow',sans-serif;
     font-weight:700;
-    color:var(--navy);
     text-decoration:none;
-    border:2px solid var(--navy);
     border-radius:6px;
     padding:6px 14px;
-    font-size:0.9rem;
+    font-size:0.85rem;
+    cursor:pointer;
+    border:2px solid var(--navy);
+    white-space:nowrap;
   }
-  .file-download:hover{background:var(--navy);color:#fff;}
+  .file-btn-view{background:#fff;color:var(--navy);}
+  .file-btn-view:hover{background:var(--highlight);}
+  .file-btn-dl{background:var(--navy);color:#fff;}
+  .file-btn-dl:hover{background:#13293f;}
+  .file-btn-dl:disabled{opacity:.6;cursor:default;}
+
+  .download-all-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap;}
+  .download-all-status{font-size:0.85rem;color:#666;}
+  .btn-download-all{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:'Barlow',sans-serif;font-weight:700;font-size:0.92rem;
+    background:var(--accent);color:#fff;border:none;border-radius:8px;
+    padding:10px 18px;cursor:pointer;
+  }
+  .btn-download-all:hover{background:#39a3d6;}
+  .btn-download-all:disabled{opacity:.6;cursor:default;}
 
   .note{color:#777;font-size:0.85rem;text-align:center;margin-top:32px;}
 
@@ -170,6 +187,15 @@
     <div id="result">
       <h2 class="result-header" id="result-client"></h2>
       <p class="result-expiry" id="result-expiry"></p>
+
+      <div class="download-all-bar" id="download-all-bar" style="display:none;">
+        <span class="download-all-status" id="download-all-status"></span>
+        <button class="btn-download-all" id="download-all-btn" type="button">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 11l5 5 5-5"/><path d="M4 20h16"/></svg>
+          Tout télécharger
+        </button>
+      </div>
+
       <ul class="file-list" id="file-list"></ul>
     </div>
   </div>
@@ -193,6 +219,12 @@
   const resultClient = document.getElementById('result-client');
   const resultExpiry = document.getElementById('result-expiry');
   const fileList = document.getElementById('file-list');
+  const downloadAllBar = document.getElementById('download-all-bar');
+  const downloadAllBtn = document.getElementById('download-all-btn');
+  const downloadAllStatus = document.getElementById('download-all-status');
+
+  let currentCode = '';
+  let currentFiles = [];
 
   input.addEventListener('input', () => {
     input.value = input.value.toUpperCase();
@@ -209,6 +241,26 @@
   function formatDate(ts) {
     return new Date(ts).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
   }
+
+  function fileUrl(code, name) {
+    return `${WORKER_URL}/api/dossier/${encodeURIComponent(code)}/file/${encodeURIComponent(name)}`;
+  }
+
+  async function forceDownload(url, filename) {
+    const resp = await fetch(url);
+    if (!resp.ok) throw new Error('download failed');
+    const blob = await resp.blob();
+    const blobUrl = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = blobUrl;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(blobUrl), 10000);
+  }
+
+  function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -233,19 +285,42 @@
       resultClient.textContent = `Dossier de ${data.clientName}`;
       resultExpiry.textContent = `Disponible jusqu'au ${formatDate(data.expiresAt)}`;
 
+      currentCode = code;
+      currentFiles = data.files || [];
+
       fileList.innerHTML = '';
-      if (!data.files || data.files.length === 0) {
+      if (currentFiles.length === 0) {
         fileList.innerHTML = '<li class="file-item">Aucun fichier pour le moment.</li>';
+        downloadAllBar.style.display = 'none';
       } else {
-        data.files.forEach(f => {
+        currentFiles.forEach(f => {
+          const url = fileUrl(code, f.name);
           const li = document.createElement('li');
           li.className = 'file-item';
           li.innerHTML = `
             <span class="file-name">${f.name} <span class="file-size">${humanSize(f.size)}</span></span>
-            <a class="file-download" href="${WORKER_URL}/api/dossier/${encodeURIComponent(code)}/file/${encodeURIComponent(f.name)}" target="_blank" rel="noopener">Télécharger</a>
+            <span class="file-actions">
+              <a class="file-btn file-btn-view" href="${url}" target="_blank" rel="noopener">Visualiser</a>
+              <button class="file-btn file-btn-dl" type="button">Télécharger</button>
+            </span>
           `;
+          const dlBtn = li.querySelector('.file-btn-dl');
+          dlBtn.addEventListener('click', async () => {
+            dlBtn.disabled = true;
+            dlBtn.textContent = '...';
+            try {
+              await forceDownload(url, f.name);
+              dlBtn.textContent = 'Télécharger';
+            } catch (err) {
+              dlBtn.textContent = 'Échec, réessayer';
+            } finally {
+              dlBtn.disabled = false;
+            }
+          });
           fileList.appendChild(li);
         });
+        downloadAllBar.style.display = currentFiles.length > 1 ? 'flex' : 'none';
+        downloadAllStatus.textContent = '';
       }
 
       result.style.display = 'block';
@@ -256,6 +331,22 @@
       submitBtn.disabled = false;
       submitBtn.textContent = 'Valider';
     }
+  });
+
+  downloadAllBtn.addEventListener('click', async () => {
+    downloadAllBtn.disabled = true;
+    for (let i = 0; i < currentFiles.length; i++) {
+      const f = currentFiles[i];
+      downloadAllStatus.textContent = `Téléchargement ${i + 1}/${currentFiles.length}...`;
+      try {
+        await forceDownload(fileUrl(currentCode, f.name), f.name);
+      } catch (err) {
+        // On continue avec les fichiers suivants même si l'un d'eux échoue.
+      }
+      await wait(400);
+    }
+    downloadAllStatus.textContent = `Terminé — ${currentFiles.length} fichier(s) téléchargé(s) ✓`;
+    downloadAllBtn.disabled = false;
   });
 </script>
 
