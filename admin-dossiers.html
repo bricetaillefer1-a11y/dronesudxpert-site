@@ -78,6 +78,17 @@
 
   .file-list{margin-top:12px;}
   .file-row{display:flex;align-items:center;gap:10px;padding:6px 0;border-top:1px solid #f0f0f0;font-size:0.88rem;}
+  .file-thumb{
+    width:52px;height:52px;border-radius:8px;object-fit:cover;flex-shrink:0;
+    border:1px solid var(--border);background:#f4f7fa;
+  }
+  .file-thumb-icon{
+    width:52px;height:52px;border-radius:8px;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--highlight);color:var(--navy);
+    font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:0.7rem;
+    border:1px solid var(--border);text-transform:uppercase;
+  }
   .file-row .file-name{flex:1;word-break:break-all;}
   .file-row .file-size{color:#999;font-size:0.8rem;white-space:nowrap;}
   .file-row button{
@@ -253,6 +264,23 @@ L'équipe DroneSudXpert`;
     return `${n.toFixed(i === 0 ? 0 : 1)} ${units[i]}`;
   }
 
+  function fileExt(name) {
+    const parts = name.split('.');
+    return parts.length > 1 ? parts.pop() : '';
+  }
+
+  function renderThumb(code, file) {
+    const url = `${WORKER_URL}/api/dossier/${code}/file/${encodeURIComponent(file.name)}`;
+    const type = file.contentType || '';
+    if (type.startsWith('image/')) {
+      return `<a href="${url}" target="_blank" rel="noopener"><img class="file-thumb" src="${url}" loading="lazy" alt=""></a>`;
+    }
+    if (type.startsWith('video/')) {
+      return `<a href="${url}" target="_blank" rel="noopener"><video class="file-thumb" src="${url}#t=0.1" muted playsinline preload="metadata"></video></a>`;
+    }
+    return `<a href="${url}" target="_blank" rel="noopener" class="file-thumb-icon">${fileExt(file.name)}</a>`;
+  }
+
   async function uploadFile(file) {
     const uploadList = document.getElementById('upload-list');
     const row = document.createElement('div');
@@ -329,6 +357,7 @@ L'équipe DroneSudXpert`;
               <span class="file-size">${humanSize(f.size)}</span>
               <button class="file-rename-btn">Renommer</button>
               <button class="file-delete-btn">Supprimer</button>
+              ${renderThumb(d.code, f)}
             </div>
           `).join('')
         : '';
