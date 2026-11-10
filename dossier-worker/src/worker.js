@@ -54,6 +54,19 @@ async function getDossier(env, code) {
   return d;
 }
 
+// The list of files for a dossier is read live from R2 (strongly consistent)
+// instead of kept in the dossier's KV record — multiple files uploaded close
+// together used to race on a read-modify-write of that shared JSON blob under
+// Workers KV's eventual consistency, silently dropping earlier files.
+async function listDossierFiles(env, code) {
+  const listed = await env.DOSSIERS_BUCKET.list({ prefix: `${code}/`, include: ["httpMetadata"] });
+  return listed.objects.map(obj => ({
+    name: obj.key.slice(code.length + 1),
+    size: obj.size,
+    contentType: obj.httpMetadata?.contentType || "application/octet-stream",
+  }));
+}
+
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
@@ -84,7 +97,6 @@ export default {
           clientName,
           createdAt: Date.now(),
           expiresAt: Date.now() + days * 24 * 60 * 60 * 1000,
-          files: [],
         };
         await env.DOSSIERS_KV.put(`dossier:${code}`, JSON.stringify(dossier));
         return json({ code, expiresAt: dossier.expiresAt }, 200, cors);
@@ -98,7 +110,6 @@ export default {
         const code = uploadMatch[1];
         const raw = await env.DOSSIERS_KV.get(`dossier:${code}`);
         if (!raw) return json({ error: "dossier introuvable" }, 404, cors);
-        const dossier = JSON.parse(raw);
 
         const filename = sanitizeFilename(request.headers.get("X-Filename"));
         const key = `${code}/${filename}`;
@@ -107,12 +118,7 @@ export default {
           httpMetadata: { contentType },
         });
 
-        const size = parseInt(request.headers.get("Content-Length") || "0", 10);
-        dossier.files = dossier.files.filter(f => f.name !== filename);
-        dossier.files.push({ name: filename, size, contentType });
-        await env.DOSSIERS_KV.put(`dossier:${code}`, JSON.stringify(dossier));
-
-        return json({ ok: true, files: dossier.files }, 200, cors);
+        return json({ ok: true, files: await listDossierFiles(env, code) }, 200, cors);
       }
 
       // --- Admin: list all non-expired dossiers ---
@@ -126,6 +132,7 @@ export default {
           if (!raw) continue;
           const d = JSON.parse(raw);
           if (d.expiresAt < now) continue;
+          d.files = await listDossierFiles(env, d.code);
           dossiers.push(d);
         }
         dossiers.sort((a, b) => b.createdAt - a.createdAt);
@@ -140,13 +147,10 @@ export default {
         const filename = decodeURIComponent(fileDeleteMatch[2]);
         const raw = await env.DOSSIERS_KV.get(`dossier:${code}`);
         if (!raw) return json({ error: "dossier introuvable" }, 404, cors);
-        const dossier = JSON.parse(raw);
 
         await env.DOSSIERS_BUCKET.delete(`${code}/${filename}`);
-        dossier.files = dossier.files.filter(f => f.name !== filename);
-        await env.DOSSIERS_KV.put(`dossier:${code}`, JSON.stringify(dossier));
 
-        return json({ ok: true, files: dossier.files }, 200, cors);
+        return json({ ok: true, files: await listDossierFiles(env, code) }, 200, cors);
       }
 
       // --- Admin: rename a file within a dossier ---
@@ -161,12 +165,13 @@ export default {
 
         const raw = await env.DOSSIERS_KV.get(`dossier:${code}`);
         if (!raw) return json({ error: "dossier introuvable" }, 404, cors);
-        const dossier = JSON.parse(raw);
-        const fileEntry = dossier.files.find(f => f.name === oldName);
-        if (!fileEntry) return json({ error: "file_not_found" }, 404, cors);
+        const existingFiles = await listDossierFiles(env, code);
+        if (!existingFiles.some(f => f.name === oldName)) {
+          return json({ error: "file_not_found" }, 404, cors);
+        }
 
         if (newName !== oldName) {
-          if (dossier.files.some(f => f.name === newName)) {
+          if (existingFiles.some(f => f.name === newName)) {
             return json({ error: "name_taken" }, 409, cors);
           }
           const obj = await env.DOSSIERS_BUCKET.get(`${code}/${oldName}`);
@@ -175,11 +180,9 @@ export default {
             httpMetadata: obj.httpMetadata,
           });
           await env.DOSSIERS_BUCKET.delete(`${code}/${oldName}`);
-          fileEntry.name = newName;
-          await env.DOSSIERS_KV.put(`dossier:${code}`, JSON.stringify(dossier));
         }
 
-        return json({ ok: true, files: dossier.files }, 200, cors);
+        return json({ ok: true, files: await listDossierFiles(env, code) }, 200, cors);
       }
 
       // --- Admin: delete a dossier early ---
@@ -205,7 +208,7 @@ export default {
           clientName: dossier.clientName,
           createdAt: dossier.createdAt,
           expiresAt: dossier.expiresAt,
-          files: dossier.files,
+          files: await listDossierFiles(env, code),
         }, 200, cors);
       }
 
