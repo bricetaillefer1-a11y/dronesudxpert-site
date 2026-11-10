@@ -42,7 +42,8 @@ function requireAdmin(request, env) {
 }
 
 function sanitizeFilename(name) {
-  return (name || "fichier").replace(/[^a-zA-Z0-9._-]+/g, "_").slice(0, 150);
+  const stripped = (name || "fichier").normalize("NFD").replace(/[̀-ͯ]/g, "");
+  return stripped.replace(/[^a-zA-Z0-9._-]+/g, "_").slice(0, 150);
 }
 
 async function getDossier(env, code) {
