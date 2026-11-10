@@ -242,22 +242,22 @@
     return new Date(ts).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
   }
 
-  function fileUrl(code, name) {
-    return `${WORKER_URL}/api/dossier/${encodeURIComponent(code)}/file/${encodeURIComponent(name)}`;
+  function fileUrl(code, name, forceDl) {
+    const base = `${WORKER_URL}/api/dossier/${encodeURIComponent(code)}/file/${encodeURIComponent(name)}`;
+    return forceDl ? `${base}?dl=1` : base;
   }
 
-  async function forceDownload(url, filename) {
-    const resp = await fetch(url);
-    if (!resp.ok) throw new Error('download failed');
-    const blob = await resp.blob();
-    const blobUrl = URL.createObjectURL(blob);
+  // Direct navigation to a URL whose server response sets Content-Disposition:
+  // attachment — the most reliable way to force a save across browsers,
+  // including Safari on iPhone/iPad (a fetch()+blob approach is not).
+  function triggerDownload(url, filename) {
     const a = document.createElement('a');
-    a.href = blobUrl;
+    a.href = url;
     a.download = filename;
+    a.rel = 'noopener';
     document.body.appendChild(a);
     a.click();
     a.remove();
-    setTimeout(() => URL.revokeObjectURL(blobUrl), 10000);
   }
 
   function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
@@ -294,29 +294,17 @@
         downloadAllBar.style.display = 'none';
       } else {
         currentFiles.forEach(f => {
-          const url = fileUrl(code, f.name);
+          const viewUrl = fileUrl(code, f.name, false);
+          const dlUrl = fileUrl(code, f.name, true);
           const li = document.createElement('li');
           li.className = 'file-item';
           li.innerHTML = `
             <span class="file-name">${f.name} <span class="file-size">${humanSize(f.size)}</span></span>
             <span class="file-actions">
-              <a class="file-btn file-btn-view" href="${url}" target="_blank" rel="noopener">Visualiser</a>
-              <button class="file-btn file-btn-dl" type="button">Télécharger</button>
+              <a class="file-btn file-btn-view" href="${viewUrl}" target="_blank" rel="noopener">Visualiser</a>
+              <a class="file-btn file-btn-dl" href="${dlUrl}" download="${f.name}" rel="noopener">Télécharger</a>
             </span>
           `;
-          const dlBtn = li.querySelector('.file-btn-dl');
-          dlBtn.addEventListener('click', async () => {
-            dlBtn.disabled = true;
-            dlBtn.textContent = '...';
-            try {
-              await forceDownload(url, f.name);
-              dlBtn.textContent = 'Télécharger';
-            } catch (err) {
-              dlBtn.textContent = 'Échec, réessayer';
-            } finally {
-              dlBtn.disabled = false;
-            }
-          });
           fileList.appendChild(li);
         });
         downloadAllBar.style.display = currentFiles.length > 1 ? 'flex' : 'none';
@@ -338,12 +326,8 @@
     for (let i = 0; i < currentFiles.length; i++) {
       const f = currentFiles[i];
       downloadAllStatus.textContent = `Téléchargement ${i + 1}/${currentFiles.length}...`;
-      try {
-        await forceDownload(fileUrl(currentCode, f.name), f.name);
-      } catch (err) {
-        // On continue avec les fichiers suivants même si l'un d'eux échoue.
-      }
-      await wait(400);
+      triggerDownload(fileUrl(currentCode, f.name, true), f.name);
+      await wait(600);
     }
     downloadAllStatus.textContent = `Terminé — ${currentFiles.length} fichier(s) téléchargé(s) ✓`;
     downloadAllBtn.disabled = false;

@@ -220,7 +220,9 @@ export default {
         if (!obj) return json({ error: "file_not_found" }, 404, cors);
         const headers = new Headers(cors);
         headers.set("Content-Type", obj.httpMetadata?.contentType || "application/octet-stream");
-        headers.set("Content-Disposition", `attachment; filename="${filename}"`);
+        // ?dl=1 forces a save-to-device; otherwise the browser is free to display it inline (Visualiser).
+        const disposition = url.searchParams.get("dl") === "1" ? "attachment" : "inline";
+        headers.set("Content-Disposition", `${disposition}; filename="${filename}"`);
         return new Response(obj.body, { headers });
       }
 
