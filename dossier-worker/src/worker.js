@@ -219,10 +219,13 @@ export default {
         const obj = await env.DOSSIERS_BUCKET.get(`${code}/${filename}`);
         if (!obj) return json({ error: "file_not_found" }, 404, cors);
         const headers = new Headers(cors);
-        headers.set("Content-Type", obj.httpMetadata?.contentType || "application/octet-stream");
-        // ?dl=1 forces a save-to-device; otherwise the browser is free to display it inline (Visualiser).
-        const disposition = url.searchParams.get("dl") === "1" ? "attachment" : "inline";
-        headers.set("Content-Disposition", `${disposition}; filename="${filename}"`);
+        const forceDl = url.searchParams.get("dl") === "1";
+        // On a forced download, report a generic binary type instead of the real
+        // video/image MIME type — otherwise Safari hijacks video/audio links into
+        // its native player instead of saving the file, even with "attachment".
+        // The bytes on disk are untouched; only this header changes.
+        headers.set("Content-Type", forceDl ? "application/octet-stream" : (obj.httpMetadata?.contentType || "application/octet-stream"));
+        headers.set("Content-Disposition", `${forceDl ? "attachment" : "inline"}; filename="${filename}"`);
         return new Response(obj.body, { headers });
       }
 
