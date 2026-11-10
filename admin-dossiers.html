@@ -199,27 +199,32 @@
     }
 
     const data = await resp.json();
-    currentCode = data.code;
-    document.getElementById('created-code').textContent = data.code;
+    openUploadBlock(data.code, clientName, data.expiresAt);
+    loadDossiers();
+  });
+
+  function openUploadBlock(code, clientName, expiresAt) {
+    currentCode = code;
+    document.getElementById('created-code').textContent = code;
     document.getElementById('created-block').style.display = 'block';
     document.getElementById('upload-list').innerHTML = '';
 
-    const expiryDate = new Date(data.expiresAt).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+    const expiryDate = new Date(expiresAt).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
     document.getElementById('email-template').textContent =
 `Bonjour,
 
 Voici le rapport et les photos de votre chantier.
 
 Rendez-vous sur ${RECUP_URL}
-puis entrez le code : ${data.code}
+puis entrez le code : ${code}
 
 Ce dossier sera disponible jusqu'au ${expiryDate}.
 
 Cordialement,
 L'équipe DroneSudXpert`;
 
-    loadDossiers();
-  });
+    document.getElementById('created-block').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
 
   document.getElementById('copy-email-btn').addEventListener('click', () => {
     const text = document.getElementById('email-template').textContent;
@@ -309,9 +314,15 @@ L'équipe DroneSudXpert`;
           <div class="dossier-meta">${d.files.length} fichier(s) · expire le ${expiry}</div>
           ${statusHtml}
         </div>
-        <button class="btn btn-danger btn-small" data-code="${d.code}">Supprimer</button>
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-small btn-add">Ajouter des fichiers</button>
+          <button class="btn btn-danger btn-small btn-delete">Supprimer</button>
+        </div>
       `;
-      row.querySelector('button').addEventListener('click', async (e) => {
+      row.querySelector('.btn-add').addEventListener('click', () => {
+        openUploadBlock(d.code, d.clientName, d.expiresAt);
+      });
+      row.querySelector('.btn-delete').addEventListener('click', async () => {
         if (!confirm(`Supprimer définitivement le dossier de ${d.clientName} ?`)) return;
         await adminFetch(`/api/admin/delete/${d.code}`, { method: 'DELETE' });
         loadDossiers();
