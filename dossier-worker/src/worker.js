@@ -131,6 +131,56 @@ export default {
         return json({ dossiers }, 200, cors);
       }
 
+      // --- Admin: delete a single file from a dossier ---
+      const fileDeleteMatch = path.match(/^\/api\/admin\/file\/([A-Z0-9-]+)\/(.+)$/);
+      if (fileDeleteMatch && request.method === "DELETE") {
+        if (!requireAdmin(request, env)) return json({ error: "unauthorized" }, 401, cors);
+        const code = fileDeleteMatch[1];
+        const filename = decodeURIComponent(fileDeleteMatch[2]);
+        const raw = await env.DOSSIERS_KV.get(`dossier:${code}`);
+        if (!raw) return json({ error: "dossier introuvable" }, 404, cors);
+        const dossier = JSON.parse(raw);
+
+        await env.DOSSIERS_BUCKET.delete(`${code}/${filename}`);
+        dossier.files = dossier.files.filter(f => f.name !== filename);
+        await env.DOSSIERS_KV.put(`dossier:${code}`, JSON.stringify(dossier));
+
+        return json({ ok: true, files: dossier.files }, 200, cors);
+      }
+
+      // --- Admin: rename a file within a dossier ---
+      const renameMatch = path.match(/^\/api\/admin\/rename\/([A-Z0-9-]+)$/);
+      if (renameMatch && request.method === "POST") {
+        if (!requireAdmin(request, env)) return json({ error: "unauthorized" }, 401, cors);
+        const code = renameMatch[1];
+        const body = await request.json().catch(() => ({}));
+        const oldName = body.oldName;
+        const newName = sanitizeFilename(body.newName);
+        if (!oldName || !newName) return json({ error: "missing_name" }, 400, cors);
+
+        const raw = await env.DOSSIERS_KV.get(`dossier:${code}`);
+        if (!raw) return json({ error: "dossier introuvable" }, 404, cors);
+        const dossier = JSON.parse(raw);
+        const fileEntry = dossier.files.find(f => f.name === oldName);
+        if (!fileEntry) return json({ error: "file_not_found" }, 404, cors);
+
+        if (newName !== oldName) {
+          if (dossier.files.some(f => f.name === newName)) {
+            return json({ error: "name_taken" }, 409, cors);
+          }
+          const obj = await env.DOSSIERS_BUCKET.get(`${code}/${oldName}`);
+          if (!obj) return json({ error: "file_not_found" }, 404, cors);
+          await env.DOSSIERS_BUCKET.put(`${code}/${newName}`, obj.body, {
+            httpMetadata: obj.httpMetadata,
+          });
+          await env.DOSSIERS_BUCKET.delete(`${code}/${oldName}`);
+          fileEntry.name = newName;
+          await env.DOSSIERS_KV.put(`dossier:${code}`, JSON.stringify(dossier));
+        }
+
+        return json({ ok: true, files: dossier.files }, 200, cors);
+      }
+
       // --- Admin: delete a dossier early ---
       const deleteMatch = path.match(/^\/api\/admin\/delete\/([A-Z0-9-]+)$/);
       if (deleteMatch && request.method === "DELETE") {

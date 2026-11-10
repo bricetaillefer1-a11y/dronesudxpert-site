@@ -68,12 +68,26 @@
     padding:16px;white-space:pre-wrap;font-size:0.9rem;margin-top:10px;
   }
 
-  .dossier-row{border-bottom:1px solid var(--border);padding:14px 0;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;}
+  .dossier-row{border-bottom:1px solid var(--border);padding:14px 0;}
   .dossier-row:last-child{border-bottom:none;}
+  .dossier-row-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;}
   .dossier-meta{font-size:0.85rem;color:#666;}
   .dossier-status{font-size:0.85rem;font-weight:600;margin-top:2px;}
   .dossier-status.viewed{color:#1a7a3c;}
   .dossier-status.not-viewed{color:#b8860b;}
+
+  .file-list{margin-top:12px;}
+  .file-row{display:flex;align-items:center;gap:10px;padding:6px 0;border-top:1px solid #f0f0f0;font-size:0.88rem;}
+  .file-row .file-name{flex:1;word-break:break-all;}
+  .file-row .file-size{color:#999;font-size:0.8rem;white-space:nowrap;}
+  .file-row button{
+    font-family:'Barlow',sans-serif;font-size:0.78rem;font-weight:700;
+    border:none;background:none;cursor:pointer;padding:4px 8px;border-radius:6px;white-space:nowrap;
+  }
+  .file-row .file-rename-btn{color:var(--navy);}
+  .file-row .file-rename-btn:hover{background:var(--highlight);}
+  .file-row .file-delete-btn{color:#c0392b;}
+  .file-row .file-delete-btn:hover{background:#fbe9e7;}
   .msg{margin-top:12px;font-weight:600;}
   .msg.error{color:#c0392b;}
   .msg.ok{color:#1a7a3c;}
@@ -308,16 +322,30 @@ L'équipe DroneSudXpert`;
       const statusHtml = d.firstViewedAt
         ? `<div class="dossier-status viewed">✓ Consulté le ${new Date(d.firstViewedAt).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}</div>`
         : `<div class="dossier-status not-viewed">Pas encore consulté</div>`;
+      const filesHtml = d.files.length
+        ? d.files.map(f => `
+            <div class="file-row" data-name="${f.name}">
+              <span class="file-name">${f.name}</span>
+              <span class="file-size">${humanSize(f.size)}</span>
+              <button class="file-rename-btn">Renommer</button>
+              <button class="file-delete-btn">Supprimer</button>
+            </div>
+          `).join('')
+        : '';
+
       row.innerHTML = `
-        <div>
-          <strong>${d.clientName}</strong> — <code>${d.code}</code>
-          <div class="dossier-meta">${d.files.length} fichier(s) · expire le ${expiry}</div>
-          ${statusHtml}
+        <div class="dossier-row-top">
+          <div>
+            <strong>${d.clientName}</strong> — <code>${d.code}</code>
+            <div class="dossier-meta">${d.files.length} fichier(s) · expire le ${expiry}</div>
+            ${statusHtml}
+          </div>
+          <div style="display:flex;gap:8px;">
+            <button class="btn btn-small btn-add">Ajouter des fichiers</button>
+            <button class="btn btn-danger btn-small btn-delete">Supprimer le dossier</button>
+          </div>
         </div>
-        <div style="display:flex;gap:8px;">
-          <button class="btn btn-small btn-add">Ajouter des fichiers</button>
-          <button class="btn btn-danger btn-small btn-delete">Supprimer</button>
-        </div>
+        <div class="file-list">${filesHtml}</div>
       `;
       row.querySelector('.btn-add').addEventListener('click', () => {
         openUploadBlock(d.code, d.clientName, d.expiresAt);
@@ -326,6 +354,34 @@ L'équipe DroneSudXpert`;
         if (!confirm(`Supprimer définitivement le dossier de ${d.clientName} ?`)) return;
         await adminFetch(`/api/admin/delete/${d.code}`, { method: 'DELETE' });
         loadDossiers();
+      });
+      row.querySelectorAll('.file-rename-btn').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          const fileRow = btn.closest('.file-row');
+          const oldName = fileRow.dataset.name;
+          const newName = prompt('Nouveau nom du fichier (avec extension) :', oldName);
+          if (!newName || newName === oldName) return;
+          const resp = await adminFetch(`/api/admin/rename/${d.code}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ oldName, newName }),
+          });
+          if (!resp.ok) {
+            const err = await resp.json().catch(() => ({}));
+            alert(err.error === 'name_taken' ? 'Un fichier porte déjà ce nom.' : 'Erreur lors du renommage.');
+            return;
+          }
+          loadDossiers();
+        });
+      });
+      row.querySelectorAll('.file-delete-btn').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          const fileRow = btn.closest('.file-row');
+          const name = fileRow.dataset.name;
+          if (!confirm(`Supprimer le fichier "${name}" ?`)) return;
+          await adminFetch(`/api/admin/file/${d.code}/${encodeURIComponent(name)}`, { method: 'DELETE' });
+          loadDossiers();
+        });
       });
       listEl.appendChild(row);
     });
