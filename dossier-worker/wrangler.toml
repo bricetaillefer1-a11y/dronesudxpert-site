@@ -17,5 +17,8 @@ id = "fb2c3d0f6756480298b1d54f637e6f46"
 [vars]
 # Comma-separated list of origins allowed to call this API from the browser.
 ALLOWED_ORIGIN = "https://dronesudxpert.com"
+R2_ACCOUNT_ID = "008b22de7631ba6fb92f3fa095ecc24e"
+R2_BUCKET_NAME = "dronesudxpert-dossiers"
 
-# ADMIN_PASSWORD is set as a secret, via the GitHub Action (see .github/workflows/deploy-dossier-worker.yml)
+# ADMIN_PASSWORD, R2_ACCESS_KEY_ID and R2_SECRET_ACCESS_KEY are set as secrets,
+# via the GitHub Action (see .github/workflows/deploy-dossier-worker.yml)

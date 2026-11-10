@@ -285,27 +285,35 @@ L'équipe DroneSudXpert`;
     const uploadList = document.getElementById('upload-list');
     const row = document.createElement('div');
     row.className = 'upload-item';
-    row.innerHTML = `<span>${file.name} <span style="color:#999;">(${humanSize(file.size)})</span></span><span class="upload-status">envoi...</span>`;
+    const sizeNote = file.size > 50 * 1024 * 1024 ? ' — fichier volumineux, ça peut prendre du temps' : '';
+    row.innerHTML = `<span>${file.name} <span style="color:#999;">(${humanSize(file.size)})</span></span><span class="upload-status">envoi...${sizeNote}</span>`;
     uploadList.appendChild(row);
     const statusEl = row.querySelector('.upload-status');
 
     try {
-      const resp = await adminFetch(`/api/admin/upload/${currentCode}`, {
+      const contentType = file.type || 'application/octet-stream';
+
+      // 1. Ask the Worker for a direct, signed upload URL (no size limit worth
+      //    worrying about — up to 5GB — unlike posting the file through the
+      //    Worker itself, which is capped around 100MB).
+      const presignResp = await adminFetch(`/api/admin/presign/${currentCode}`, {
         method: 'POST',
-        headers: {
-          'Content-Type': file.type || 'application/octet-stream',
-          'X-Filename': file.name,
-          'Content-Length': file.size,
-        },
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ filename: file.name, contentType }),
+      });
+      if (!presignResp.ok) throw new Error('presign failed');
+      const { uploadUrl } = await presignResp.json();
+
+      // 2. Upload the file straight to storage with that URL.
+      const putResp = await fetch(uploadUrl, {
+        method: 'PUT',
+        headers: { 'Content-Type': contentType },
         body: file,
       });
-      if (resp.ok) {
-        statusEl.textContent = 'envoyé ✓';
-        statusEl.className = 'upload-status done';
-      } else {
-        statusEl.textContent = 'échec';
-        statusEl.className = 'upload-status error';
-      }
+      if (!putResp.ok) throw new Error('upload failed');
+
+      statusEl.textContent = 'envoyé ✓';
+      statusEl.className = 'upload-status done';
     } catch (err) {
       statusEl.textContent = 'échec';
       statusEl.className = 'upload-status error';

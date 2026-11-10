@@ -2,6 +2,8 @@
 // Stores client job reports/photos in R2, gated by a one-time code, auto-deleted
 // after a configurable number of days (default 10). See ../README.md.
 
+import { AwsClient } from "aws4fetch";
+
 const CODE_CHARS = "ABCDEFGHJKMNPQRSTUVWXYZ23456789"; // no 0/O, 1/I/L — avoids confusion
 const DEFAULT_DAYS = 10;
 
@@ -102,23 +104,38 @@ export default {
         return json({ code, expiresAt: dossier.expiresAt }, 200, cors);
       }
 
-      // --- Admin: upload one file into an existing dossier ---
-      // POST /api/admin/upload/:code   body = raw file bytes, header X-Filename
-      const uploadMatch = path.match(/^\/api\/admin\/upload\/([A-Z0-9-]+)$/);
-      if (uploadMatch && request.method === "POST") {
+      // --- Admin: get a direct, time-limited upload URL for one file ---
+      // POST /api/admin/presign/:code   body = { filename, contentType }
+      // The browser then PUTs the file straight to R2 with that URL — this
+      // bypasses the ~100MB request body limit that applies to requests
+      // proxied through the Worker itself, which is what broke large video
+      // files and zips.
+      const presignMatch = path.match(/^\/api\/admin\/presign\/([A-Z0-9-]+)$/);
+      if (presignMatch && request.method === "POST") {
         if (!requireAdmin(request, env)) return json({ error: "unauthorized" }, 401, cors);
-        const code = uploadMatch[1];
+        const code = presignMatch[1];
         const raw = await env.DOSSIERS_KV.get(`dossier:${code}`);
         if (!raw) return json({ error: "dossier introuvable" }, 404, cors);
 
-        const filename = sanitizeFilename(request.headers.get("X-Filename"));
+        const body = await request.json().catch(() => ({}));
+        const filename = sanitizeFilename(body.filename);
+        const contentType = body.contentType || "application/octet-stream";
         const key = `${code}/${filename}`;
-        const contentType = request.headers.get("Content-Type") || "application/octet-stream";
-        await env.DOSSIERS_BUCKET.put(key, request.body, {
-          httpMetadata: { contentType },
+
+        const client = new AwsClient({
+          accessKeyId: env.R2_ACCESS_KEY_ID,
+          secretAccessKey: env.R2_SECRET_ACCESS_KEY,
+          service: "s3",
+          region: "auto",
+        });
+        const objectUrl = `https://${env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com/${env.R2_BUCKET_NAME}/${key}`;
+        const signed = await client.sign(objectUrl, {
+          method: "PUT",
+          headers: { "content-type": contentType },
+          aws: { signQuery: true },
         });
 
-        return json({ ok: true, files: await listDossierFiles(env, code) }, 200, cors);
+        return json({ uploadUrl: signed.url, filename }, 200, cors);
       }
 
       // --- Admin: list all non-expired dossiers ---
