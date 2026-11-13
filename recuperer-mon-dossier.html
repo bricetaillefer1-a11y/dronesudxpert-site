@@ -178,6 +178,9 @@
   <p class="subtitle">Entrez le code reçu par e-mail pour accéder au rapport et aux photos de votre chantier.</p>
 
   <div class="code-card">
+    <div id="preview-banner" style="display:none;background:#fff3cd;color:#8a6d1d;border:1px solid #f0d78c;border-radius:8px;padding:10px 14px;margin-bottom:16px;font-size:0.88rem;font-weight:600;">
+      Mode aperçu — cette consultation n'est pas comptée comme une récupération par le client.
+    </div>
     <form class="code-form" id="code-form">
       <input type="text" id="code-input" placeholder="A7K9-XQ2M" maxlength="20" autocomplete="off" required>
       <button type="submit" class="btn" id="submit-btn">Valider</button>
@@ -262,11 +265,7 @@
 
   function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const code = input.value.trim().toUpperCase();
-    if (!code) return;
-
+  async function lookupCode(code, isPreview) {
     message.textContent = '';
     message.className = '';
     result.style.display = 'none';
@@ -274,7 +273,8 @@
     submitBtn.textContent = 'Vérification...';
 
     try {
-      const resp = await fetch(`${WORKER_URL}/api/dossier/${encodeURIComponent(code)}`);
+      const lookupUrl = `${WORKER_URL}/api/dossier/${encodeURIComponent(code)}${isPreview ? '?preview=1' : ''}`;
+      const resp = await fetch(lookupUrl);
       if (!resp.ok) {
         message.textContent = "Code invalide ou dossier expiré. Vérifiez votre code ou contactez-nous.";
         message.className = 'error';
@@ -319,7 +319,28 @@
       submitBtn.disabled = false;
       submitBtn.textContent = 'Valider';
     }
+  }
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const code = input.value.trim().toUpperCase();
+    if (!code) return;
+    lookupCode(code, false);
   });
+
+  // Supports the admin panel's "Tester" link: ?code=XXXX-XXXX&preview=1
+  // prefills the code and looks it up without counting as the client having
+  // retrieved the dossier.
+  const params = new URLSearchParams(window.location.search);
+  const prefillCode = params.get('code');
+  if (prefillCode) {
+    input.value = prefillCode.toUpperCase();
+    const isPreview = params.get('preview') === '1';
+    if (isPreview) {
+      document.getElementById('preview-banner').style.display = 'block';
+    }
+    lookupCode(prefillCode.toUpperCase(), isPreview);
+  }
 
   downloadAllBtn.addEventListener('click', async () => {
     downloadAllBtn.disabled = true;

@@ -377,7 +377,8 @@ L'équipe DroneSudXpert`;
             <div class="dossier-meta">${d.files.length} fichier(s) · expire le ${expiry}</div>
             ${statusHtml}
           </div>
-          <div style="display:flex;gap:8px;">
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <a class="btn btn-small" style="text-decoration:none;" href="${RECUP_URL}?code=${encodeURIComponent(d.code)}&preview=1" target="_blank" rel="noopener">Tester</a>
             <button class="btn btn-small btn-add">Ajouter des fichiers</button>
             <button class="btn btn-danger btn-small btn-delete">Supprimer le dossier</button>
           </div>

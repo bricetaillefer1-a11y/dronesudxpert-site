@@ -217,7 +217,11 @@ export default {
         const code = lookupMatch[1].toUpperCase();
         const dossier = await getDossier(env, code);
         if (!dossier) return json({ error: "not_found" }, 404, cors);
-        if (!dossier.firstViewedAt) {
+        // ?preview=1 is used by the "Tester" link from the admin panel — it
+        // lets the team check a dossier without it counting as the client
+        // having actually retrieved it.
+        const isPreview = url.searchParams.get("preview") === "1";
+        if (!isPreview && !dossier.firstViewedAt) {
           dossier.firstViewedAt = Date.now();
           await env.DOSSIERS_KV.put(`dossier:${code}`, JSON.stringify(dossier));
         }
