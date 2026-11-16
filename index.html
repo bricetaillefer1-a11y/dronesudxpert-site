@@ -925,7 +925,10 @@
     font-weight:700;
     font-size:0.95rem;
     color:#fff;
+    transition:transform .2s ease, box-shadow .2s ease;
   }
+  a.zone-badge{cursor:pointer;}
+  a.zone-badge:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(26,58,92,0.25);}
   .zone-row.primary .zone-badge{background:var(--navy);}
   .zone-row.secondary .zone-badge{background:var(--accent);}
   .city-list{
@@ -935,6 +938,8 @@
     line-height:1.9;
   }
   .city-list strong{color:var(--navy);}
+  .city-list a{color:var(--navy);font-weight:700;text-decoration:underline;}
+  .city-list a:hover{color:var(--accent);}
 
   /* DEVIS */
   .devis-section{
@@ -1769,18 +1774,18 @@
     <h2 class="section-title">Nos zones d'intervention</h2>
     <p class="section-subtitle">Basés à Marseille — 8 départements couverts dans le Sud de la France.</p>
     <div class="zone-row primary">
-      <span class="zone-badge">Bouches-du-Rhône (13)</span>
-      <span class="zone-badge">Var (83)</span>
-      <span class="zone-badge">Vaucluse (84)</span>
-      <span class="zone-badge">Alpes-Maritimes (06)</span>
+      <a class="zone-badge" href="nos-interventions.html?dept=bouches-du-rhone">Bouches-du-Rhône (13)</a>
+      <a class="zone-badge" href="nos-interventions.html?dept=var">Var (83)</a>
+      <a class="zone-badge" href="nos-interventions.html?dept=vaucluse">Vaucluse (84)</a>
+      <a class="zone-badge" href="nos-interventions.html?dept=alpes-maritimes">Alpes-Maritimes (06)</a>
     </div>
     <div class="zone-row secondary">
-      <span class="zone-badge">Gard (30)</span>
-      <span class="zone-badge">Hérault (34)</span>
-      <span class="zone-badge">Aude (11)</span>
-      <span class="zone-badge">Alpes-de-Haute-Provence (04)</span>
+      <a class="zone-badge" href="nos-interventions.html?dept=gard">Gard (30)</a>
+      <a class="zone-badge" href="nos-interventions.html?dept=herault">Hérault (34)</a>
+      <a class="zone-badge" href="nos-interventions.html?dept=aude">Aude (11)</a>
+      <a class="zone-badge" href="nos-interventions.html?dept=alpes-de-haute-provence">Alpes-de-Haute-Provence (04)</a>
     </div>
-    <p class="city-list"><strong>Villes desservies :</strong> Marseille · Toulon · Aix-en-Provence · Nice · Avignon · Montpellier · Nîmes · Cannes · Arles · Draguignan · Fréjus · Manosque · Digne-les-Bains · Béziers · Narbonne · et toute la région Sud</p>
+    <p class="city-list"><strong>Villes desservies :</strong> Marseille · <a href="recherche-fuite-toiture-la-ciotat.html">La Ciotat</a> · Toulon · Aix-en-Provence · Nice · Avignon · Montpellier · Nîmes · Cannes · Arles · Draguignan · Fréjus · Manosque · Digne-les-Bains · Béziers · Narbonne · et toute la région Sud</p>
   </div>
 </section>
 
