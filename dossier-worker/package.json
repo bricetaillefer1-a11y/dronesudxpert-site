@@ -1,0 +1,14 @@
+{
+  "name": "dronesudxpert-dossiers",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.4.0"
+  },
+  "dependencies": {
+    "aws4fetch": "^1.0.20"
+  }
+}
